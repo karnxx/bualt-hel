@@ -12,19 +12,32 @@ var current_bullet_spd := base_bullet_spd
 var upgrades_applied := []
 var current_class : Class
 
-var primscript : Script
-var secscript :Script
-var passive :Script
+var primscript 
+var secscript
+var passive 
+
+func _ready() -> void:
+	eq_class(preload("res://classes/basic/basic.tres"))
 
 func _physics_process(_delta):
 	var mouse_pos := get_viewport().get_mouse_position()
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
 		direction = direction.normalized()
+	if Input.is_action_just_pressed("primary"):
+		primary()
+	if Input.is_action_just_pressed('secondary'):
+		secondary()
 	
 	velocity = direction * current_spd
 	
 	move_and_slide()
+
+func primary():
+	primscript.primary(self, get_viewport().get_mouse_position())
+
+func secondary():
+	pass
 
 func eq_upg(upg:Script):
 	var u = upg.new()
