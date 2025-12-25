@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Class" load_steps=2 format=3 uid="uid://cfhgma6ucbcrc"]
+
+[ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_n0ngd"]
+
+[resource]
+script = ExtResource("1_n0ngd")
+nam = "BURST"
+desc = "-"
+upgrades = Array[Script]([])
+metadata/_custom_type_script = "uid://dxvtytmw6u7om"
