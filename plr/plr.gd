@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+var xp = 0
+var lvl = 0
+var xp_req = 200 * pow(1.5, lvl)
+
 var can_shoot := true
 var base_spd := 400.0
 var base_bullet_dmg := 10
@@ -20,7 +24,7 @@ func _ready() -> void:
 	eq_class(preload("res://classes/basic/basic.tres"))
 
 func _physics_process(_delta):
-	var mouse_pos := get_viewport().get_mouse_position()
+	#var mouse_pos := get_viewport().get_mouse_position()
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
 		direction = direction.normalized()
@@ -34,7 +38,7 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func primary():
-	primscript.primary(self, get_viewport().get_mouse_position())
+	primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
 
 func secondary():
 	pass
@@ -54,3 +58,7 @@ func eq_class(clas:Class):
 		passive = clas.passive.new()
 	for i in clas.upgrades:
 		eq_upg(i)
+
+func add_xp(exp):
+	xp += exp
+	print(xp)
