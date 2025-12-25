@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Class" load_steps=2 format=3 uid="uid://82b7evl5t4bq"]
+
+[ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_k0b2i"]
+
+[resource]
+script = ExtResource("1_k0b2i")
+nam = "BASE"
+desc = ""
+upgrades = Array[Script]([])
+metadata/_custom_type_script = "uid://dxvtytmw6u7om"
