@@ -12,7 +12,7 @@ func shoot(plr, dir):
 	rotation = dir.angle()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.has_method('get_dmged') and body.is_in_group('enemy'):
+	if body.has_method('get_dmged') and body.is_in_group('plr'):
 		body.get_dmged(dmg)
 		self.queue_free()
 

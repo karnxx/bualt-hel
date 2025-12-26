@@ -2,8 +2,16 @@ extends Node
 var plr
 var upgs = [
 	preload("res://classes/upgrades/SPEEDSTER-I.gd"),
-	preload("res://classes/upgrades/SPEEDSTER-II.gd")
+	preload("res://classes/upgrades/SPEEDSTER-II.gd"),
+	preload("res://classes/upgrades/POWER-I.gd"),
+	preload("res://classes/upgrades/POWER-II.gd"),
+	preload("res://classes/upgrades/RAPID-I.gd"),
+	preload("res://classes/upgrades/VELOCITY-I.gd"),
+	preload("res://classes/upgrades/VELOCITY-II.gd"),
+	preload("res://classes/upgrades/HEALTHPACK.gd")
 ]
+var is_upging = false
+
 
 func _ready() -> void:
 	await get_tree().create_timer(1).timeout
