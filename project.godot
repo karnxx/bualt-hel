@@ -15,6 +15,10 @@ run/main_scene="res://lvls/test.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UpgMgr="*res://classes/upgrades/UpgMgr.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")

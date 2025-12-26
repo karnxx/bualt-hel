@@ -1,8 +1,9 @@
 extends Node
 
-var upg_name = "SPEEDSTER-I"
+var upg_name := "VELOCITY-I"
 var min_lvl := 0
-var weight := 25
+var weight := 20
+
 func apply_upgrade(player):
-	player.current_spd += 50
+	player.current_bullet_spd += 70
 	player.upgrades_applied.append(self)

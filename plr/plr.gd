@@ -21,6 +21,7 @@ var secscript
 var passive 
 
 func _ready() -> void:
+	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
 
 func _physics_process(_delta):
@@ -62,3 +63,9 @@ func eq_class(clas:Class):
 func add_xp(exp):
 	xp += exp
 	print(xp)
+
+func lvl_upper():
+	if xp >=xp_req:
+		xp = 0
+		lvl +=1
+	pass
