@@ -26,12 +26,13 @@ var current_class : Class
 var primscript 
 var secscript
 var passive 
-
+@onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
 	upg_picker.chosen.connect(on_upg_chosen)
+	class_picker.class_chosen.connect(on_class_chosen)
 
 func _physics_process(_delta):
 	#var mouse_pos := get_viewport().get_mouse_position()
@@ -60,6 +61,10 @@ func primary():
 
 func secondary():
 	pass
+
+func on_class_chosen(clas):
+	eq_class(clas)
+	class_picker.hide()
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
@@ -92,11 +97,14 @@ func add_xp(exp):
 func lvl_upper():
 	if xp >=xp_req:
 		xp = 0
-		lvl +=1
 		xp_req = 200 * pow(1.5, lvl)
-		
 		var choices = UpgMgr.get_random_upg(3)
 		upg_picker.show_upg(choices)
+		lvl +=1
+
+func lvl_milestone():
+	if lvl == 1:
+		class_picker.show()
 	
 
 func get_dmged(dmg):
