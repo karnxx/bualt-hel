@@ -23,6 +23,7 @@ var current_fire_rate := base_fire_rate
 var upgrades_applied := []
 var current_class : Class
 var class_chosen = false
+var showing_upgrades = false
 var primscript 
 var secscript
 var passive 
@@ -36,6 +37,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	lvl_upper()
+	
 	lvl_milestone()
 
 func _physics_process(_delta):
@@ -47,9 +49,7 @@ func _physics_process(_delta):
 		primary()
 	if Input.is_action_just_pressed('secondary'):
 		secondary()
-	print(direction, velocity)
 	velocity = direction * current_spd
-
 	move_and_slide()
 
 func primary():
@@ -63,11 +63,15 @@ func primary():
 		can_shoot = true
 
 func secondary():
-	pass
+	if current_bullets > 0:
+		primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
+		current_bullets -= 1
+		pass
 
 func on_class_chosen(clas):
 	eq_class(clas)
 	class_picker.hide()
+	class_chosen = true
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
@@ -97,17 +101,20 @@ func add_xp(exp):
 	xp += exp
 	print(xp)
 
+
 func lvl_upper():
-	if xp >=xp_req:
+	if xp >= xp_req:
 		xp = 0
 		xp_req = 200 * pow(1.5, lvl)
-		await class_chosen == true
-		var choices = UpgMgr.get_random_upg(3)
-		upg_picker.show_upg(choices)
-		lvl +=1
+		lvl += 1
+		
+		if class_chosen and not showing_upgrades:
+			showing_upgrades = true
+			var choices = UpgMgr.get_random_upg(3)
+			upg_picker.show_upg(choices)
 
 func lvl_milestone():
-	if lvl == 1:
+	if lvl == 1 and !class_chosen:
 		class_picker.show()
 		pass
 

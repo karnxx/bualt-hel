@@ -25,8 +25,6 @@ func _ready():
 	time_btn.text = time_class.nam
 	risk_btn.text = risk_class.nam
 
-
-
 # BURST
 func _on_burst_pressed():
 	emit_signal("class_chosen", burst_class)

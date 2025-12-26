@@ -47,3 +47,14 @@ text = "CHOOSE A CLASS"
 [node name="Label2" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "asd"
+
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/burst" to="." method="_on_burst_hover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/burst" to="." method="_on_burst_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/spray" to="." method="_on_spray_hover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/spray" to="." method="_on_spray_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/seek" to="." method="_on_seek_hover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/seek" to="." method="_on_seek_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/time" to="." method="_on_time_hover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/time" to="." method="_on_time_pressed"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/risk" to="." method="_on_risk_hover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/risk" to="." method="_on_risk_pressed"]

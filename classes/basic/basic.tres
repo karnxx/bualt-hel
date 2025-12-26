@@ -13,4 +13,5 @@ base_spd = 400.0
 base_fire_cd = 1.0
 base_dmg = 10
 base_bullet_speed = 600
+magazine = 15
 metadata/_custom_type_script = "uid://dxvtytmw6u7om"

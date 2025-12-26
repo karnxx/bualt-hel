@@ -10,3 +10,4 @@ class_name Class
 @export var base_fire_cd :float
 @export var base_dmg : int
 @export var base_bullet_speed : int
+@export var magazine :int

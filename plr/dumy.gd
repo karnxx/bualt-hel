@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var health = 200
+var health = 2 #200
 var xp_given = randi_range(400,800)
 var dmg = randi_range(1,10)
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
