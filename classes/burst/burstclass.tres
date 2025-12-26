@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="Class" load_steps=3 format=3 uid="uid://cfhgma6ucbcrc"]
+[gd_resource type="Resource" script_class="Class" load_steps=4 format=3 uid="uid://cfhgma6ucbcrc"]
 
 [ext_resource type="Script" uid="uid://pq3lqlt485ad" path="res://classes/basic/baseprim.gd" id="1_2yvxp"]
 [ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_n0ngd"]
+[ext_resource type="Script" uid="uid://c88fspp4aqaly" path="res://classes/burst/burst_secondary.gd" id="3_6i75w"]
 
 [resource]
 script = ExtResource("1_n0ngd")
 nam = "BURST"
 desc = "-"
 primary = ExtResource("1_2yvxp")
+secondary = ExtResource("3_6i75w")
 upgrades = Array[Script]([])
 base_spd = 400.0
 base_fire_cd = 1.3

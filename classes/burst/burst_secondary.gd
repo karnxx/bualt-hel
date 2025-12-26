@@ -1,32 +1,31 @@
 extends Node
 
-
 var charging := false
-var charge_time := 1.0
 var timer := 0.0
-var player_ref
+var plr
+var can_timer = false
+func secondary_pressed(p):
+	plr = p
+	charging = true
+	timer = 0.0
+	can_timer = true
 
-func secondary(player, target_pos):
-	player_ref = player
+func secondary_released():
 	if not charging:
-		charging = true
-		timer = 0.0
-		player.set_process(true)
+		return
+	fire()
+	charging = false
+	can_timer = false
 
 func _process(delta):
-	if charging:
+	if can_timer:
 		timer += delta
-		if timer >= charge_time:
-			_release_overcharge()
 
-func _release_overcharge():
-	if player_ref:
-		var bulat = preload("res://plr/bulet.tscn").instantiate()
-		bulat.global_position = player_ref.global_position
-		bulat.direction = (get_viewport().get_mouse_position() - player_ref.global_position).normalized()
-		bulat.damage = player_ref.current_bullet_dmg * 3
-		bulat.speed = player_ref.current_bullet_spd * 1.2
-		#bulat.piercing = true
-		bulat.get_parent().add_child(bulat)
-	charging = false
-	timer = 0.0
+func fire():
+	var ratio = clamp(timer / 1.0, 0.0, 1.0)
+
+	var bulat = preload("res://plr/bulet.tscn").instantiate()
+	bulat.global_position = plr.global_position
+	var dir = (plr.get_global_mouse_position() - bulat.global_position).normalized()
+	plr.get_parent().add_child(bulat)
+	bulat.shoot(plr, dir)

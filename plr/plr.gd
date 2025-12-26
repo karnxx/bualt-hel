@@ -27,6 +27,7 @@ var showing_upgrades = false
 var primscript 
 var secscript
 var passive 
+var can_secondary = true
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
@@ -37,7 +38,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	lvl_upper()
-	
+	primary()
+	secondary()
 	lvl_milestone()
 
 func _physics_process(_delta):
@@ -45,28 +47,39 @@ func _physics_process(_delta):
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
 		direction = direction.normalized()
-	if Input.is_action_just_pressed("primary"):
-		primary()
-	if Input.is_action_just_pressed('secondary'):
-		secondary()
 	velocity = direction * current_spd
 	move_and_slide()
 
 func primary():
-	if !can_shoot:
-		return
-	if current_bullets > 0:
-		can_shoot = false
-		primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
-		current_bullets -= 1
-		await get_tree().create_timer(current_fire_rate).timeout
-		can_shoot = true
+	if Input.is_action_just_pressed("primary"):
+		if !can_shoot:
+			return
+		if current_bullets > 0:
+			can_shoot = false
+			primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
+			current_bullets -= 1
+			await get_tree().create_timer(current_fire_rate).timeout
+			can_shoot = true
 
 func secondary():
-	if current_bullets > 0:
-		primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
-		current_bullets -= 1
-		pass
+	if current_class.nam != "BURST":
+		if Input.is_action_just_pressed("secondary") and can_secondary:
+			if current_bullets > 0:
+				can_secondary = false
+				secscript.secondary(self, get_viewport().get_camera_2d().get_global_mouse_position())
+				current_bullets -= 1
+				await get_tree().create_timer(10).timeout
+				can_secondary = true
+	else:
+		if Input.is_action_just_pressed("secondary") and can_secondary:
+			can_secondary = false
+			secscript.secondary_pressed(self)
+		if Input.is_action_just_released("secondary"):
+			secscript.secondary_released()
+			current_bullets -= 1
+			await get_tree().create_timer(10).timeout
+			can_secondary = true
+
 
 func on_class_chosen(clas):
 	eq_class(clas)
