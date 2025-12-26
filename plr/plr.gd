@@ -22,7 +22,7 @@ var current_bullet_spd := base_bullet_spd
 var current_fire_rate := base_fire_rate
 var upgrades_applied := []
 var current_class : Class
-
+var class_chosen = false
 var primscript 
 var secscript
 var passive 
@@ -34,6 +34,10 @@ func _ready() -> void:
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
+func _process(delta: float) -> void:
+	lvl_upper()
+	lvl_milestone()
+
 func _physics_process(_delta):
 	#var mouse_pos := get_viewport().get_mouse_position()
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -43,9 +47,9 @@ func _physics_process(_delta):
 		primary()
 	if Input.is_action_just_pressed('secondary'):
 		secondary()
-	
+	print(direction, velocity)
 	velocity = direction * current_spd
-	lvl_upper()
+
 	move_and_slide()
 
 func primary():
@@ -57,7 +61,6 @@ func primary():
 		current_bullets -= 1
 		await get_tree().create_timer(current_fire_rate).timeout
 		can_shoot = true
-		
 
 func secondary():
 	pass
@@ -98,6 +101,7 @@ func lvl_upper():
 	if xp >=xp_req:
 		xp = 0
 		xp_req = 200 * pow(1.5, lvl)
+		await class_chosen == true
 		var choices = UpgMgr.get_random_upg(3)
 		upg_picker.show_upg(choices)
 		lvl +=1
@@ -105,7 +109,7 @@ func lvl_upper():
 func lvl_milestone():
 	if lvl == 1:
 		class_picker.show()
-	
+		pass
 
 func get_dmged(dmg):
 	if !is_invincible:
