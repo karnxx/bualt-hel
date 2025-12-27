@@ -10,6 +10,7 @@ var can_timer := false
 var current_bullet_dmg
 var current_bullet_spd
 
+var plr_spd
 func secondary_pressed(p):
 	if charging:
 		return
@@ -18,24 +19,35 @@ func secondary_pressed(p):
 	can_timer = true
 	current_bullet_dmg = plr.current_bullet_dmg
 	current_bullet_spd = plr.current_bullet_spd
+	plr_spd = plr.current_spd
 
 func secondary_released():
 	if not charging:
 		return
 	release()
+	charging = false
 
 func _process(delta):
 	if not can_timer:
 		return
+	if charging:
+		plr.current_spd =200
 	timer += delta
 	if timer >= MAX_CHARGE:
 		release()
 
 func release():
+	if not charging:
+		return
 	fire()
 	charging = false
 	can_timer = false
 	timer = 0.0
+	plr.current_spd = plr_spd
+	get_tree().create_timer(10).timeout.connect(doneeee)
+
+func doneeee():
+	plr.can_secondary = true
 
 func fire():
 	var ratio = clamp(timer / MAX_CHARGE, 0.0, 1.0)
@@ -45,10 +57,10 @@ func fire():
 	var dir = (plr.get_global_mouse_position() - bulat.global_position).normalized()
 	plr.get_parent().add_child(bulat)
 
-	var s = lerp(1.0, 4.0, ratio)
+	var s = lerp(1.0, 2.0, ratio)/5
 	print(s)
-	bulat.get_node("Sprite2D").scale = Vector2.ONE * s
-
+	bulat.get_node("Sprite2D").scale = Vector2.ONE  * s
+	bulat.get_node("CollisionShape2D").scale = Vector2.ONE  *  s
 	current_bullet_dmg = current_bullet_dmg + current_bullet_dmg * lerp(0.0, 2.0, ratio)
 	bulat.shoot(self, dir)
 

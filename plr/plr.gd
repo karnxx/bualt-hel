@@ -41,8 +41,7 @@ func _process(delta: float) -> void:
 	primary()
 	secondary()
 	lvl_milestone()
-	if current_class.nam == 'BURST':
-		print(secscript.timer)
+
 
 func _physics_process(_delta):
 	#var mouse_pos := get_viewport().get_mouse_position()
@@ -59,7 +58,6 @@ func primary():
 		if current_bullets > 0:
 			can_shoot = false
 			primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
-			current_bullets -= 1
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
 
@@ -72,13 +70,11 @@ func secondary():
 				await get_tree().create_timer(10).timeout
 				can_secondary = true
 	else:
-		if Input.is_action_just_pressed("secondary") and can_secondary:
+		if Input.is_action_just_pressed("secondary") and can_secondary and current_bullets> 0:
 			can_secondary = false
 			secscript.secondary_pressed(self)
-		if Input.is_action_just_released("secondary") and secscript.charging == true:
+		if Input.is_action_just_released("secondary"):
 			secscript.secondary_released()
-			await get_tree().create_timer(10).timeout
-			can_secondary = true
 
 
 func on_class_chosen(clas):

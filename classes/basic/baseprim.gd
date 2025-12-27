@@ -7,3 +7,4 @@ func primary(plr, mouse):
 	bulat.global_position = origin
 	plr.get_parent().add_child(bulat)
 	bulat.shoot(plr, dir)
+	plr.current_bullets -= 1
