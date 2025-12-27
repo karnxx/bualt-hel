@@ -27,6 +27,7 @@ func get_availed():
 		var scrip = i.new()
 		if scrip.min_lvl > plr.lvl:
 			can_use = false
+			print(i.new().upg_name)
 		for j in plr.upgrades_applied:
 			if scrip.upg_name == j.upg_name:
 				can_use = false

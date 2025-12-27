@@ -7,13 +7,18 @@ func show_upg(upg_list):
 	visible = true
 	
 	for i in buttons.size():
+		var butan = buttons[i]
+
+		if butan.pressed.is_connected(_on_button_pressed):
+			butan.pressed.disconnect(_on_button_pressed)
+
 		if i < upg_list.size():
-			var butan = buttons[i]
 			butan.setup(upg_list[i])
 			butan.pressed.connect(_on_button_pressed.bind(upg_list[i]))
 			butan.show()
 		else:
-			buttons[i].hide()
+			butan.hide()
+
 
 func _on_button_pressed(upg_script):
 	visible = false

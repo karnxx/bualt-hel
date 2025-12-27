@@ -23,9 +23,7 @@ func _process(delta):
 
 func fire():
 	var ratio = clamp(timer / 1.0, 0.0, 1.0)
-
 	var bulat = preload("res://plr/bulet.tscn").instantiate()
 	bulat.global_position = plr.global_position
 	var dir = (plr.get_global_mouse_position() - bulat.global_position).normalized()
-	plr.get_parent().add_child(bulat)
 	bulat.shoot(plr, dir)

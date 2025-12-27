@@ -18,3 +18,18 @@ position = Vector2(179, 0)
 
 [node name="dumy2" parent="." instance=ExtResource("3_6q3o0")]
 position = Vector2(-274, 204)
+
+[node name="dumy3" parent="." instance=ExtResource("3_6q3o0")]
+position = Vector2(201, 340)
+
+[node name="dumy4" parent="." instance=ExtResource("3_6q3o0")]
+position = Vector2(463, 109)
+
+[node name="dumy5" parent="." instance=ExtResource("3_6q3o0")]
+position = Vector2(394, -180)
+
+[node name="dumy6" parent="." instance=ExtResource("3_6q3o0")]
+position = Vector2(-137, -151)
+
+[node name="dumy7" parent="." instance=ExtResource("3_6q3o0")]
+position = Vector2(-360, -38)

@@ -74,7 +74,7 @@ func secondary():
 		if Input.is_action_just_pressed("secondary") and can_secondary:
 			can_secondary = false
 			secscript.secondary_pressed(self)
-		if Input.is_action_just_released("secondary"):
+		if Input.is_action_just_released("secondary") and secscript.charging == true:
 			secscript.secondary_released()
 			current_bullets -= 1
 			await get_tree().create_timer(10).timeout
@@ -89,6 +89,7 @@ func on_class_chosen(clas):
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
 	upg.apply_upgrade(self)
+	showing_upgrades = false
 
 func eq_upg(upg:Script):
 	var u = upg.new()
