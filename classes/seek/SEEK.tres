@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Class" load_steps=5 format=3 uid="uid://d4nj80o38ahb8"]
+
+[ext_resource type="Script" uid="uid://copy8kg83itj8" path="res://classes/seek/seekpassive.gd" id="1_4eudc"]
+[ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_qy7pj"]
+[ext_resource type="Script" uid="uid://dsoypdntbyohf" path="res://classes/seek/seekprimary.gd" id="2_gmufh"]
+[ext_resource type="Script" uid="uid://nassn5erar2c" path="res://classes/seek/seek_secondary.gd" id="4_cm61h"]
+
+[resource]
+script = ExtResource("1_qy7pj")
+nam = "SEEK"
+desc = ""
+primary = ExtResource("2_gmufh")
+secondary = ExtResource("4_cm61h")
+passive = ExtResource("1_4eudc")
+upgrades = Array[Script]([])
+base_spd = 450.0
+base_fire_cd = 2.0
+base_dmg = 12
+base_bullet_speed = 650
+magazine = 12
+metadata/_custom_type_script = "uid://dxvtytmw6u7om"

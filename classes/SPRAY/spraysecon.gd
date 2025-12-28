@@ -16,6 +16,7 @@ func secondary(plr, mouse):
 		var offset = (i - half + 0.5) * angle_step
 		var bulat = preload("res://plr/bulet.tscn").instantiate()
 		bulat.global_position = origin
+		bulat.pierce = plr.pierce
 		var dir = base_dir.rotated(offset)
 		plr.get_parent().add_child(bulat)
 		bulat.shoot(plr, dir)

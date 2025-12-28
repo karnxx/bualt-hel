@@ -6,5 +6,5 @@ var weight := 8
 var requires := ['POWER-I']
 
 func apply_upgrade(plr):
-	plr.current_bullet_dmg = round(1.15 * plr.current_dmg)
+	plr.current_bullet_dmg = round(1.15 * plr.current_bullet_dmg)
 	plr.upgrades_applied.append(self)

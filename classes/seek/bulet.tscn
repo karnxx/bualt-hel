@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ylcj03yyg5ii"]
+
+[ext_resource type="Script" uid="uid://dh0blagi7xqv" path="res://classes/seek/seekbulet.gd" id="1_ffr7q"]
+[ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="2_0clty"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m74gf"]
+radius = 5.0
+
+[node name="bulet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ffr7q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 1, 1)
+scale = Vector2(0.0625, 0.0625)
+texture = ExtResource("2_0clty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_m74gf")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_m74gf")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,5 +1,6 @@
 extends CharacterBody2D
 var dmg
+var pierce = 0
 
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
@@ -14,7 +15,8 @@ func shoot(plr, dir):
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method('get_dmged') and body.is_in_group('enemy'):
 		body.get_dmged(dmg)
-		self.queue_free()
+		if pierce <= 0:
+			self.queue_free()
 
 func _physics_process(_delta):
 	move_and_slide()

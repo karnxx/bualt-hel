@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://byywa3auh1uko"]
+[gd_scene load_steps=5 format=3 uid="uid://byywa3auh1uko"]
 
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_6q3o0"]
+[ext_resource type="Script" uid="uid://bt0ib6ikrahob" path="res://lvls/test.gd" id="1_ff7wo"]
 [ext_resource type="PackedScene" uid="uid://bg5441jqbc8r1" path="res://plr/plr.tscn" id="2_6q3o0"]
-[ext_resource type="PackedScene" uid="uid://noy61fdn3h4b" path="res://plr/dumy.tscn" id="3_6q3o0"]
+[ext_resource type="PackedScene" uid="uid://bgb2uxbuqf8q6" path="res://plr/walkers.tscn" id="4_ff7wo"]
 
 [node name="test" type="Node2D"]
+script = ExtResource("1_ff7wo")
+enemy_types = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.2)
@@ -13,23 +16,34 @@ texture = ExtResource("1_6q3o0")
 
 [node name="plr" parent="." instance=ExtResource("2_6q3o0")]
 
-[node name="dumy" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(179, 0)
+[node name="spawns" type="Node2D" parent="."]
 
-[node name="dumy2" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(-274, 204)
+[node name="Marker2D" type="Marker2D" parent="spawns"]
+position = Vector2(-260, -267)
 
-[node name="dumy3" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(201, 340)
+[node name="Marker2D2" type="Marker2D" parent="spawns"]
+position = Vector2(388, -172)
 
-[node name="dumy4" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(463, 109)
+[node name="Marker2D3" type="Marker2D" parent="spawns"]
+position = Vector2(-461, -36)
 
-[node name="dumy5" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(394, -180)
+[node name="Marker2D4" type="Marker2D" parent="spawns"]
+position = Vector2(-142, 174)
 
-[node name="dumy6" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(-137, -151)
+[node name="Marker2D5" type="Marker2D" parent="spawns"]
+position = Vector2(182, 99)
 
-[node name="dumy7" parent="." instance=ExtResource("3_6q3o0")]
-position = Vector2(-360, -38)
+[node name="Marker2D6" type="Marker2D" parent="spawns"]
+position = Vector2(360, 55)
+
+[node name="Marker2D7" type="Marker2D" parent="spawns"]
+position = Vector2(209, -265)
+
+[node name="Marker2D8" type="Marker2D" parent="spawns"]
+position = Vector2(-419, 254)
+
+[node name="Marker2D9" type="Marker2D" parent="spawns"]
+position = Vector2(-522, -272)
+
+[node name="walkers" parent="." instance=ExtResource("4_ff7wo")]
+position = Vector2(499, 100)

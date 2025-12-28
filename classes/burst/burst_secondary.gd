@@ -61,6 +61,7 @@ func fire():
 	print(s)
 	bulat.get_node("Sprite2D").scale = Vector2.ONE  * s
 	bulat.get_node("CollisionShape2D").scale = Vector2.ONE  *  s
+	bulat.pierce = plr.pierce + plr.lvl
 	current_bullet_dmg = current_bullet_dmg + current_bullet_dmg * lerp(0.0, 2.0, ratio)
 	bulat.shoot(self, dir)
 
