@@ -1,10 +1,10 @@
 extends Node
 
-var upg_name = "SPEEDSTER-I"
+var upg_name := "VITALITY-I"
 var min_lvl := 0
-var weight := 25
+var weight := 20
 var requires := []
 
 func apply_upgrade(plr):
-	plr.current_spd*= 1.08
+	plr.max_health *= 1.1
 	plr.upgrades_applied.append(self)

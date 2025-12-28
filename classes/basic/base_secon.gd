@@ -1,4 +1,4 @@
 extends Node
 
-func secondary(p,e):
+func secondary(_p,_e):
 	pass

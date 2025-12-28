@@ -22,19 +22,32 @@ func establish_plr(pdlr):
 
 func get_availed():
 	var available = []
+
 	for i in upgs:
-		var can_use = true
 		var scrip = i.new()
+		var can_use = true
+		
 		if scrip.min_lvl > plr.lvl:
 			can_use = false
-			print(i.new().upg_name)
+			
 		for j in plr.upgrades_applied:
-			if scrip.upg_name == j.upg_name:
+			if j.upg_name == scrip.upg_name:
 				can_use = false
 				break
-		
+				
+		for j in scrip.requires:
+			var has_req = false
+			for owned in plr.upgrades_applied:
+				if owned.upg_name == j:
+					has_req = true
+					break
+			if not has_req:
+				can_use = false
+				break
+				
 		if can_use:
 			available.append(i)
+			
 	return available
 
 func pick_filtered(selection):

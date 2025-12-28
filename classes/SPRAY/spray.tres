@@ -1,15 +1,19 @@
-[gd_resource type="Resource" script_class="Class" load_steps=2 format=3 uid="uid://cjnma8ai2ics6"]
+[gd_resource type="Resource" script_class="Class" load_steps=4 format=3 uid="uid://cjnma8ai2ics6"]
 
 [ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_7mjlw"]
+[ext_resource type="Script" uid="uid://cvbj0exwgb14i" path="res://classes/SPRAY/SPRAYPRIM.gd" id="1_koscy"]
+[ext_resource type="Script" uid="uid://ctkrdn4gvfgq6" path="res://classes/SPRAY/spraysecon.gd" id="3_tyghh"]
 
 [resource]
 script = ExtResource("1_7mjlw")
 nam = "SPRAY"
 desc = ""
+primary = ExtResource("1_koscy")
+secondary = ExtResource("3_tyghh")
 upgrades = Array[Script]([])
-base_spd = 0.0
-base_fire_cd = 0.0
-base_dmg = 0
-base_bullet_speed = 0
-magazine = 0
+base_spd = 600.0
+base_fire_cd = 1.0
+base_dmg = 4
+base_bullet_speed = 600
+magazine = 15
 metadata/_custom_type_script = "uid://dxvtytmw6u7om"

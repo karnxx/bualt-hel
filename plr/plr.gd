@@ -4,6 +4,7 @@ var xp = 0
 var lvl = 0
 var xp_req = 200 * pow(1.5, lvl)
 var is_invincible = false
+var pierce = 0
 
 var max_health = 100
 var health = max_health
@@ -36,7 +37,7 @@ func _ready() -> void:
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	lvl_upper()
 	primary()
 	secondary()
@@ -67,8 +68,6 @@ func secondary():
 			if current_bullets > 0:
 				can_secondary = false
 				secscript.secondary(self, get_viewport().get_camera_2d().get_global_mouse_position())
-				await get_tree().create_timer(10).timeout
-				can_secondary = true
 	else:
 		if Input.is_action_just_pressed("secondary") and can_secondary and current_bullets> 0:
 			can_secondary = false
@@ -87,6 +86,7 @@ func on_upg_chosen(upg_script):
 	upg.apply_upgrade(self)
 	showing_upgrades = false
 
+
 func eq_upg(upg:Script):
 	var u = upg.new()
 	u.apply_upgrade(self)
@@ -103,33 +103,36 @@ func eq_class(clas:Class):
 	if clas.passive:
 		passive = clas.passive.new()
 		add_child(passive)
-	current_spd = clas.base_spd
-	current_fire_rate = clas.base_fire_cd
-	current_bullet_dmg = clas.base_dmg
-	current_bullet_spd = clas.base_bullet_speed
+	current_spd = float(clas.base_spd)
+	current_fire_rate = float(clas.base_fire_cd)
+	current_bullet_dmg =float(clas.base_dmg)
+	current_bullet_spd = float(clas.base_bullet_speed)
 	for i in clas.upgrades:
 		eq_upg(i)
 
-func add_xp(exp):
-	xp += exp
+func add_xp(eexp):
+	xp += eexp
 	print(xp)
 
 
 func lvl_upper():
-	if xp >= xp_req:
-		xp = 0
-		xp_req = 200 * pow(1.5, lvl)
-		lvl += 1
-		
-		if class_chosen and not showing_upgrades:
-			showing_upgrades = true
-			var choices = UpgMgr.get_random_upg(3)
-			upg_picker.show_upg(choices)
+	if xp < xp_req:
+		return
+	
+	xp -= xp_req
+	lvl += 1
+	xp_req = 200 * pow(1.5, lvl)
+	
+	if class_chosen:
+		showing_upgrades = true
+		var choices = UpgMgr.get_random_upg(3)
+		upg_picker.show_upg(choices)
+
 
 func lvl_milestone():
 	if lvl == 1 and !class_chosen:
 		class_picker.show()
-		pass
+
 
 func get_dmged(dmg):
 	if !is_invincible:

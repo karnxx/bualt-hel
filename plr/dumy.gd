@@ -1,18 +1,18 @@
 extends CharacterBody2D
-var health = 2 #200
-var xp_given = randi_range(400,800)
+var health = 200
+var xp_given = randi_range(100,200)
 var dmg = randi_range(1,10)
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 10
 var current_bullet_spd = 600
-func get_dmged(dmg):
-	health -= dmg
+func get_dmged(dtmg):
+	health -= dtmg
 	if health <= 0:
 		self.queue_free()
 		get_parent().get_node('plr').add_xp(xp_given)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	plr = get_parent().get_node('plr')
 	shoot()
 
