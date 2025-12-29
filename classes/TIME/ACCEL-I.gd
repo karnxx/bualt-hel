@@ -1,10 +1,11 @@
 extends Node
 
-var upg_name = "SPEEDSTER-I"
-var min_lvl := 0
+var upg_name := "ACCEL-I"
+var min_lvl := 2
 var weight := 25
 var requires := []
-var class_req = null
+var class_req := 'TIME'
+
 func apply_upgrade(plr):
-	plr.current_spd*= 1.08
+	plr.current_bullet_spd += 200
 	plr.upgrades_applied.append(self)

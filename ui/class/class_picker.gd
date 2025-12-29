@@ -5,8 +5,8 @@ signal class_chosen(clas)
 var burst_class := preload("res://classes/burst/burstclass.tres")
 var spray_class := preload("res://classes/SPRAY/spray.tres")
 var seek_class  := preload("res://classes/seek/SEEK.tres")
-var time_class  := preload("res://classes/burst/burstclass.tres")
-var risk_class  := preload("res://classes/burst/burstclass.tres")
+var time_class  := preload("res://classes/TIME/time.tres")
+var risk_class  := preload("res://classes/risk/risk.tres")
 
 @onready var desc: Label = $VBoxContainer/Label
 @onready var burst_btn: Button = $VBoxContainer/HBoxContainer/burst

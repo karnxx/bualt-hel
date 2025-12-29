@@ -10,6 +10,7 @@ radius = 13.0
 
 [node name="plr" type="CharacterBody2D" groups=["plr"]]
 collision_layer = 5
+slide_on_ceiling = false
 script = ExtResource("1_77oyq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

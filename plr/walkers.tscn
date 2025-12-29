@@ -10,6 +10,8 @@ radius = 46.0435
 
 [node name="walkers" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 3
+collision_mask = 2
+slide_on_ceiling = false
 script = ExtResource("1_p37r8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

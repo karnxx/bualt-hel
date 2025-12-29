@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Class" load_steps=4 format=3 uid="uid://bkudl4cliup75"]
+
+[ext_resource type="Script" uid="uid://dxvtytmw6u7om" path="res://classes/ClassMaker.gd" id="1_mv5go"]
+[ext_resource type="Script" uid="uid://pq3lqlt485ad" path="res://classes/basic/baseprim.gd" id="1_rri43"]
+[ext_resource type="Script" uid="uid://c2wf6x78dq72n" path="res://classes/TIME/timesecon.gd" id="3_xddhu"]
+
+[resource]
+script = ExtResource("1_mv5go")
+nam = "TIME"
+desc = ""
+primary = ExtResource("1_rri43")
+secondary = ExtResource("3_xddhu")
+upgrades = Array[Script]([])
+base_spd = 600.0
+base_fire_cd = 0.8
+base_dmg = 11
+base_bullet_speed = 600
+magazine = 10
+metadata/_custom_type_script = "uid://dxvtytmw6u7om"

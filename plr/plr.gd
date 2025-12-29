@@ -63,17 +63,21 @@ func primary():
 			can_shoot = true
 
 func secondary():
-	if current_class.nam != "BURST":
+	if current_class.nam == "RISK":
 		if Input.is_action_just_pressed("secondary") and can_secondary:
 			if current_bullets > 0:
 				can_secondary = false
-				secscript.secondary(self, get_viewport().get_camera_2d().get_global_mouse_position())
-	else:
+				secscript.secondary(self)
+	elif current_class.nam == 'BURST':
 		if Input.is_action_just_pressed("secondary") and can_secondary and current_bullets> 0:
 			can_secondary = false
 			secscript.secondary_pressed(self)
 		if Input.is_action_just_released("secondary"):
 			secscript.secondary_released()
+	elif current_class.nam == 'TIME' or current_class.nam == 'SEEK':
+		if Input.is_action_just_pressed("secondary") and can_secondary:
+			can_secondary = false
+			secscript.secondary(self, get_viewport().get_camera_2d().get_global_mouse_position())
 
 
 func on_class_chosen(clas):

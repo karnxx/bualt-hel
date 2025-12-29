@@ -8,7 +8,10 @@ var upgs = [
 	preload("res://classes/upgrades/RAPID-I.gd"),
 	preload("res://classes/upgrades/VELOCITY-I.gd"),
 	preload("res://classes/upgrades/VELOCITY-II.gd"),
-	preload("res://classes/upgrades/HEALTHPACK.gd")
+	preload("res://classes/upgrades/HEALTHPACK.gd"),
+	preload("res://classes/TIME/ACCEL-I.gd"),
+	preload("res://classes/TIME/DRAG-I.gd"),
+	preload("res://classes/risk/GREED.gd")
 ]
 var is_upging = false
 
@@ -26,29 +29,34 @@ func get_availed():
 	for i in upgs:
 		var scrip = i.new()
 		var can_use = true
-		
+
 		if scrip.min_lvl > plr.lvl:
 			can_use = false
-			
-		for j in plr.upgrades_applied:
-			if j.upg_name == scrip.upg_name:
+
+		if scrip.class_req != null:
+			if not plr.current_class or scrip.class_req != plr.current_class.nam:
+				can_use = false
+
+		for owned in plr.upgrades_applied:
+			if owned.upg_name == scrip.upg_name:
 				can_use = false
 				break
-				
-		for j in scrip.requires:
+
+		for req in scrip.requires:
 			var has_req = false
 			for owned in plr.upgrades_applied:
-				if owned.upg_name == j:
+				if owned.upg_name == req:
 					has_req = true
 					break
 			if not has_req:
 				can_use = false
 				break
-				
+
 		if can_use:
 			available.append(i)
-			
+
 	return available
+
 
 func pick_filtered(selection):
 	var total_weight = 0

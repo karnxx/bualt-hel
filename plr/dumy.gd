@@ -1,11 +1,11 @@
 extends CharacterBody2D
-var health = 2#00
-var xp_given = randi_range(100,200)
-var dmg = randi_range(1,10)
+var health = 100
+var xp_given = randi_range(100,200) * GameManager.global_loot_mult
+var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
-var current_bullet_dmg = 10
-var current_bullet_spd = 600
+var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
+var current_bullet_spd = GameManager.global_enemy_bullet_spd
 func get_dmged(dtmg):
 	health -= dtmg
 	if health <= 0:
@@ -14,7 +14,7 @@ func get_dmged(dtmg):
 
 func _process(_delta: float) -> void:
 	plr = get_parent().get_node('plr')
-	#shoot()
+	shoot()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):

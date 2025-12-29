@@ -9,7 +9,7 @@ func _ready() -> void:
 func shoot(plr, dir):
 	dmg = plr.current_bullet_dmg
 	var spd = plr.current_bullet_spd
-	velocity = dir.normalized() * spd
+	velocity = dir.normalized() * spd * GameManager.time_scale
 	rotation = dir.angle()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
