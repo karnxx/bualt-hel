@@ -39,12 +39,17 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	lvl_upper()
-	primary()
-	secondary()
 	lvl_milestone()
-
+	if ui_open():
+		return
+	primary()
+	secondary() 
 
 func _physics_process(_delta):
+	if ui_open():
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	#var mouse_pos := get_viewport().get_mouse_position()
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
@@ -83,13 +88,16 @@ func secondary():
 func on_class_chosen(clas):
 	eq_class(clas)
 	class_picker.hide()
+	$CanvasLayer/hud.move_to_front()
 	class_chosen = true
+	get_tree().paused = false
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
 	upg.apply_upgrade(self)
 	showing_upgrades = false
-
+	$CanvasLayer/hud.move_to_front()
+	get_tree().paused = false
 
 func eq_upg(upg:Script):
 	var u = upg.new()
@@ -128,6 +136,7 @@ func lvl_upper():
 	xp_req = 200 * pow(1.5, lvl)
 	
 	if class_chosen:
+		get_tree().paused = true
 		showing_upgrades = true
 		var choices = UpgMgr.get_random_upg(3)
 		upg_picker.show_upg(choices)
@@ -136,6 +145,8 @@ func lvl_upper():
 func lvl_milestone():
 	if lvl == 1 and !class_chosen:
 		class_picker.show()
+		class_picker.move_to_front()
+		get_tree().paused = true
 
 
 func get_dmged(dmg):
@@ -150,3 +161,6 @@ func get_dmged(dmg):
 func _on_timer_timeout() -> void:
 	is_invincible = false
 	print('no invince')
+
+func ui_open():
+	return class_picker.visible or upg_picker.visible

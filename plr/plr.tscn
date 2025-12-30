@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bg5441jqbc8r1"]
+[gd_scene load_steps=7 format=3 uid="uid://bg5441jqbc8r1"]
 
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_35yby"]
 [ext_resource type="Script" uid="uid://bsan0r2tl4w10" path="res://plr/plr.gd" id="1_77oyq"]
 [ext_resource type="PackedScene" uid="uid://wwrpe6irva71" path="res://ui/upg_picker.tscn" id="3_7jcq4"]
 [ext_resource type="PackedScene" uid="uid://bnw55d1xepqxl" path="res://ui/class/class_picker.tscn" id="4_tmoav"]
+[ext_resource type="PackedScene" uid="uid://chygeybswqhle" path="res://ui/hud.tscn" id="5_pi1or"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77oyq"]
 radius = 13.0
@@ -25,10 +26,14 @@ shape = SubResource("CircleShape2D_77oyq")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="upg_picker" parent="CanvasLayer" instance=ExtResource("3_7jcq4")]
+process_mode = 2
 visible = false
 
 [node name="class_picker" parent="CanvasLayer" instance=ExtResource("4_tmoav")]
+process_mode = 2
 visible = false
+
+[node name="hud" parent="CanvasLayer" instance=ExtResource("5_pi1or")]
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://babr38x6c6on6"]
+
+[ext_resource type="Texture2D" uid="uid://cc6twao2dxajn" path="res://bulat.png" id="1_kjhmx"]
+
+[node name="bullet" type="TextureRect"]
+texture = ExtResource("1_kjhmx")

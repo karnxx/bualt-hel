@@ -2,8 +2,11 @@ extends Node2D
 
 @onready var spawns = $spawns
 @export var enemy_types: Array = [
-	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.8},
-	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2}
+	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.3},
+	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2},
+	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.1},
+	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.2},
+	{"scene": preload("res://plr/righters.tscn"), "chance": 0.2}
 ]
 @export var total_enemies: int = 20
 var timer = 2

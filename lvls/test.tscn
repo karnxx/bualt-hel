@@ -3,14 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_6q3o0"]
 [ext_resource type="Script" uid="uid://bt0ib6ikrahob" path="res://lvls/test.gd" id="1_ff7wo"]
 [ext_resource type="PackedScene" uid="uid://bg5441jqbc8r1" path="res://plr/plr.tscn" id="2_6q3o0"]
-[ext_resource type="PackedScene" uid="uid://bgb2uxbuqf8q6" path="res://plr/walkers.tscn" id="4_ff7wo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff7wo"]
+size = Vector2(1584, 20)
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_ff7wo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.2)
-scale = Vector2(12.6094, 5.79688)
+scale = Vector2(24.0469, 12.1563)
 texture = ExtResource("1_6q3o0")
 
 [node name="plr" parent="." instance=ExtResource("2_6q3o0")]
@@ -44,5 +46,39 @@ position = Vector2(-419, 254)
 [node name="Marker2D9" type="Marker2D" parent="spawns"]
 position = Vector2(-522, -272)
 
-[node name="walkers" parent="." instance=ExtResource("4_ff7wo")]
-position = Vector2(499, 100)
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, 817)
+scale = Vector2(2.07526, 0.819935)
+shape = SubResource("RectangleShape2D_ff7wo")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(6, -1623)
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(1, 817)
+scale = Vector2(2.07526, 0.819935)
+shape = SubResource("RectangleShape2D_ff7wo")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(775, -383)
+rotation = -1.57077
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(1, 817)
+scale = Vector2(2.07526, 0.819935)
+shape = SubResource("RectangleShape2D_ff7wo")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(-2429, -292)
+rotation = -1.57077
+collision_layer = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(1, 817)
+scale = Vector2(2.07526, 0.819935)
+shape = SubResource("RectangleShape2D_ff7wo")

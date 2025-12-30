@@ -5,7 +5,8 @@ signal chosen(upg_Script)
 @onready var buttons = $VBoxContainer.get_children()
 func show_upg(upg_list):
 	visible = true
-	
+	move_to_front()
+	get_tree().paused = true
 	for i in buttons.size():
 		var butan = buttons[i]
 

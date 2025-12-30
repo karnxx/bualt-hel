@@ -49,6 +49,7 @@ text = "CHOOSE A CLASS"
 layout_mode = 2
 text = "asd"
 
+[connection signal="focus_entered" from="VBoxContainer/HBoxContainer/burst" to="." method="_on_burst_hover"]
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/burst" to="." method="_on_burst_hover"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/burst" to="." method="_on_burst_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/spray" to="." method="_on_spray_hover"]
