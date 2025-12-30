@@ -4,8 +4,8 @@ var xp_given = randi_range(100,200) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
-var current_bullet_dmg = 10
-var current_bullet_spd = 600
+var current_bullet_dmg = 10 * GameManager.global_enemy_dmg_scale
+var current_bullet_spd = GameManager.global_enemy_bullet_spd
 var speed = 600
 var pathfind = true
 var dirs = [Vector2.UP,Vector2.RIGHT,Vector2.LEFT,Vector2.DOWN]
@@ -18,16 +18,22 @@ var elite = false
 
 func _ready() -> void:
 	$Timer.start()
+	$Sprite2D.modulate = Color.RED
+	await get_tree().create_timer(0.2).timeout
+	$Sprite2D.modulate = Color.WHITE
 	if elite:
-		$Sprite2D.scale = 2
+		$Sprite2D.scale *= 2
 		$Sprite2D.modulate = Color.WEB_PURPLE
-		$CollisionShape2D.scale = 2
+		$CollisionShape2D.scale *= 2
+		health /= 2
 
 func get_dmged(dtmg):
 	health -= dtmg
 	if health <= 0:
-		self.queue_free()
+		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)
+		self.queue_free()
+		
 
 func _physics_process(_delta: float) -> void:
 	if pathfind:

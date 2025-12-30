@@ -29,6 +29,8 @@ var primscript
 var secscript
 var passive 
 var can_secondary = true
+var blinking = false
+
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
@@ -38,12 +40,24 @@ func _ready() -> void:
 	class_picker.class_chosen.connect(on_class_chosen)
 
 func _process(_delta: float) -> void:
+	invinci()
 	lvl_upper()
 	lvl_milestone()
 	if ui_open():
 		return
 	primary()
 	secondary() 
+
+func invinci():
+	if blinking:
+		return
+	while is_invincible:
+		blinking = true
+		$Sprite2D.visible = false
+		await get_tree().create_timer(0.1).timeout
+		$Sprite2D.visible = true
+		await get_tree().create_timer(0.1).timeout
+		blinking = false
 
 func _physics_process(_delta):
 	if ui_open():

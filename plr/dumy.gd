@@ -7,19 +7,25 @@ var plr
 var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 
-var elite = true
+var elite = false
 
 func _ready() -> void:
 	if elite:
-		$Sprite2D.scale = 2
+		$Sprite2D.scale *= 2
 		$Sprite2D.modulate = Color.WEB_PURPLE
-		$CollisionShape2D.scale = 2
+		$CollisionShape2D.scale *= 2
+		health *= 2
 
 func get_dmged(dtmg):
 	health -= dtmg
+	$Sprite2D.modulate = Color.RED
+	await get_tree().create_timer(0.2).timeout
+	$Sprite2D.modulate = Color.WHITE
 	if health <= 0:
-		self.queue_free()
+		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)
+		self.queue_free()
+
 
 func _process(_delta: float) -> void:
 	plr = get_parent().get_node('plr')
@@ -34,11 +40,6 @@ func shoot():
 	var origin = global_position
 	var dir = (plr.global_position - origin).normalized()
 	var bulat = BULET_FROMENMY.instantiate()
-	if elite:
-		var bulat2 = BULET_FROMENMY.instantiate()
-		bulat2.global_position = origin
-		self.get_parent().add_child(bulat2)
-		bulat.shoot(self,-dir)
 	bulat.global_position = origin
 	self.get_parent().add_child(bulat)
 	bulat.shoot(self, dir)
