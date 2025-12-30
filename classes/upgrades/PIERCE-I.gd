@@ -1,6 +1,6 @@
 extends Node
 
-var upg_name := "PIERCE-I"
+var upg_name := "PIERCE"
 var min_lvl := 2
 var weight := 16
 var requires := ['POWER-II']

@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var health = 2#00
+var health = 40
 var xp_given = randi_range(100,200) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")

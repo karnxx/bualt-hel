@@ -1,10 +1,10 @@
 extends Node
 
-var upg_name := "RAPID"
+var upg_name := "NANO-RAPID"
 var min_lvl := 2
 var weight := 15
-var requires := ['SPEEDSTER-II','VELOCITY-II']
+var requires := ['SPEEDSTER-I','VELOCITY-I']
 var class_req = null
 func apply_upgrade(plr):
-	plr.current_fire_rate *= 0.96
+	plr.current_fire_rate *= 0.99
 	plr.upgrades_applied.append(self)

@@ -1,10 +1,10 @@
 extends Node
 var plr
 func secondary(d ,_e):
-	GameManager.time_scale -= 0.95
+	GameManager.time_scale -= 0.8
 	plr = d
 	get_tree().create_timer(5).timeout.connect(e)
-	get_tree().create_timer(10).timeout.connect(f)
+	get_tree().create_timer(15).timeout.connect(f)
 
 func e():
 	GameManager.time_scale = 1.0

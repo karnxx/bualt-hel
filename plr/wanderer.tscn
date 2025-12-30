@@ -9,7 +9,7 @@
 radius = 46.0435
 
 [node name="wanderer" type="CharacterBody2D" groups=["enemy"]]
-collision_layer = 3
+collision_layer = 2
 collision_mask = 6
 slide_on_ceiling = false
 script = ExtResource("1_ot3ft")
