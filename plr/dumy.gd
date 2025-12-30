@@ -6,6 +6,15 @@ const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
+
+var elite = true
+
+func _ready() -> void:
+	if elite:
+		$Sprite2D.scale = 2
+		$Sprite2D.modulate = Color.WEB_PURPLE
+		$CollisionShape2D.scale = 2
+
 func get_dmged(dtmg):
 	health -= dtmg
 	if health <= 0:
@@ -25,6 +34,11 @@ func shoot():
 	var origin = global_position
 	var dir = (plr.global_position - origin).normalized()
 	var bulat = BULET_FROMENMY.instantiate()
+	if elite:
+		var bulat2 = BULET_FROMENMY.instantiate()
+		bulat2.global_position = origin
+		self.get_parent().add_child(bulat2)
+		bulat.shoot(self,-dir)
 	bulat.global_position = origin
 	self.get_parent().add_child(bulat)
 	bulat.shoot(self, dir)

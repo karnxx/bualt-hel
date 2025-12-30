@@ -9,7 +9,9 @@ var current_bullet_spd = 800
 var speed = 100
 var pathfind = true
 var can_shot = true
-
+var elite = false
+var bulatcircleamt = 40
+var cd = 2
 func _process(delta: float) -> void:
 	fire_circle(global_position)
 
@@ -24,6 +26,14 @@ func _physics_process(_delta: float) -> void:
 		shoot()
 	move_and_slide()
 
+func _ready() -> void:
+	if elite:
+		$Sprite2D.scale = 2
+		$Sprite2D.modulate = Color.WEB_PURPLE
+		$CollisionShape2D.scale = 2
+		speed = 200
+		bulatcircleamt = 70
+		cd = 1.5
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
@@ -37,8 +47,6 @@ func shoot():
 	velocity = dir * speed * GameManager.time_scale
 
 
-
-
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		
@@ -48,9 +56,8 @@ func fire_circle(origin):
 	if !can_shot:
 		return
 	
-	var count = 30
-	for i in range(count):
-		var angle = TAU * i / count
+	for i in range(bulatcircleamt):
+		var angle = TAU * i / bulatcircleamt
 		var dir = Vector2(cos(angle), sin(angle))
 
 		var bulaty = BULET_FROMENMY.instantiate()
@@ -58,5 +65,5 @@ func fire_circle(origin):
 		get_parent().add_child(bulaty)
 		bulaty.shoot(self, dir)
 	can_shot = false
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(cd).timeout
 	can_shot = true

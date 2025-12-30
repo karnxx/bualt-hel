@@ -8,8 +8,8 @@ var current_bullet_dmg = 10
 var current_bullet_spd = 600
 var speed = 600
 var pathfind = true
-
-
+var elite = false
+var cd = 1
 func get_dmged(dtmg):
 	health -= dtmg
 	if health <= 0:
@@ -21,6 +21,13 @@ func _physics_process(_delta: float) -> void:
 		shoot()
 	move_and_slide()
 
+func _ready() -> void:
+	if elite:
+		$Sprite2D.scale = 2
+		$Sprite2D.modulate = Color.WEB_PURPLE
+		$CollisionShape2D.scale = 2
+		speed = 800
+		cd = 0.6
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
@@ -33,8 +40,7 @@ func shoot():
 	var dir = (target-start).normalized()
 	velocity = dir * speed * GameManager.time_scale
 
-
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(cd).timeout
 		pathfind = true

@@ -10,8 +10,14 @@ var speed = 200
 var pathfind = true
 var dir:= Vector2.RIGHT.rotated(randf() * 2 * PI)
 var candarop = true
+
+var elite = false
 func _ready() -> void:
 	$Timer.start()
+	if elite:
+		$Sprite2D.scale = 2
+		$Sprite2D.modulate = Color.WEB_PURPLE
+		$CollisionShape2D.scale = 2
 
 func get_dmged(dtmg):
 	health -= dtmg
