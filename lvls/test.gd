@@ -25,7 +25,7 @@ func _ready():
 
 func run_round(round_num):
 	var total_enemies = (base_enemies + round_num * 3)
-	label.text = "round:" + str(round_num) + ", alive:" + str(alive)
+	label.text = "round:" + str(round_num)
 
 	for i in range(total_enemies):
 		if spawns.get_child_count() == 0:
@@ -38,15 +38,17 @@ func run_round(round_num):
 		).global_position
 		
 		enemy.global_position = spawn_point
-		get_tree().current_scene.add_child(enemy)
+		if get_tree() != null:
+			get_tree().current_scene.add_child(enemy)
 		alive += 1
 		var rand = randf()
 		if rand <= 0.05:
 			enemy.elite = true
-		await get_tree().create_timer(timer).timeout
-
-	while alive > 0:
+		if get_tree() != null:
+			await get_tree().create_timer(timer).timeout
+	while alive > 0 and is_inside_tree():
 		await get_tree().process_frame
+
 
 func enemy_died():
 	alive -= 1

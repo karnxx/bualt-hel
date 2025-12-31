@@ -31,6 +31,11 @@ var passive
 var can_secondary = true
 var blinking = false
 
+var can_dash = true
+var is_dashing = false
+var dash_dis
+var dash_speed = 600
+
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
@@ -47,6 +52,8 @@ func _process(_delta: float) -> void:
 		return
 	primary()
 	secondary() 
+	if Input.is_action_just_pressed("dash"):
+		dash()
 
 func invinci():
 	if blinking:
@@ -68,7 +75,10 @@ func _physics_process(_delta):
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
 		direction = direction.normalized()
-	velocity = direction * current_spd
+	if is_dashing:
+		velocity = direction * (current_spd + dash_speed)
+	else:
+		velocity = direction * current_spd
 	move_and_slide()
 
 func primary():
@@ -162,9 +172,22 @@ func lvl_milestone():
 		class_picker.move_to_front()
 		get_tree().paused = true
 
+func dash():
+	if can_dash == false:
+		return
+	is_dashing = true
+	can_dash = false
+	get_tree().create_timer(2.3).timeout.connect(dash_cd)
+	get_tree().create_timer(0.3).timeout.connect(dashdone)
+
+func dashdone():
+	is_dashing = false
+
+func dash_cd():
+	can_dash = true
 
 func get_dmged(dmg):
-	if !is_invincible:
+	if not is_invincible and not is_dashing:
 		health -= dmg
 		current_bullets = magazine
 		is_invincible = true

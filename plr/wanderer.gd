@@ -1,5 +1,5 @@
 extends CharacterBody2D
-var health = 30
+var health = 10
 var xp_given = randi_range(100,200) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
@@ -25,6 +25,9 @@ func _ready() -> void:
 
 func get_dmged(dtmg):
 	health -= dtmg
+	$Sprite2D.modulate = Color.RED
+	await get_tree().create_timer(0.2).timeout
+	$Sprite2D.modulate = Color.WHITE
 	if health <= 0:
 		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)

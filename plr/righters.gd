@@ -29,6 +29,9 @@ func _ready() -> void:
 
 func get_dmged(dtmg):
 	health -= dtmg
+	$Sprite2D.modulate = Color.RED
+	await get_tree().create_timer(0.2).timeout
+	$Sprite2D.modulate = Color.WHITE
 	if health <= 0:
 		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)
