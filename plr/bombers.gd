@@ -10,6 +10,7 @@ var speed = 600
 var pathfind = true
 var elite = false
 var cd = 1
+
 func get_dmged(dtmg):
 	health -= dtmg
 	$Sprite2D.modulate = Color.RED
@@ -37,8 +38,18 @@ func _ready() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
-		body.get_dmged(dmg)
-		pathfind = false
+		explode()
+
+func explode():
+	var tween := create_tween()
+	tween.tween_property($Sprite2D, "scale", $Sprite2D.scale * 2.0, 0.5)
+	tween.parallel().tween_property($CollisionShape2D, "scale", $CollisionShape2D.scale * 2.0, 0.5)
+	tween.parallel().tween_property($Sprite2D, "modulate", Color.BLACK, 0.5)
+
+	await tween.finished
+	$Area2D2.monitoring = true
+	await get_tree().process_frame
+	queue_free()
 
 func shoot():
 	var target = get_parent().get_node('plr').global_position
@@ -50,3 +61,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		await get_tree().create_timer(cd).timeout
 		pathfind = true
+
+func _on_area_2d_2_body_entered(body: Node2D) -> void:
+	print('asd')
+	body.get_dmged(40)

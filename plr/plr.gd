@@ -34,7 +34,7 @@ var blinking = false
 var can_dash = true
 var is_dashing = false
 var dash_dis
-var dash_speed = 600
+var dash_speed = 900
 
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker

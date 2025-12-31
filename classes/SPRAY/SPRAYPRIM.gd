@@ -1,9 +1,9 @@
 extends Node
-
+var max_bullets = 3
 func primary(plr, mouse):
 	var origin = plr.global_position
 	var base_dir = (mouse - origin).normalized()
-	var max_bullets = 3
+
 	var num_bullets = min(max_bullets, plr.current_bullets)
 	if num_bullets <= 0:
 		return

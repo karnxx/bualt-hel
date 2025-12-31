@@ -1,6 +1,6 @@
 extends CharacterBody2D
-var health = 20
-var xp_given = randi_range(100,200) * GameManager.global_loot_mult
+var health = 40
+var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
@@ -57,7 +57,6 @@ func shoot():
 		if elite:
 			if dir3 == dir1 or dir3 == dir2:
 				dir3 = dirs.pick_random()
-	var dirars = [dir1, dir2]
 	var bulat = BULET_FROMENMY.instantiate()
 	var bulat2 = BULET_FROMENMY.instantiate()
 	if elite:

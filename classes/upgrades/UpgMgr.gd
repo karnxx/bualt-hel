@@ -28,6 +28,7 @@ preload("res://classes/upgrades/VITALITY-IIdi.gd"),
 preload("res://classes/upgrades/VITALITY-III.gd"),
 preload("res://classes/TIME/ACCEL-I.gd"),
 preload("res://classes/TIME/DRAG-I.gd"),
+preload("res://classes/SPRAY/NOZZLE.gd"),
 ]
 var is_upging = false
 

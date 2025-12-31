@@ -4,10 +4,10 @@ extends Node2D
 @onready var label = $label
 
 @export var enemy_types: Array = [
-	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.3},
-	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2},
-	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.1},
-	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.2},
+	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.2},
+	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.3},
+	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.15},
+	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.15},
 	{"scene": preload("res://plr/righters.tscn"), "chance": 0.2}
 ]
 
@@ -20,7 +20,7 @@ func _ready():
 	await get_tree().create_timer(3).timeout
 	for r in range(rounds):
 		await run_round(r + 1)
-	
+		get_node('plr').health += get_node('plr').max_health * 0.3
 	label.text = "demo finished! nice try!"
 
 func run_round(round_num):
@@ -38,13 +38,13 @@ func run_round(round_num):
 		).global_position
 		
 		enemy.global_position = spawn_point
-		if get_tree() != null:
+		if is_inside_tree():
 			get_tree().current_scene.add_child(enemy)
 		alive += 1
 		var rand = randf()
 		if rand <= 0.05:
 			enemy.elite = true
-		if get_tree() != null:
+		if is_inside_tree():
 			await get_tree().create_timer(timer).timeout
 	while alive > 0 and is_inside_tree():
 		await get_tree().process_frame
