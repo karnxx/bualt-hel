@@ -2,7 +2,7 @@ extends Node
 
 var upg_name := "DRAG-I"
 var min_lvl := 2
-var weight := 25
+var weight := 50
 var requires := []
 var class_req := 'TIME'
 

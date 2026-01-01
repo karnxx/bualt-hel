@@ -2,7 +2,7 @@ extends Node
 
 var upg_name := "VELOCITY-I"
 var min_lvl := 0
-var weight := 20
+var weight := 100
 var requires := []
 var class_req = null
 func apply_upgrade(plr):

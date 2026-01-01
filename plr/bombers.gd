@@ -6,7 +6,7 @@ const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
-var speed = 600
+var speed = 300
 var pathfind = true
 var elite = false
 var cd = 1
@@ -41,14 +41,16 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		explode()
 
 func explode():
+	
 	var tween := create_tween()
-	tween.tween_property($Sprite2D, "scale", $Sprite2D.scale * 2.0, 0.5)
-	tween.parallel().tween_property($CollisionShape2D, "scale", $CollisionShape2D.scale * 2.0, 0.5)
-	tween.parallel().tween_property($Sprite2D, "modulate", Color.BLACK, 0.5)
-
+	tween.tween_property($Sprite2D, "scale", $Sprite2D.scale * 2.0, 0.3)
+	tween.parallel().tween_property($CollisionShape2D, "scale", $CollisionShape2D.scale * 2.0, 0.3)
+	tween.parallel().tween_property($Sprite2D, "modulate", Color.BLACK, 0.3)
+	
 	await tween.finished
 	$Area2D2.monitoring = true
-	await get_tree().process_frame
+	get_parent().enemy_died()
+	await get_tree().create_timer(0.1).timeout
 	queue_free()
 
 func shoot():
@@ -63,5 +65,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		pathfind = true
 
 func _on_area_2d_2_body_entered(body: Node2D) -> void:
-	print('asd')
-	body.get_dmged(40)
+	if body.is_in_group('enemy') or body.is_in_group('plr'):
+		print('asd')
+		body.get_dmged(40)

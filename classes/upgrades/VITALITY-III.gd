@@ -1,8 +1,8 @@
 extends Node
 
 var upg_name := "DEMI"
-var min_lvl := 10
-var weight := 20
+var min_lvl := 12
+var weight := 1
 var requires := ['VITALITY-III']
 var class_req = null
 func apply_upgrade(plr):

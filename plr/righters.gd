@@ -84,5 +84,5 @@ func _on_timer_timeout() -> void:
 	dir1 = dirs.pick_random()
 	dir2 = dirs.pick_random()
 	if elite:
-		dir3.pick_random()
+		dir3= dirs.pick_random()
 	$Timer.start()

@@ -2,8 +2,8 @@ extends Node
 
 var upg_name := "PIERCE"
 var min_lvl := 2
-var weight := 16
-var requires := ['POWER-II']
+var weight := 70
+var requires := ['VELOCITY-II']
 var class_req = null
 func apply_upgrade(plr):
 	plr.pierce += 1

@@ -87,7 +87,7 @@ func primary():
 			return
 		if current_bullets > 0:
 			can_shoot = false
-			primscript.primary(self, get_viewport().get_camera_2d().get_global_mouse_position())
+			primscript.primary(self, get_global_mouse_position())
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
 
@@ -106,7 +106,7 @@ func secondary():
 	elif current_class.nam == 'TIME' or current_class.nam == 'SEEK':
 		if Input.is_action_just_pressed("secondary") and can_secondary:
 			can_secondary = false
-			secscript.secondary(self, get_viewport().get_camera_2d().get_global_mouse_position())
+			secscript.secondary(self, get_global_mouse_position())
 
 
 func on_class_chosen(clas):

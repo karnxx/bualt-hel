@@ -1,8 +1,8 @@
 extends Node
 
 var upg_name := "VELOCITY-II"
-var min_lvl := 4
-var weight := 3
+var min_lvl := 5
+var weight := 40
 var requires := ['VELOCITY-I']
 var class_req = null
 func apply_upgrade(plr):

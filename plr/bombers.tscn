@@ -13,7 +13,7 @@ radius = 155.261
 
 [node name="walkers" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 4
 slide_on_ceiling = false
 script = ExtResource("1_t37mo")
 
@@ -37,6 +37,6 @@ shape = SubResource("CircleShape2D_t37mo")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_body_exited"]

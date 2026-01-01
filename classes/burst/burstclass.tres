@@ -14,6 +14,6 @@ upgrades = Array[Script]([])
 base_spd = 400.0
 base_fire_cd = 1.3
 base_dmg = 20
-base_bullet_speed = 500
+base_bullet_speed = 800
 magazine = 0
 metadata/_custom_type_script = "uid://dxvtytmw6u7om"
