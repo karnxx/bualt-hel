@@ -1,4 +1,7 @@
 extends CharacterBody2D
+
+
+var maxhealth = 60
 var health = 60
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
@@ -8,6 +11,8 @@ var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 
 var elite = false
+
+signal died(who)
 
 func _ready() -> void:
 	if elite:
@@ -24,6 +29,7 @@ func get_dmged(dtmg):
 	if health <= 0:
 		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)
+		emit_signal('died', self)
 		self.queue_free()
 
 

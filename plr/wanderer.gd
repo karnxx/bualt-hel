@@ -1,4 +1,5 @@
 extends CharacterBody2D
+var maxhealth = 50
 var health = 50
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
@@ -12,6 +13,9 @@ var dir:= Vector2.RIGHT.rotated(randf() * 2 * PI)
 var candarop = true
 
 var elite = false
+
+signal died(who)
+
 func _ready() -> void:
 	$Timer.start()
 	$Sprite2D.modulate = Color.RED
@@ -31,6 +35,7 @@ func get_dmged(dtmg):
 	if health <= 0:
 		get_parent().enemy_died()
 		get_parent().get_node('plr').add_xp(xp_given)
+		emit_signal('died', self)
 		self.queue_free()
 		
 
