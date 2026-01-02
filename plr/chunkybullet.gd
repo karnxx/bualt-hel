@@ -11,17 +11,22 @@ var target: Node2D = null
 var homer = false
 var turn_rate := deg_to_rad(90)
 var spd
-
+var crit 
+var critdmg
+var plr 
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
 	self.queue_free()
 
-func shoot(plr, dir, plar):
-	dmg = plr.current_bullet_dmg
-	spd = plr.current_bullet_spd
+func shoot(pglr, dir, plar):
+	dmg = pglr.current_bullet_dmg
+	spd = pglr.current_bullet_spd
+	plr = plar
 	velocity = dir.normalized() * spd
 	rotation = dir.angle()
 	dmg_mult = plar.upgdata.get('chunkmult', 4)
+	crit = plr.crit
+	critdmg = plr.critmult
 
 func split():
 	if !can_split:
@@ -50,6 +55,8 @@ func split():
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	crit = plr.crit
+	critdmg = plr.critmult
 	if body.has_method('get_dmged') and body.is_in_group('enemy'):
 		body.get_dmged(dmg)
 		call_deferred('split')

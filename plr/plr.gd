@@ -45,13 +45,14 @@ var upgdata := {}
 var crit := 0.05
 var critmult := 1.1
 
+var spread_deg := 4.0
 
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
-	eq_upg(preload("res://classes/ablitupgrade/BLOOM.gd"))
+	eq_upg(preload("res://classes/ablitupgrade/RICOCHET.gd"))
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 

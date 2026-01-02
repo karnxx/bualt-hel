@@ -28,7 +28,8 @@ func fire_bloom():
 		var b = plr.bulet.instantiate()
 		plr.get_parent().add_child(b)
 		b.global_position = plr.global_position
-
+		b.plr = plr
 		b.velocity = Vector2.RIGHT.rotated(angle) * plr.current_bullet_spd
 		b.dmg = plr.current_bullet_dmg
+		
 	plr.current_bullets -= 3

@@ -7,6 +7,7 @@ func primary(plr, mouse):
 	var origin = plr.global_position
 	var base_dir = (mouse - origin).normalized()
 
+
 	var num_bullets = min(max_bullets, plr.current_bullets)
 	if num_bullets <= 0:
 		return
@@ -20,6 +21,8 @@ func primary(plr, mouse):
 		bulat.pierce = plr.pierce
 		bulat.global_position = origin
 		var dir = base_dir.rotated(offset)
+		var spread_rad := deg_to_rad(plr.spread_deg)
+		dir = dir.rotated(randf_range(-spread_rad, spread_rad))
 		plr.get_parent().add_child(bulat)
 		bulat.shoot(plr, dir, plr)
 
