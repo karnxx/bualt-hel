@@ -13,11 +13,11 @@ func primary(plr, mouse):
 
 	for i in range(num_bullets):
 		var offset = (i - half + 0.5) * angle_step
-		var bulat = preload("res://plr/bulet.tscn").instantiate()
+		var bulat = plr.bulet.instantiate()
 		bulat.pierce = plr.pierce
 		bulat.global_position = origin
 		var dir = base_dir.rotated(offset)
 		plr.get_parent().add_child(bulat)
-		bulat.shoot(plr, dir)
+		bulat.shoot(plr, dir, plr)
 
 	plr.current_bullets -= num_bullets

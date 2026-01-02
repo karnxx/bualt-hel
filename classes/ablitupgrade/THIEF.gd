@@ -1,9 +1,9 @@
 extends Node
 
 var upg_name := "THIEF"
-var min_lvl := 0
-var weight := 100
-var requires := []#'POWER-II','VITALITY-I']
+var min_lvl := 2
+var weight := 30
+var requires := ['POWER-II','VITALITY-I']
 var class_req = null
 func apply_upgrade(plr):
 	plr.max_health -= 40

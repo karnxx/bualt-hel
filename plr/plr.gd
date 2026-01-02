@@ -31,10 +31,17 @@ var passive
 var can_secondary = true
 var blinking = false
 
+const BULET = preload("res://plr/bulet.tscn")
+
+var bulet = BULET
+
 var can_dash = true
 var is_dashing = false
 var dash_dis
 var dash_speed = 900
+
+var upgdata := {}
+
 
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker

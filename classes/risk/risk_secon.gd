@@ -16,7 +16,7 @@ func secondary(p):
 	plr.current_bullets = plr.magazine
 	var count = 8
 	for i in range(count):
-		var b = preload("res://plr/bulet.tscn").instantiate()
+		var b = plr.bulet.instantiate()
 		plr.get_parent().add_child(b)
 		b.dmg = plr.current_bullet_dmg
 		bullets.append(b)

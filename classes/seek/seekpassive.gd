@@ -7,10 +7,12 @@ func attach(player):
 	plr = player
 
 func on_bullet_fired(bullet):
+	bullet.homer =true
 	if mark_target and is_instance_valid(mark_target):
 		bullet.target = mark_target
 	else:
-		bullet.target = near_nemy(bullet.global_position)
+		if get_parent().get_parent().alive > 0:
+			bullet.target = near_nemy(bullet.global_position)
 
 func near_nemy(pos):
 	var enemies = get_tree().get_nodes_in_group("enemy")

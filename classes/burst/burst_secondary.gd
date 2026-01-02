@@ -52,7 +52,7 @@ func doneeee():
 func fire():
 	var ratio = clamp(timer / MAX_CHARGE, 0.0, 1.0)
 
-	var bulat = preload("res://plr/bulet.tscn").instantiate()
+	var bulat = plr.bulet.instantiate()
 	bulat.global_position = plr.global_position
 	var dir = (plr.get_global_mouse_position() - bulat.global_position).normalized()
 	plr.get_parent().add_child(bulat)
@@ -63,6 +63,6 @@ func fire():
 	bulat.get_node("CollisionShape2D").scale = Vector2.ONE  *  s
 	bulat.pierce = plr.pierce + plr.lvl
 	current_bullet_dmg = current_bullet_dmg + current_bullet_dmg * lerp(0.0, 2.0, ratio)
-	bulat.shoot(self, dir)
+	bulat.shoot(self, dir, plr)
 
 	plr.current_bullets -= 1
