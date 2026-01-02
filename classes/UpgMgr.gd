@@ -30,6 +30,8 @@ preload("res://classes/TIME/ACCEL-I.gd"),
 preload("res://classes/TIME/DRAG-I.gd"),
 preload("res://classes/SPRAY/NOZZLE.gd"),
 preload("res://classes/ablitupgrade/THIEF.gd"),
+preload("res://classes/ablitupgrade/CHUNK.gd"),
+preload("res://classes/ablitupgrade/BLOOM.gd"),
 ]
 var is_upging = false
 

@@ -5,6 +5,9 @@ var homer = false
 var turn_rate := deg_to_rad(90)
 var spd
 var target :Node2D= null
+var crit 
+var critdmg
+
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
 	self.queue_free()
@@ -14,10 +17,16 @@ func shoot(plr, dir, plar):
 	spd = plr.current_bullet_spd
 	velocity = dir.normalized() * spd
 	rotation = dir.angle()
+	crit = plar.crit
+	critdmg = plar.critmult
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.has_method('get_dmged') and body.is_in_group('enemy'):
-		body.get_dmged(dmg)
+		var rand = randf()
+		if rand <= crit:
+			body.get_dmged(dmg * critdmg)
+		else:
+			body.get_dmged(dmg)
 		if pierce <= 0:
 			self.queue_free()
 		else:
