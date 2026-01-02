@@ -1,5 +1,8 @@
 extends Node
 var max_bullets = 3
+
+signal fired
+
 func primary(plr, mouse):
 	var origin = plr.global_position
 	var base_dir = (mouse - origin).normalized()
@@ -21,3 +24,4 @@ func primary(plr, mouse):
 		bulat.shoot(plr, dir, plr)
 
 	plr.current_bullets -= num_bullets
+	emit_signal('fired')
