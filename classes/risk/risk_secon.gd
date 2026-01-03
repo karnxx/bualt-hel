@@ -19,6 +19,7 @@ func secondary(p):
 		var b = plr.bulet.instantiate()
 		plr.get_parent().add_child(b)
 		b.dmg = plr.current_bullet_dmg
+		b.plr = plr
 		bullets.append(b)
 
 	set_process(true)

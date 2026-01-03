@@ -25,11 +25,13 @@ texture = ExtResource("2_h637m")
 shape = SubResource("CircleShape2D_p37r8")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_7nm7s")
 
 [node name="Area2D2" type="Area2D" parent="."]
+collision_layer = 0
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]

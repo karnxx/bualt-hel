@@ -1,16 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg5441jqbc8r1"]
+[gd_scene load_steps=9 format=3 uid="uid://bg5441jqbc8r1"]
 
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_35yby"]
 [ext_resource type="Script" uid="uid://bsan0r2tl4w10" path="res://plr/plr.gd" id="1_77oyq"]
 [ext_resource type="PackedScene" uid="uid://wwrpe6irva71" path="res://ui/upg_picker.tscn" id="3_7jcq4"]
 [ext_resource type="PackedScene" uid="uid://bnw55d1xepqxl" path="res://ui/class/class_picker.tscn" id="4_tmoav"]
 [ext_resource type="PackedScene" uid="uid://chygeybswqhle" path="res://ui/hud.tscn" id="5_pi1or"]
+[ext_resource type="Texture2D" uid="uid://cc6twao2dxajn" path="res://bulat.png" id="6_0tl88"]
+[ext_resource type="Script" uid="uid://iivwh8v4vr1x" path="res://plr/pivot.gd" id="6_ocev5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_77oyq"]
 radius = 13.0
 
 [node name="plr" type="CharacterBody2D" groups=["plr"]]
-collision_layer = 5
+collision_layer = 65
 slide_on_ceiling = false
 script = ExtResource("1_77oyq")
 
@@ -38,5 +40,20 @@ visible = false
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="pivot" type="Node2D" parent="."]
+script = ExtResource("6_ocev5")
+
+[node name="Marker2D" type="Marker2D" parent="pivot"]
+
+[node name="gun" type="Node2D" parent="pivot"]
+position = Vector2(-6, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="pivot/gun"]
+position = Vector2(41, 0)
+texture = ExtResource("6_0tl88")
+
+[node name="origin" type="Marker2D" parent="pivot/gun"]
+position = Vector2(41, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

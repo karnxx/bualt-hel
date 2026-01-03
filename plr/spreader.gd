@@ -1,11 +1,17 @@
 extends CharacterBody2D
+
+var kb_velocity: Vector2 = Vector2.ZERO
+var kb_strength := 420.0
+var kb_decay := 1600.0 
+
+
 var maxhealth = 30
 var health = 30
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
-var current_bullet_dmg = 12 * GameManager.global_enemy_dmg_scale
+var current_bullet_dmg = 6 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd + 200
 var speed = 100
 var pathfind = true
@@ -13,6 +19,7 @@ var can_shot = true
 var elite = false
 var bulatcircleamt = 40
 var cd = 2
+var move_velocity
 
 signal died(who)
 
@@ -31,10 +38,17 @@ func get_dmged(dtmg):
 		self.queue_free()
 		
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pathfind:
 		shoot()
 	move_and_slide()
+	velocity = move_velocity + kb_velocity
+
+	# decay knockback
+	kb_velocity = kb_velocity.move_toward(
+		Vector2.ZERO,
+		kb_decay * delta
+	)
 
 func _ready() -> void:
 	if elite:
@@ -55,12 +69,11 @@ func shoot():
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
 	var dir = (target-start).normalized()
-	velocity = dir * speed * GameManager.time_scale
+	move_velocity = dir * speed * GameManager.time_scale
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
-		
 		pathfind = true
 
 func fire_circle(origin):
@@ -78,3 +91,7 @@ func fire_circle(origin):
 	can_shot = false
 	await get_tree().create_timer(cd).timeout
 	can_shot = true
+
+func knockback(from_pos, strength):
+	var dir = (global_position - from_pos).normalized()
+	kb_velocity += dir * strength

@@ -1,13 +1,16 @@
 extends Node
 var plr
 
+func _ready() -> void:
+	plr = get_parent()
+	print(plr)
+
 func _process(_delta: float) -> void:
 	for i in get_tree().get_nodes_in_group('enemy'):
-		if i.is_connected('deth', ondeth):
+		if i.is_connected('died', ondeth):
 			return
 		i.connect('died', ondeth)
-	plr = get_parent()
 
 func ondeth(enemy):
-	plr.health += (enemy.maxhealth * 0.05)
+	plr.health += (enemy.maxhealth * plr.upgdata['thief']['stolen'])
 	print('asd')

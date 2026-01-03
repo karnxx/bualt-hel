@@ -1,4 +1,9 @@
 extends CharacterBody2D
+
+var kb_velocity: Vector2 = Vector2.ZERO
+var kb_strength := 420.0
+var kb_decay := 1600.0 
+
 var maxhealth = 20
 var health = 20
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
@@ -11,6 +16,8 @@ var speed = 300
 var pathfind = true
 var elite = false
 var cd = 1
+
+var move
 
 signal died(who)
 
@@ -26,10 +33,15 @@ func get_dmged(dtmg):
 		self.queue_free()
 		
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pathfind:
 		shoot()
+	velocity = kb_velocity + move
 	move_and_slide()
+	kb_velocity = kb_velocity.move_toward(
+		Vector2.ZERO,
+		kb_decay * delta
+	)
 
 func _ready() -> void:
 	if elite:
@@ -43,6 +55,10 @@ func _ready() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		explode()
+
+func knockback(pos, strength):
+	var dir = (global_position - pos).normalized()
+	kb_velocity += dir * strength
 
 func explode():
 	
@@ -61,7 +77,7 @@ func shoot():
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
 	var dir = (target-start).normalized()
-	velocity = dir * speed * GameManager.time_scale
+	move = dir * speed * GameManager.time_scale
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):

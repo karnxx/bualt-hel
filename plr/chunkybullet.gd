@@ -24,7 +24,8 @@ func shoot(pglr, dir, plar):
 	plr = plar
 	velocity = dir.normalized() * spd
 	rotation = dir.angle()
-	dmg_mult = plar.upgdata.get('chunkmult', 4)
+	dmg_mult = plar.upgdata['chunky']['chunkmult']
+	split_count = plar.upgdata['chunky']['chunks']
 	crit = plr.crit
 	critdmg = plr.critmult
 

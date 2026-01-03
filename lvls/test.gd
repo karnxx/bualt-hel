@@ -21,7 +21,6 @@ func _ready():
 	await get_tree().create_timer(3).timeout
 	for r in range(rounds):
 		await run_round(r + 1)
-		get_node('plr').health += get_node('plr').max_health * 0.3
 	label.text = "demo finished! nice try!"
 
 func run_round(round_num):

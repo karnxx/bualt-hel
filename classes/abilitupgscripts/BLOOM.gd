@@ -3,11 +3,16 @@ extends Node
 var plr
 var shot_count := 0
 
-const BLOOM_BULLETS := 3
-const SPREAD_DEG := 120
+var BLOOM_BULLETS := 3
+var SPREAD_DEG := 120
 
 func _ready():
+	plr = get_parent()
 	plr.primscript.connect("fired", fired)
+
+func _process(_delta: float) -> void:
+	BLOOM_BULLETS = plr.upgdata['bloom']['bloombul']
+	SPREAD_DEG = plr.upgdata['bloom']['bloomfan']
 
 func fired():
 	shot_count += 1
@@ -27,7 +32,7 @@ func fire_bloom():
 		
 		var b = plr.bulet.instantiate()
 		plr.get_parent().add_child(b)
-		b.global_position = plr.global_position
+		b.global_position = plr.get_node('pivot/gun/origin').global_position
 		b.plr = plr
 		b.velocity = Vector2.RIGHT.rotated(angle) * plr.current_bullet_spd
 		b.dmg = plr.current_bullet_dmg

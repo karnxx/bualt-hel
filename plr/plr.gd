@@ -1,8 +1,17 @@
 extends CharacterBody2D
 
+signal plr_dmged
+
+
+var recoil_velocity: Vector2 = Vector2.ZERO
+var recoil_strength: float = 650.0
+var recoil_decay: float = 2200.0
+
 var xp = 0
 var lvl = 0
-var xp_req = 200 * pow(1.5, lvl)
+var xp_req = (200 * pow(1.5, lvl))/2
+
+
 var is_invincible = false
 var pierce = 0
 
@@ -16,7 +25,7 @@ var can_shoot := true
 var base_spd := 400.0
 var base_bullet_dmg := 10
 var base_bullet_spd := 600
-var base_fire_rate := 1
+var base_fire_rate := 1.0
 var current_spd := base_spd
 var current_bullet_dmg := base_bullet_dmg
 var current_bullet_spd := base_bullet_spd
@@ -52,7 +61,7 @@ var spread_deg := 4.0
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
-	eq_upg(preload("res://classes/ablitupgrade/RICOCHET.gd"))
+	eq_upg(preload("res://classes/ablitupgrade/THORNS.gd"))
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
@@ -78,20 +87,29 @@ func invinci():
 		await get_tree().create_timer(0.1).timeout
 		blinking = false
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if ui_open():
 		velocity = Vector2.ZERO
 		move_and_slide()
 		return
-	#var mouse_pos := get_viewport().get_mouse_position()
+
 	var direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction.length() > 0:
 		direction = direction.normalized()
+
+	var move_velocity := direction * current_spd
+
 	if is_dashing:
-		velocity = direction * (current_spd + dash_speed)
-	else:
-		velocity = direction * current_spd
+		move_velocity = direction * (current_spd + dash_speed)
+
+	velocity = move_velocity + recoil_velocity
 	move_and_slide()
+
+	recoil_velocity = recoil_velocity.move_toward(
+		Vector2.ZERO,
+		recoil_decay * delta
+	)
+
 
 func primary():
 	if Input.is_action_just_pressed("primary"):
@@ -99,7 +117,10 @@ func primary():
 			return
 		if current_bullets > 0:
 			can_shoot = false
-			primscript.primary(self, get_global_mouse_position())
+			primscript.primary(self, get_global_mouse_position())	
+			var recoil_dir = ($pivot/gun/origin.global_position - get_global_mouse_position()).normalized()
+			recoil_velocity += recoil_dir * recoil_strength
+
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
 
@@ -151,10 +172,10 @@ func eq_class(clas:Class):
 	if clas.passive:
 		passive = clas.passive.new()
 		add_child(passive)
-	current_spd = float(clas.base_spd)
-	current_fire_rate = float(clas.base_fire_cd)
-	current_bullet_dmg =float(clas.base_dmg)
-	current_bullet_spd = float(clas.base_bullet_speed)
+	current_spd = clas.base_spd
+	current_fire_rate = clas.base_fire_cd
+	current_bullet_dmg =clas.base_dmg
+	current_bullet_spd = clas.base_bullet_speed
 	for i in clas.upgrades:
 		eq_upg(i)
 
@@ -169,7 +190,7 @@ func lvl_upper():
 	
 	xp -= xp_req
 	lvl += 1
-	xp_req = 200 * pow(1.5, lvl)
+	xp_req =(200 * pow(1.5, lvl))/2
 	
 	if class_chosen:
 		get_tree().paused = true
@@ -204,6 +225,7 @@ func get_dmged(dmg):
 		current_bullets = magazine
 		is_invincible = true
 		$Timer.start()
+		emit_signal('plr_dmged')
 		if health <= 0:
 			get_tree().call_deferred('reload_current_scene')
 

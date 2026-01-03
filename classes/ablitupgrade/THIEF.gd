@@ -11,4 +11,5 @@ func apply_upgrade(plr):
 	var scrip = preload("res://classes/abilitupgscripts/THIEF.gd").new()
 	plr.add_child(scrip)
 	scrip.plr = plr
+	plr.upgdata['thief'] = {"stolen": 0.03}
 	plr.upgrades_applied.append(self)

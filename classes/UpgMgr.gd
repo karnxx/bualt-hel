@@ -32,6 +32,10 @@ preload("res://classes/SPRAY/NOZZLE.gd"),
 preload("res://classes/ablitupgrade/THIEF.gd"),
 preload("res://classes/ablitupgrade/CHUNK.gd"),
 preload("res://classes/ablitupgrade/BLOOM.gd"),
+preload("res://classes/ablitupgrade/RICOCHET.gd"),
+preload("res://classes/ablitupgrade/SHIELD.gd"),
+preload("res://classes/ablitupgrade/SHOCKWAVE.gd"),
+preload("res://classes/ablitupgrade/THORNS.gd")
 ]
 var is_upging = false
 

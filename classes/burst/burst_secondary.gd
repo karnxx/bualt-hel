@@ -53,7 +53,7 @@ func fire():
 	var ratio = clamp(timer / MAX_CHARGE, 0.0, 1.0)
 
 	var bulat = plr.bulet.instantiate()
-	bulat.global_position = plr.global_position
+	bulat.global_position = plr.get_node('pivot/gun/origin').global_position
 	var dir = (plr.get_global_mouse_position() - bulat.global_position).normalized()
 	plr.get_parent().add_child(bulat)
 

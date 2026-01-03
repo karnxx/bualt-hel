@@ -7,5 +7,5 @@ var requires := ['POWER-I','MAGAZINE']
 var class_req = null
 func apply_upgrade(plr):
 	plr.bulet = preload("res://plr/chunkybullet.tscn")
-	plr.upgdata['chunkmult'] = 4
+	plr.upgdata['chunky'] = {'chunkmult': 4, "chunks": 2}
 	plr.upgrades_applied.append(self)

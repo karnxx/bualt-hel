@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+var kb_velocity: Vector2 = Vector2.ZERO
+var kb_strength := 420.0
+var kb_decay := 1600.0 
 
 var maxhealth = 60
 var health = 60
@@ -7,12 +10,21 @@ var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
-var current_bullet_dmg = 10  * GameManager.global_enemy_dmg_scale
+var current_bullet_dmg = 5  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 
 var elite = false
 
 signal died(who)
+
+func _physics_process(delta: float) -> void:
+	velocity = kb_velocity
+	move_and_slide()
+	kb_velocity = kb_velocity.move_toward(
+		Vector2.ZERO,
+		kb_decay * delta
+	)
+
 
 func _ready() -> void:
 	if elite:
@@ -49,3 +61,7 @@ func shoot():
 	bulat.global_position = origin
 	self.get_parent().add_child(bulat)
 	bulat.shoot(self, dir)
+
+func knockback(pos, strength):
+	var dir = (global_position - pos).normalized()
+	kb_velocity += dir * strength

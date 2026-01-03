@@ -13,6 +13,7 @@ var plr
 var bounces := 1
 var spd_dec := 2.0
 
+
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
 	queue_free()

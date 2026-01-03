@@ -1,7 +1,7 @@
 extends Node
 var pdlr
 func secondary(plr, mouse):
-	var origin = plr.global_position
+	var origin = plr.get_node('pivot/gun/origin').global_position
 	pdlr = plr
 	var base_dir = (mouse - origin).normalized()
 	var max_bullets = 10

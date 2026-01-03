@@ -10,15 +10,24 @@ var last_mag := -1
 func _ready() -> void:
 	plr = get_parent().get_parent()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_force_rebuild()
+	rebuild()
+	get_tree().create_timer(1).timeout.connect(removetext)
+
+func removetext():
+	var tween =  create_tween()
+	tween.tween_property($Label3, "modulate:a", 0, 5)
+	
+	pass
 
 func _process(_delta):
 	if plr.current_bullets != last_current or plr.magazine != last_mag:
 		update_bullets()
 	hp.max_value = plr.max_health
 	hp.value = plr.health
-
-func _force_rebuild():
+	$Label.text = str(plr.xp) + "/" + str(plr.xp_req)
+	$Label2.text = str(plr.lvl)
+	
+func rebuild():
 	last_current = -1
 	last_mag = -1
 	update_bullets()

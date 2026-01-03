@@ -3,7 +3,7 @@ extends Node
 signal fired
 
 func primary(plr, mouse):
-	var origin = plr.global_position
+	var origin = plr.get_node('pivot/gun/origin').global_position
 	var dir = (mouse-origin).normalized()
 	var missing = 1.0 - float(plr.health) / plr.max_health
 	var multt = lerp(1.0,2.5,missing)

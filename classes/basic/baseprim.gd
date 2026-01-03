@@ -3,7 +3,7 @@ extends Node
 signal fired
 
 func primary(plr, mouse):
-	var origin = plr.global_position
+	var origin = plr.get_node('pivot/gun/origin').global_position
 	var dir = (mouse - origin).normalized()
 	var bulat = plr.bulet.instantiate()
 	var spread_rad := deg_to_rad(plr.spread_deg)

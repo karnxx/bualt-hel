@@ -9,4 +9,5 @@ func apply_upgrade(plr):
 	var scrip = preload("res://classes/abilitupgscripts/BLOOM.gd").new()
 	scrip.plr = plr
 	plr.add_child(scrip)
+	plr.upgdata['bloom'] = {'bloombul':3, 'bloomfan':120}
 	plr.upgrades_applied.append(self)

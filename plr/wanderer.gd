@@ -1,11 +1,16 @@
 extends CharacterBody2D
+
+var kb_velocity: Vector2 = Vector2.ZERO
+var kb_strength := 420.0
+var kb_decay := 1600.0 
+
 var maxhealth = 50
 var health = 50
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
 var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
-var current_bullet_dmg = 10 * GameManager.global_enemy_dmg_scale
+var current_bullet_dmg = 5 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = 00
 var speed = 200
 var pathfind = true
@@ -39,13 +44,20 @@ func get_dmged(dtmg):
 		self.queue_free()
 		
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if pathfind:
 		shoot()
+	
 	if is_on_wall():
 		dir = Vector2.RIGHT.rotated(randf() * 2 * PI)
-	velocity = dir * speed
+	var move_vel = dir * speed
+	velocity = move_vel + kb_velocity
 	move_and_slide()
+	kb_velocity = kb_velocity.move_toward(
+		Vector2.ZERO,
+		kb_decay * delta
+	)
+
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -73,3 +85,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 func _on_timer_timeout() -> void:
 	dir = Vector2.RIGHT.rotated(randf() * 2 * PI)
 	$Timer.wait_time = randf_range(1.0,2.5)
+func knockback(from_pos,strength):
+	var dir_kb = (global_position - from_pos).normalized()
+	kb_velocity += dir_kb * strength
