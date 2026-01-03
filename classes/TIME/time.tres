@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_mv5go")
 nam = "TIME"
-desc = ""
+desc = "ZA WARUDOO"
 primary = ExtResource("1_rri43")
 secondary = ExtResource("3_xddhu")
 upgrades = Array[Script]([])

@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_konsb")
 nam = "RISK"
-desc = ""
+desc = "HIGH RISK HIGH REWARD"
 primary = ExtResource("1_us8sf")
 secondary = ExtResource("4_3qx1r")
 passive = ExtResource("1_2lntt")

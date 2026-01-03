@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_n0ngd")
 nam = "BURST"
-desc = "-"
+desc = "HIGH DMG, CHARGED SECONDARY"
 primary = ExtResource("1_2yvxp")
 secondary = ExtResource("3_6i75w")
 upgrades = Array[Script]([])

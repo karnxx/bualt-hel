@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_qy7pj")
 nam = "SEEK"
-desc = ""
+desc = "HOMING BULLETS"
 primary = ExtResource("2_gmufh")
 secondary = ExtResource("4_cm61h")
 passive = ExtResource("1_4eudc")

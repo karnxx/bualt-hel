@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_7mjlw")
 nam = "SPRAY"
-desc = ""
+desc = "FIRES 3 BULLETS"
 primary = ExtResource("1_koscy")
 secondary = ExtResource("3_tyghh")
 upgrades = Array[Script]([ExtResource("4_8rlu0")])
