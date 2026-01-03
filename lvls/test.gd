@@ -4,12 +4,13 @@ extends Node2D
 @onready var label = $label
 
 @export var enemy_types: Array = [
-	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.2, "round": 1},
-	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2, "round": 2},
-	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.15, "round": 3},
-	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.15, "round": 1},
-	{"scene": preload("res://plr/righters.tscn"), "chance": 0.2, "round": 1},
-	{"scene": preload("res://plr/bombers.tscn"), "chance": 0.1, "round": 3}
+	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.2, "round": 2},
+	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2, "round": 4},
+	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.15, "round": 4},
+	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.15, "round": 3},
+	{"scene": preload("res://plr/righters.tscn"), "chance": 0.1, "round": 1},
+	{"scene": preload("res://plr/bombers.tscn"), "chance": 0.1, "round": 3},
+	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.1, "round": 1}
 ]
 
 @export var base_enemies := 1

@@ -1,21 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkonuwy317hhv"]
+[gd_scene load_steps=5 format=3 uid="uid://bkonuwy317hhv"]
 
+[ext_resource type="Script" uid="uid://c3edmcyrkpcq7" path="res://plr/cicrler.gd" id="1_lpxx6"]
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_qbq5s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qgn15"]
 radius = 64.1249
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f65on"]
-radius = 82.3893
+radius = 47.1699
 
 [node name="cicrler" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 10
 collision_mask = 4
+script = ExtResource("1_lpxx6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.548495, 0.5)
 texture = ExtResource("1_qbq5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.548495, 0.5)
 shape = SubResource("CircleShape2D_qgn15")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -24,4 +28,8 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_f65on")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_flank_timer_timeout"]

@@ -1,5 +1,5 @@
 extends Node
-
+var dontwant = []
 var upg_name := "ACCEL-I"
 var min_lvl := 2
 var weight := 50

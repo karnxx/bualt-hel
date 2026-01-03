@@ -61,7 +61,6 @@ var spread_deg := 4.0
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
-	eq_upg(preload("res://classes/ablitupgrade/THORNS.gd"))
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 

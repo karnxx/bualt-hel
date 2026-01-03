@@ -61,25 +61,34 @@ func get_availed():
 			if not plr.current_class or scrip.class_req != plr.current_class.nam:
 				can_use = false
 
-		for owned in plr.upgrades_applied:
-			if owned.upg_name == scrip.upg_name:
+		for j in plr.upgrades_applied:
+			if j.upg_name == scrip.upg_name:
 				can_use = false
 				break
 
-		for req in scrip.requires:
+		for b in scrip.requires:
 			var has_req = false
-			for owned in plr.upgrades_applied:
-				if owned.upg_name == req:
+			for j in plr.upgrades_applied:
+				if j.upg_name == b:
 					has_req = true
 					break
 			if not has_req:
 				can_use = false
 				break
+		if "dontwant" in scrip:
+			for j in scrip.dontwant:
+				for h in plr.upgrades_applied:
+					if h.upg_name == j:
+						can_use = false
+						break
+				if not can_use:
+					break
 
 		if can_use:
 			available.append(i)
 
 	return available
+
 
 
 func pick_filtered(selection):

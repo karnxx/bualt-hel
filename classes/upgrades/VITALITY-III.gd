@@ -1,5 +1,5 @@
 extends Node
-
+var dontwant = []
 var upg_name := "DEMI"
 var min_lvl := 12
 var weight := 1

@@ -1,5 +1,5 @@
 extends Node
-
+var dontwant = []
 var upg_name := "MAGLOAD"
 var min_lvl := 5
 var weight := 40
