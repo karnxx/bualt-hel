@@ -5,7 +5,7 @@ var mark_target: Node2D = null
 
 func attach(player):
 	plr = player
-
+	plr.homing = true
 func on_bullet_fired(bullet):
 	bullet.homer =true
 	if mark_target and is_instance_valid(mark_target):

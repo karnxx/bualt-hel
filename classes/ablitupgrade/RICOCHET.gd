@@ -8,5 +8,5 @@ var class_req = null
 var dontwant = ['CHUNK']
 func apply_upgrade(plr):
 	plr.upgdata['ricochet'] = {"bounces": 1, "spd_dec": 2}
-	plr.bulet = preload("res://plr/ricochet.tscn")
+	plr.ricochet = true
 	plr.upgrades_applied.append(self)

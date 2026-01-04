@@ -1,6 +1,5 @@
 extends Node
 
-signal fired
 
 
 func primary(plr, mouse):
@@ -14,9 +13,12 @@ func primary(plr, mouse):
 	plr.get_parent().add_child(bulat)
 	bulat.pierce = plr.pierce
 	bulat.shoot(plr, dir, plr)
-	
+	bulat.homer = plr.homing
+	bulat.chunky = plr.chunky
+	bulat.ricochet = plr.ricochet
+	bulat.exploding = plr.exploding
 	if plr.passive and plr.passive.has_method("on_bullet_fired"):
 		plr.passive.on_bullet_fired(bulat)
 
 	plr.current_bullets -= 1
-	emit_signal('fired')
+	

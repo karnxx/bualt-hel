@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
 signal plr_dmged
-
+signal plr_secon
+signal dashd
+signal fired
 
 var recoil_velocity: Vector2 = Vector2.ZERO
 var recoil_strength: float = 650.0
@@ -9,8 +11,12 @@ var recoil_decay: float = 2200.0
 
 var xp = 0
 var lvl = 0
-var xp_req = (200 * pow(1.5, lvl))/2
+var xp_req = (200 * pow(1.5, lvl))/3
 
+var exploding = false
+var homing = false
+var chunky = false
+var ricochet = false
 
 var is_invincible = false
 var pierce = 0
@@ -40,14 +46,15 @@ var passive
 var can_secondary = true
 var blinking = false
 
-const BULET = preload("res://plr/bulet.tscn")
+var BULET = preload("res://plr/bulet.tscn")
 
 var bulet = BULET
 
 var can_dash = true
 var is_dashing = false
-var dash_dis
 var dash_speed = 900
+var dash_cd = 2
+var dashtime = 0.3
 
 var upgdata := {}
 
@@ -61,6 +68,7 @@ var spread_deg := 4.0
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
+	eq_upg(preload("res://classes/burst/UPGS/FUSE.gd"))
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
@@ -122,6 +130,7 @@ func primary():
 
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
+	emit_signal('fired')
 
 func secondary():
 	if current_class.nam == "RISK":
@@ -139,6 +148,7 @@ func secondary():
 		if Input.is_action_just_pressed("secondary") and can_secondary:
 			can_secondary = false
 			secscript.secondary(self, get_global_mouse_position())
+	emit_signal('plr_secon')
 
 
 func on_class_chosen(clas):
@@ -189,7 +199,7 @@ func lvl_upper():
 	
 	xp -= xp_req
 	lvl += 1
-	xp_req =(200 * pow(1.5, lvl))/2
+	xp_req =(200 * pow(1.5, lvl))/3
 	
 	if class_chosen:
 		get_tree().paused = true
@@ -209,13 +219,14 @@ func dash():
 		return
 	is_dashing = true
 	can_dash = false
-	get_tree().create_timer(2.3).timeout.connect(dash_cd)
-	get_tree().create_timer(0.3).timeout.connect(dashdone)
+	emit_signal('dashd')
+	get_tree().create_timer(dash_cd).timeout.connect(dash_c)
+	get_tree().create_timer(dashtime).timeout.connect(dashdone)
 
 func dashdone():
 	is_dashing = false
 
-func dash_cd():
+func dash_c():
 	can_dash = true
 
 func get_dmged(dmg):

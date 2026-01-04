@@ -7,6 +7,6 @@ var requires := ['POWER-I','MAGAZINE']
 var class_req = null
 var dontwant = ['RICOCHET']
 func apply_upgrade(plr):
-	plr.bulet = preload("res://plr/chunkybullet.tscn")
+	plr.chunky = true
 	plr.upgdata['chunky'] = {'chunkmult': 4, "chunks": 2}
 	plr.upgrades_applied.append(self)

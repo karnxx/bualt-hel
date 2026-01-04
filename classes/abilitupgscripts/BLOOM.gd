@@ -30,11 +30,15 @@ func fire_bloom():
 	for i in BLOOM_BULLETS:
 		var angle = base_angle + start + step * i
 		
-		var b = plr.bulet.instantiate()
-		plr.get_parent().add_child(b)
-		b.global_position = plr.get_node('pivot/gun/origin').global_position
-		b.plr = plr
-		b.velocity = Vector2.RIGHT.rotated(angle) * plr.current_bullet_spd
-		b.dmg = plr.current_bullet_dmg
+		var bulat = plr.bulet.instantiate()
+		plr.get_parent().add_child(bulat)
+		bulat.global_position = plr.get_node('pivot/gun/origin').global_position
+		bulat.homer = plr.homing
+		bulat.chunky = plr.chunky
+		bulat.ricochet = plr.ricochet
+		bulat.exploding = plr.exploding
+		bulat.plr = plr
+		bulat.velocity = Vector2.RIGHT.rotated(angle) * plr.current_bullet_spd
+		bulat.dmg = plr.current_bullet_dmg
 		
 	plr.current_bullets -= 3

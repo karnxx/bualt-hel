@@ -1,7 +1,6 @@
 extends Node
 var max_bullets = 3
 
-signal fired
 
 func primary(plr, mouse):
 	var origin = plr.get_node('pivot/gun/origin').global_position
@@ -20,6 +19,10 @@ func primary(plr, mouse):
 		var bulat = plr.bulet.instantiate()
 		bulat.pierce = plr.pierce
 		bulat.global_position = origin
+		bulat.homer = plr.homing
+		bulat.chunky = plr.chunky
+		bulat.ricochet = plr.ricochet
+		bulat.exploding = plr.exploding
 		var dir = base_dir.rotated(offset)
 		var spread_rad := deg_to_rad(plr.spread_deg)
 		dir = dir.rotated(randf_range(-spread_rad, spread_rad))
@@ -27,4 +30,3 @@ func primary(plr, mouse):
 		bulat.shoot(plr, dir, plr)
 
 	plr.current_bullets -= num_bullets
-	emit_signal('fired')
