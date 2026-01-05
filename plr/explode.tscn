@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="2_2xi0d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_21154"]
-radius = 26.0768
+radius = 50.04
 
 [node name="explode" type="Area2D"]
 collision_layer = 0
@@ -16,5 +16,7 @@ script = ExtResource("1_3nt5r")
 shape = SubResource("CircleShape2D_21154")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.515625, 0.453125)
+scale = Vector2(0.640625, 0.578125)
 texture = ExtResource("2_2xi0d")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

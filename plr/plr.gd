@@ -68,7 +68,7 @@ var spread_deg := 4.0
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
-	eq_upg(preload("res://classes/burst/UPGS/FUSE.gd"))
+	
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
@@ -213,6 +213,7 @@ func lvl_milestone():
 		class_picker.show()
 		class_picker.move_to_front()
 		get_tree().paused = true
+		
 
 func dash():
 	if can_dash == false:

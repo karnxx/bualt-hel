@@ -28,14 +28,16 @@ preload("res://classes/upgrades/VITALITY-IIdi.gd"),
 preload("res://classes/upgrades/VITALITY-III.gd"),
 preload("res://classes/TIME/ACCEL-I.gd"),
 preload("res://classes/TIME/DRAG-I.gd"),
-preload("res://classes/SPRAY/NOZZLE.gd"),
+preload("res://classes/SPRAY/upgs/NOZZLE.gd"),
 preload("res://classes/ablitupgrade/THIEF.gd"),
 preload("res://classes/ablitupgrade/CHUNK.gd"),
 preload("res://classes/ablitupgrade/BLOOM.gd"),
 preload("res://classes/ablitupgrade/RICOCHET.gd"),
 preload("res://classes/ablitupgrade/SHIELD.gd"),
 preload("res://classes/ablitupgrade/SHOCKWAVE.gd"),
-preload("res://classes/ablitupgrade/THORNS.gd")
+preload("res://classes/ablitupgrade/THORNS.gd"),
+preload("res://classes/SPRAY/upgs/FAN.gd"), 
+preload("res://classes/SPRAY/upgs/SHOWER.gd"),preload("res://classes/burst/UPGS/FOCUS.gd"), preload("res://classes/burst/UPGS/FUSE.gd"), preload("res://classes/burst/UPGS/OVERLOAD.gd"), preload("res://classes/burst/UPGS/RAGE.gd")
 ]
 var is_upging = false
 

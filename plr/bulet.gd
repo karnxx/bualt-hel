@@ -31,6 +31,7 @@ var spd_dec := 2.0
 
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
+	GameManager.emit_signal("bullettimeout", self)
 	queue_free()
 
 func shoot(pglr, dir, plar):
@@ -74,6 +75,7 @@ func split():
 		get_tree().current_scene.add_child(new_bullet)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	plr = get_parent().get_node('plr')
 	crit = plr.crit
 	critdmg = plr.critmult
 
@@ -93,7 +95,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				var explsion = preload("res://plr/explode.tscn").instantiate()
 				explsion.global_position = global_position
 				get_parent().add_child(explsion)
-			queue_free()
+			call_deferred("queue_free")
+
 
 func _physics_process(delta):
 	if homer and target and is_instance_valid(target):
