@@ -117,20 +117,19 @@ func _physics_process(delta):
 		recoil_decay * delta
 	)
 
-
 func primary():
 	if Input.is_action_just_pressed("primary"):
 		if !can_shoot:
 			return
 		if current_bullets > 0:
 			can_shoot = false
-			primscript.primary(self, get_global_mouse_position())	
+			primscript.primary(self, get_global_mouse_position())
 			var recoil_dir = ($pivot/gun/origin.global_position - get_global_mouse_position()).normalized()
 			recoil_velocity += recoil_dir * recoil_strength
-
+			emit_signal('fired')
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
-		emit_signal('fired')
+		
 
 func secondary():
 	if current_class.nam == "RISK":

@@ -17,6 +17,8 @@ var exploding = false
 # --- Homing ---
 var target: Node2D = null
 var turn_rate := deg_to_rad(70)
+var homing_delay := 0
+var homing_timer := 0
 
 # --- Chunky ---
 const BULLET = preload("res://plr/bulet.tscn")
@@ -100,17 +102,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _physics_process(delta):
-	if homer and target and is_instance_valid(target):
-		turn_rate = plr.upgdata['seek']['seekpower']
-		
-		var desired_dir = (target.global_position - global_position).normalized()
-		var current_dir = velocity.normalized()
-		var angle_diff = current_dir.angle_to(desired_dir)
-		var max_turn = turn_rate * delta
-		var turn = clamp(angle_diff, -max_turn, max_turn)
-		current_dir = current_dir.rotated(turn)
-		velocity = current_dir * spd
-		rotation = current_dir.angle()
+	homing_timer += delta
+	if homer and homing_timer >= homing_delay and target and is_instance_valid(target):
+		var seek_power = clamp(plr.upgdata['seek']['seekpower'], 0.01, 0.08) # small number
+		var desired_dir := (target.global_position - global_position).normalized()
+		velocity = velocity.normalized().lerp(desired_dir, seek_power).normalized() * velocity.length()
+		rotation = velocity.angle()
+
 
 	if ricochet:
 		var collision = move_and_collide(velocity * delta)
