@@ -16,7 +16,7 @@ var exploding = false
 
 # --- Homing ---
 var target: Node2D = null
-var turn_rate := deg_to_rad(90)
+var turn_rate := deg_to_rad(70)
 
 # --- Chunky ---
 const BULLET = preload("res://plr/bulet.tscn")
@@ -30,6 +30,7 @@ var bounces := 0
 var spd_dec := 2.0
 
 func _ready() -> void:
+	plr = get_parent().get_node('plr')
 	await get_tree().create_timer(5).timeout
 	GameManager.emit_signal("bullettimeout", self)
 	queue_free()
@@ -100,6 +101,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func _physics_process(delta):
 	if homer and target and is_instance_valid(target):
+		turn_rate = plr.upgdata['seek']['seekpower']
+		
 		var desired_dir = (target.global_position - global_position).normalized()
 		var current_dir = velocity.normalized()
 		var angle_diff = current_dir.angle_to(desired_dir)

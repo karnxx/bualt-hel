@@ -130,7 +130,7 @@ func primary():
 
 			await get_tree().create_timer(current_fire_rate).timeout
 			can_shoot = true
-	emit_signal('fired')
+		emit_signal('fired')
 
 func secondary():
 	if current_class.nam == "RISK":
@@ -138,17 +138,21 @@ func secondary():
 			if current_bullets > 0:
 				can_secondary = false
 				secscript.secondary(self)
+				emit_signal('plr_secon')
 	elif current_class.nam == 'BURST':
 		if Input.is_action_just_pressed("secondary") and can_secondary and current_bullets> 0:
 			can_secondary = false
 			secscript.secondary_pressed(self)
+			emit_signal('plr_secon')
 		if Input.is_action_just_released("secondary"):
 			secscript.secondary_released()
+			
 	elif current_class.nam == 'TIME' or current_class.nam == 'SEEK':
 		if Input.is_action_just_pressed("secondary") and can_secondary:
 			can_secondary = false
 			secscript.secondary(self, get_global_mouse_position())
-	emit_signal('plr_secon')
+			emit_signal('plr_secon')
+	
 
 
 func on_class_chosen(clas):
@@ -157,6 +161,7 @@ func on_class_chosen(clas):
 	$CanvasLayer/hud.move_to_front()
 	class_chosen = true
 	get_tree().paused = false
+	eq_upg(preload("res://classes/seek/Upgs/SEEKINGS.gd"))
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
