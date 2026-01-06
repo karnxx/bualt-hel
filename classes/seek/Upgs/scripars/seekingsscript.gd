@@ -3,7 +3,7 @@ extends Node
 var plr
 @onready var bullet_scene := preload("res://plr/bulet.tscn")
 
-var current_bullet_spd := 200
+var current_bullet_spd := 150
 var current_bullet_dmg := 2
 
 func _ready() -> void:
