@@ -13,7 +13,7 @@ const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 6 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd + 200
-var speed = 100
+var spd = 100
 var pathfind = true
 var can_shot = true
 var elite = false
@@ -56,7 +56,7 @@ func _ready() -> void:
 		$Sprite2D.scale *= 2
 		$Sprite2D.modulate = Color.WEB_PURPLE
 		$CollisionShape2D.scale *= 2
-		speed = 200
+		spd = 200
 		bulatcircleamt = 70
 		cd = 1.5
 		health /= 2
@@ -70,7 +70,7 @@ func shoot():
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
 	var dir = (target-start).normalized()
-	move_velocity = dir * speed * GameManager.time_scale
+	move_velocity = dir * spd * GameManager.time_scale
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

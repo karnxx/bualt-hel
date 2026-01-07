@@ -13,7 +13,7 @@ var plr
 var current_bullet_dmg = 5 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 
-var speed = 600
+var spd = 600
 var pathfind = true
 var elite = false
 var cd = 1.0
@@ -27,7 +27,7 @@ func _ready() -> void:
 		$Sprite2D.scale *= 2
 		$Sprite2D.modulate = Color.WEB_PURPLE
 		$CollisionShape2D.scale *= 2
-		speed = 800
+		spd = 800
 		cd = 0.6
 		health /= 2
 
@@ -43,7 +43,7 @@ func move_to_player():
 		return
 	var target = plr.global_position
 	var dir = (target - global_position).normalized()
-	velocity = dir * speed * GameManager.time_scale
+	velocity = dir * spd * GameManager.time_scale
 	if canshot:
 		shoot()
 

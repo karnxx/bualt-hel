@@ -21,7 +21,7 @@ var plr: Node2D
 
 var flank_offset: Vector2 = Vector2.ZERO
 var flank_distance := 140.0
-var move_speed := 160.0
+var spd := 160.0
 var flank_side := 1
 
 func _ready() -> void:
@@ -34,7 +34,7 @@ func _ready() -> void:
 		$CollisionShape2D.scale *= 2
 		health *= 2
 		flank_distance *= 1.2
-		move_speed *= 1.1
+		spd *= 1.1
 
 	update_flank()
 	$Timer.start()
@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 	var target_pos = plr.global_position + flank_offset
 	var dir = (target_pos - global_position).normalized()
 
-	velocity = dir * move_speed + kb_velocity
+	velocity = (dir * spd + kb_velocity) * GameManager.time_scale
 	move_and_slide()
 
 	kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)

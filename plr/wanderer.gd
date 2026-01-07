@@ -12,7 +12,7 @@ const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 5 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = 00
-var speed = 200
+var spd = 200
 var pathfind = true
 var dir:= Vector2.RIGHT.rotated(randf() * 2 * PI)
 var candarop = true
@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_wall():
 		dir = Vector2.RIGHT.rotated(randf() * 2 * PI)
-	var move_vel = dir * speed
+	var move_vel = dir * spd
 	velocity = move_vel + kb_velocity
 	move_and_slide()
 	kb_velocity = kb_velocity.move_toward(

@@ -1,11 +1,12 @@
 extends Node
 var dontwant = []
-var upg_name := "ACCEL-I"
+var upg_name := "AFTERIMAGE"
 var min_lvl := 2
 var weight := 50
-var requires := ['VELOCITY-I']
+var requires := []
 var class_req := 'TIME'
 
 func apply_upgrade(plr):
-	plr.current_bullet_spd += 200
+	var script = preload("res://classes/TIME/upgs/scrips/PAUSE.gd").new()
+	plr.add_child(script)
 	plr.upgrades_applied.append(self)

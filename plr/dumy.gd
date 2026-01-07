@@ -12,7 +12,7 @@ const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 5  * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
-
+var spd = 6
 var elite = false
 
 signal died(who)

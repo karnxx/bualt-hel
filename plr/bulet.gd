@@ -38,7 +38,7 @@ func _ready() -> void:
 	queue_free()
 
 func shoot(pglr, dir, plar):
-	# Base stats
+	GameManager.emit_signal("bulletstarted", self)
 	dmg = pglr.current_bullet_dmg
 	spd = pglr.current_bullet_spd
 	plr = plar
@@ -95,11 +95,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			pierce -= 1
 		else:
 			if exploding:
-				var explsion = preload("res://plr/explode.tscn").instantiate()
-				explsion.global_position = global_position
-				get_parent().add_child(explsion)
+				call_deferred('add_explo')
 			call_deferred("queue_free")
 
+func add_explo():
+	var explsion = preload("res://plr/explode.tscn").instantiate()
+	explsion.global_position = global_position
+	get_parent().add_child(explsion)
 
 func _physics_process(delta):
 	homing_timer += delta
@@ -108,8 +110,6 @@ func _physics_process(delta):
 		var desired_dir := (target.global_position - global_position).normalized()
 		velocity = velocity.normalized().lerp(desired_dir, seek_power).normalized() * velocity.length()
 		rotation = velocity.angle()
-
-
 	if ricochet:
 		var collision = move_and_collide(velocity * delta)
 		if collision:

@@ -19,7 +19,7 @@ var dir1 = dirs.pick_random()
 var dir2 = dirs.pick_random()
 var dir3 = dirs.pick_random()
 var can_shot = true
-
+var spd = 6
 var elite = false
 
 signal died(who)
