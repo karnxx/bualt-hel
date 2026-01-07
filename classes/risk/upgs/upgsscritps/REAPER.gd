@@ -12,4 +12,4 @@ func _process(_delta: float) -> void:
 		i.connect('died', ondeth)
 
 func ondeth(enemy):
-	plr.health += (enemy.maxhealth * plr.upgdata['thief']['stolen'])
+	plr.current_bullets += 1

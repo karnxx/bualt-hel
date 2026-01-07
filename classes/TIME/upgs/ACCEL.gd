@@ -1,9 +1,9 @@
 extends Node
-var dontwant = []
+var dontwant = ['AFTERIMAGE', 'PAUSE', 'SLOWEM']
 var upg_name := "ACCEL"
-var min_lvl := 2
+var min_lvl := 1
 var weight := 50
-var requires := []
+var requires := ['POWER-I']
 var class_req := 'TIME'
 
 func apply_upgrade(plr):

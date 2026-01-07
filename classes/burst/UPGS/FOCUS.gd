@@ -1,7 +1,7 @@
 extends Node
-var dontwant = []
-var upg_name := "FUSE"
-var min_lvl := 4
+var dontwant = ['FUSE','OVERLOAD','RAGE']
+var upg_name := "FOCUS"
+var min_lvl := 5
 var weight := 30
 var requires := ['VITALITY-I', 'SPEED-I']
 var class_req = 'BURST'

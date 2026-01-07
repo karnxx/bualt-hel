@@ -19,4 +19,13 @@ shape = SubResource("CircleShape2D_21154")
 scale = Vector2(0.640625, 0.578125)
 texture = ExtResource("2_2xi0d")
 
+[node name="Label" type="Label" parent="."]
+offset_left = -62.0
+offset_top = -79.0
+offset_right = 63.0
+offset_bottom = -30.0
+text = "boom
+(explosion here)"
+horizontal_alignment = 1
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

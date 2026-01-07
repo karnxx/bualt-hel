@@ -37,6 +37,12 @@ preload("res://classes/ablitupgrade/SHOCKWAVE.gd"),
 preload("res://classes/ablitupgrade/THORNS.gd"),
 preload("res://classes/SPRAY/upgs/FAN.gd"), 
 preload("res://classes/SPRAY/upgs/SHOWER.gd"),preload("res://classes/burst/UPGS/FOCUS.gd"), preload("res://classes/burst/UPGS/FUSE.gd"), preload("res://classes/burst/UPGS/OVERLOAD.gd"), preload("res://classes/burst/UPGS/RAGE.gd")
+,preload("res://classes/TIME/upgs/ACCEL.gd"), preload("res://classes/TIME/upgs/AFTERIMAGE.gd"), preload("res://classes/TIME/upgs/PAUSE.gd"), preload("res://classes/TIME/upgs/SLOWEM.gd")
+,preload("res://classes/SPRAY/upgs/FAN.gd"), preload("res://classes/SPRAY/upgs/NOZZLE.gd"), preload("res://classes/SPRAY/upgs/OOZE.gd"), preload("res://classes/SPRAY/upgs/SHOWER.gd")
+,preload("res://classes/seek/Upgs/BOOST.gd"), preload("res://classes/seek/Upgs/PIERSEEK.gd"), preload("res://classes/seek/Upgs/SEEKER.gd"), preload("res://classes/seek/Upgs/SEEKINGS.gd")
+,preload("res://classes/risk/upgs/GLASS.gd"), preload("res://classes/risk/upgs/LOSER.gd"), preload("res://classes/risk/upgs/OVERHEAT.gd"), preload("res://classes/risk/upgs/REAPER.gd")
+,preload("res://classes/burst/UPGS/FOCUS.gd"), preload("res://classes/burst/UPGS/FUSE.gd"), preload("res://classes/burst/UPGS/OVERLOAD.gd"), preload("res://classes/burst/UPGS/RAGE.gd")
+
 ]
 var is_upging = false
 

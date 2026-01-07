@@ -1,9 +1,9 @@
 extends Node
-var dontwant = []
+var dontwant = ['PIERSEEK','BOOST','SEEKINGS']
 var upg_name := "SEEKER"
-var min_lvl := 2
-var weight := 30
-var requires := []
+var min_lvl := 3
+var weight := 20
+var requires := ['POWER-I', 'VELOCITY-I']
 var class_req = 'SEEK'
 func apply_upgrade(plr):
 	plr.upgdata['seek']['seekpower'] += 20

@@ -1,5 +1,5 @@
 extends Node
-var dontwant = []
+var dontwant = ['OVERLOAD','FOCUS','RAGE']
 var upg_name := "FUSE"
 var min_lvl := 4
 var weight := 30

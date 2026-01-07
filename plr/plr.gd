@@ -11,7 +11,7 @@ var recoil_decay: float = 2200.0
 
 var xp = 0
 var lvl = 0
-var xp_req = (200 * pow(1.5, lvl))/3
+var xp_req = 150 * pow(1.15, lvl)
 
 var exploding = false
 var homing = false
@@ -68,7 +68,6 @@ var spread_deg := 4.0
 func _ready() -> void:
 	UpgMgr.establish_plr(self)
 	eq_class(preload("res://classes/basic/basic.tres"))
-	eq_upg(preload("res://classes/TIME/upgs/PAUSE.gd"))
 	upg_picker.chosen.connect(on_upg_chosen)
 	class_picker.class_chosen.connect(on_class_chosen)
 
@@ -203,7 +202,7 @@ func lvl_upper():
 	
 	xp -= xp_req
 	lvl += 1
-	xp_req =(200 * pow(1.5, lvl))/3
+	xp_req = 150 * pow(1.15, lvl)
 	
 	if class_chosen:
 		get_tree().paused = true

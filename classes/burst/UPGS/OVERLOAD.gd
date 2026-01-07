@@ -1,9 +1,9 @@
 extends Node
-var dontwant = []
+var dontwant = ['FUSE','FOCUS','RAGE']
 var upg_name := "OVERLOAD"
-var min_lvl := 4
-var weight := 30
-var requires := ['POWER-II','MAGLOAD']
+var min_lvl := 3
+var weight := 70
+var requires := ['POWER-I','MAGAZINE']
 var class_req = 'BURST'
 func apply_upgrade(plr):
 	var scrip = preload("res://classes/burst/UPGS/upgscrips/OVERLOADSCRIP.gd").new()
