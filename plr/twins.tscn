@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://7y4t67pqosvg"]
+
+[ext_resource type="PackedScene" uid="uid://bt44k3oonmc4q" path="res://plr/idkname.tscn" id="1_olcvb"]
+[ext_resource type="Script" uid="uid://duvwqigfpd4p8" path="res://plr/twins.gd" id="1_s6f76"]
+
+[node name="twins" type="Node2D"]
+script = ExtResource("1_s6f76")
+
+[node name="idkname" parent="." instance=ExtResource("1_olcvb")]
+position = Vector2(43, 1)
+
+[node name="idkname2" parent="." instance=ExtResource("1_olcvb")]
+position = Vector2(-26, 2)

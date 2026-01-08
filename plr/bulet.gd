@@ -104,6 +104,11 @@ func add_explo():
 	get_parent().add_child(explsion)
 
 func _physics_process(delta):
+	var camera = get_viewport().get_camera_2d()
+	if camera:
+		var cam_rect = Rect2(camera.global_position - camera.zoom * camera.get_viewport_rect().size / 2,
+							 camera.zoom * camera.get_viewport_rect().size)
+		$Sprite2D.visible = cam_rect.has_point(global_position)
 	homing_timer += delta
 	if homer and homing_timer >= homing_delay and target and is_instance_valid(target):
 		var seek_power = clamp(plr.upgdata['seek']['seekpower'], 0.01, 0.08) # small number

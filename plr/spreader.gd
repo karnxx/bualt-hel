@@ -8,7 +8,7 @@ var kb_decay := 1600.0
 var maxhealth = 30
 var health = 30
 var xp_given = randi_range(2*health,4*health) * GameManager.global_loot_mult
-var dmg = randi_range(1,10) * GameManager.global_enemy_dmg_scale
+var dmg = randi_range(1,5) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = 6 * GameManager.global_enemy_dmg_scale

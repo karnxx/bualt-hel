@@ -63,6 +63,9 @@ var critmult := 1.1
 
 var spread_deg := 4.0
 
+var check1 = false
+var check2 = false
+
 @onready var class_picker: Control = $CanvasLayer/class_picker
 @onready var upg_picker: Control = $CanvasLayer/upg_picker
 func _ready() -> void:
@@ -216,7 +219,18 @@ func lvl_milestone():
 		class_picker.show()
 		class_picker.move_to_front()
 		get_tree().paused = true
-		
+	elif lvl >= 3 and not check1:
+		if check1 == true:
+			return
+		GameManager.global_enemy_bullet_spd *= 1.03
+		GameManager.global_enemy_dmg_scale *= 1.05
+		check1 = true
+	elif lvl >= 6 and not check2:
+		if check2 == true:
+			return
+		GameManager.global_enemy_bullet_spd *= 1.05
+		GameManager.global_enemy_dmg_scale *= 1.07
+		check2 = true
 
 func dash():
 	if can_dash == false:

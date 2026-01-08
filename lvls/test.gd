@@ -4,13 +4,14 @@ extends Node2D
 @onready var label = $label
 
 @export var enemy_types: Array = [
-	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.2, "round": 2},
+	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.1, "round": 2},
 	{"scene": preload("res://plr/dumy.tscn"), "chance": 0.2, "round": 4},
 	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.15, "round": 4},
 	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.15, "round": 3},
 	{"scene": preload("res://plr/righters.tscn"), "chance": 0.1, "round": 1},
 	{"scene": preload("res://plr/bombers.tscn"), "chance": 0.1, "round": 3},
-	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.1, "round": 1}
+	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.1, "round": 2},
+{"scene": preload("res://plr/twins.tscn"), "chance": 0.1, "round": 1},
 ]
 
 @export var base_enemies := 1
@@ -22,7 +23,12 @@ func _ready():
 	await get_tree().create_timer(3).timeout
 	for r in range(rounds):
 		await run_round(r + 1)
-	label.text = "demo finished! nice try!"
+	label.text = "demo finished! nice try! heres one last (mini)boss!"
+	var mini = preload("res://plr/minboss_1.tscn").instantiate()
+	mini.global_position = spawns.get_child(
+			randi() % spawns.get_child_count()
+		).global_position
+	add_child(mini)
 
 func run_round(round_num):
 	var total_enemies = (base_enemies + round_num * 3)

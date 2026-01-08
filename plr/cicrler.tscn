@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_qbq5s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qgn15"]
-radius = 64.1249
+radius = 71.1318
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f65on"]
-radius = 47.1699
+radius = 31.0644
 
 [node name="cicrler" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 10
