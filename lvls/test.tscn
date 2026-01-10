@@ -1,18 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://byywa3auh1uko"]
+[gd_scene load_steps=4 format=3 uid="uid://byywa3auh1uko"]
 
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_6q3o0"]
 [ext_resource type="Script" uid="uid://bt0ib6ikrahob" path="res://lvls/test.gd" id="1_ff7wo"]
 [ext_resource type="PackedScene" uid="uid://bg5441jqbc8r1" path="res://plr/plr.tscn" id="2_6q3o0"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ff7wo"]
-size = Vector2(1584, 20)
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_ff7wo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.2)
-scale = Vector2(24.0469, 12.1563)
+scale = Vector2(57.8281, 30.7969)
 texture = ExtResource("1_6q3o0")
 
 [node name="plr" parent="." instance=ExtResource("2_6q3o0")]
@@ -45,43 +42,6 @@ position = Vector2(-1018, 631)
 
 [node name="Marker2D9" type="Marker2D" parent="spawns"]
 position = Vector2(1389, -316)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1, 817)
-scale = Vector2(2.07526, 0.819935)
-shape = SubResource("RectangleShape2D_ff7wo")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-position = Vector2(6, -1623)
-collision_layer = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(1, 817)
-scale = Vector2(2.07526, 0.819935)
-shape = SubResource("RectangleShape2D_ff7wo")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-position = Vector2(775, -383)
-rotation = -1.57077
-collision_layer = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
-position = Vector2(1, 817)
-scale = Vector2(2.07526, 0.819935)
-shape = SubResource("RectangleShape2D_ff7wo")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
-position = Vector2(-2429, -292)
-rotation = -1.57077
-collision_layer = 13
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(1, 817)
-scale = Vector2(2.07526, 0.819935)
-shape = SubResource("RectangleShape2D_ff7wo")
 
 [node name="label" type="Label" parent="."]
 offset_left = -515.0

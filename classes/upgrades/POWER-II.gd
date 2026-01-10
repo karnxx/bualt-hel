@@ -5,6 +5,7 @@ var min_lvl := 2
 var weight := 70
 var requires := ['POWER-I']
 var class_req = null
+var desc = "POWER: +15%"
 func apply_upgrade(plr):
 	plr.current_bullet_dmg = round(1.15 * plr.current_bullet_dmg)
 	plr.upgrades_applied.append(self)

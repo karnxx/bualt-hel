@@ -3,7 +3,7 @@ var dontwant = []
 var upg_name := "MAGAZINE"
 var min_lvl := 1
 var weight := 80
-
+var desc = "MAGAZINE AMOUNT: +2"
 var requires := ['VITALITY-I']
 var class_req = null
 func apply_upgrade(plr):

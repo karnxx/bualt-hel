@@ -1,6 +1,6 @@
 extends Node
 var plr
-var count
+var count = 0
 var dmg
 var rate
 func _ready() -> void:

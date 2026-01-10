@@ -5,7 +5,7 @@ var min_lvl := 5
 var weight := 20
 var requires := ['THIEF','POWER-I']
 var class_req := 'RISK'
-
+var desc = "HP AND BULLETS GAINED ON ENEMY KILL"
 func apply_upgrade(plr):
 	var Thief = preload("res://classes/ablitupgrade/THIEF.gd").new()
 	Thief.apply_upgrade(plr)

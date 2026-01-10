@@ -5,6 +5,7 @@ var min_lvl := 4
 var weight := 20
 var requires := ['POWER-I', 'SPEEDSTER-I']
 var class_req = 'SEEK'
+var desc = "WHEN SHOOT, 2 HOME BULLETS SPAWNED"
 func apply_upgrade(plr):
 	var Seekingsscript = preload("res://classes/seek/Upgs/scripars/seekingsscript.gd").new()
 	plr.add_child(Seekingsscript)

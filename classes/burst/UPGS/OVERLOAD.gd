@@ -5,6 +5,7 @@ var min_lvl := 3
 var weight := 70
 var requires := ['POWER-I','MAGAZINE']
 var class_req = 'BURST'
+var desc = "EACH BULLET HIT INCREASES DMG"
 func apply_upgrade(plr):
 	var scrip = preload("res://classes/burst/UPGS/upgscrips/OVERLOADSCRIP.gd").new()
 	scrip.plr = plr

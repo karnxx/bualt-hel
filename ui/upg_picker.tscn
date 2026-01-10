@@ -22,12 +22,39 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_06y86")
 
+[node name="Label" type="Label" parent="VBoxContainer/Button"]
+layout_mode = 0
+offset_top = 142.0
+offset_right = 133.0
+offset_bottom = 212.0
+theme_override_font_sizes/font_size = 16
+text = "asdasd"
+autowrap_mode = 3
+
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_06y86")
 
+[node name="Label" type="Label" parent="VBoxContainer/Button2"]
+layout_mode = 0
+offset_top = 136.0
+offset_right = 134.0
+offset_bottom = 213.0
+theme_override_font_sizes/font_size = 16
+text = "asdasd"
+autowrap_mode = 3
+
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_06y86")
+
+[node name="Label" type="Label" parent="VBoxContainer/Button3"]
+layout_mode = 0
+offset_top = 142.0
+offset_right = 133.0
+offset_bottom = 211.0
+theme_override_font_sizes/font_size = 16
+text = "asdasd"
+autowrap_mode = 3

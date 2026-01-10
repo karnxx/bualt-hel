@@ -4,14 +4,14 @@ var kb_velocity: Vector2 = Vector2.ZERO
 var kb_strength := 420.0
 var kb_decay := 1600.0 
 
-var maxhealth = 60
-var health = 60
-var xp_given = randi_range(2 * health, 4 * health) * GameManager.global_loot_mult
-var dmg = randi_range(1, 5) * GameManager.global_enemy_dmg_scale
+var maxhealth = 30
+var health = 30
+var xp_given = randi_range(2 * health, 4 * health)/3 * GameManager.global_loot_mult
+var dmg = randi_range(1,2) * GameManager.global_enemy_dmg_scale
 
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 
-var current_bullet_dmg = 5 * GameManager.global_enemy_dmg_scale
+var current_bullet_dmg =dmg * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 var canshot = true
 var elite = false
@@ -96,6 +96,7 @@ func get_dmged(dtmg):
 	$Sprite2D.modulate = Color.WHITE
 
 	if health <= 0:
+		xp_given = randi_range(2 * maxhealth, 4 * maxhealth)/3 * GameManager.global_loot_mult
 		get_parent().get_parent().enemy_died()
 		get_parent().get_parent().get_node("plr").add_xp(xp_given)
 		emit_signal("died", self)

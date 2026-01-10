@@ -5,6 +5,6 @@ var min_lvl := 0
 var weight := 70
 var requires := []
 var class_req = null
-
+var desc = "20 HP"
 func apply_upgrade(plr):
 	plr.health += 20

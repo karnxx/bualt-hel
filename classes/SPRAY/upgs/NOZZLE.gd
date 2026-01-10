@@ -5,6 +5,7 @@ var min_lvl := 2
 var weight := 30
 var requires := ['POWER-I']
 var class_req = 'SPRAY'
+var desc = "+1 BULLETS SPAWNED"
 func apply_upgrade(plr):
 	plr.upgdata['spray']['cone'] += 1 
 	plr.upgrades_applied.append(self)

@@ -5,6 +5,7 @@ var min_lvl := 2
 var weight := 70
 var requires := ['VELOCITY-I']
 var class_req = null
+var desc = "SPEED: +20%"
 func apply_upgrade(plr):
 	plr.current_bullet_spd *= 1.2
 	plr.upgrades_applied.append(self)

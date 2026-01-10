@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-# --- Bullet Settings ---
 var dmg
 var pierce = 0
 var spd
@@ -8,52 +7,50 @@ var crit
 var critdmg
 var plr
 
-# --- Behavior Flags ---
 var homer := false
 var chunky := false
 var ricochet := false
 var exploding = false
 
-# --- Homing ---
 var target: Node2D = null
 var turn_rate := deg_to_rad(70)
-var homing_delay := 0
-var homing_timer := 0
+var homing_delay := 0.0
+var homing_timer := 0.0
 
-# --- Chunky ---
 const BULLET = preload("res://plr/bulet.tscn")
 var split_count := 2
 var split_angle := 30
 var can_split := true
 var dmg_mult := 4
 
-# --- Ricochet ---
 var bounces := 0
 var spd_dec := 2.0
 
-func _ready() -> void:
-	plr = get_parent().get_node('plr')
-	await get_tree().create_timer(5).timeout
-	GameManager.emit_signal("bullettimeout", self)
-	queue_free()
+var lifetime := 0.0
+const MAX_LIFE := 4.0
+
+func _ready():
+	set_physics_process(true)
 
 func shoot(pglr, dir, plar):
-	GameManager.emit_signal("bulletstarted", self)
 	dmg = pglr.current_bullet_dmg
 	spd = pglr.current_bullet_spd
 	plr = plar
 	velocity = dir.normalized() * spd
-	rotation = dir.angle()
+	rotation = velocity.angle()
 	crit = plr.crit
 	critdmg = plr.critmult
+	homing_timer = 0
+	lifetime = 0
+	can_split = true
 
 	if chunky:
-		dmg_mult = plar.upgdata['chunky']['chunkmult']
-		split_count = plar.upgdata['chunky']['chunks']
+		dmg_mult = plar.upgdata["chunky"]["chunkmult"]
+		split_count = plar.upgdata["chunky"]["chunks"]
 
 	if ricochet:
-		bounces = plar.upgdata['ricochet']['bounces']
-		spd_dec = plar.upgdata['ricochet']['spd_dec']
+		bounces = plar.upgdata["ricochet"]["bounces"]
+		spd_dec = plar.upgdata["ricochet"]["spd_dec"]
 
 func split():
 	if not can_split:
@@ -61,81 +58,67 @@ func split():
 	can_split = false
 
 	var base_dir = velocity.normalized()
-	var angle_step = deg_to_rad(split_angle)
+	var step = deg_to_rad(split_angle)
 
 	for i in range(split_count):
-		var new_bullet = BULLET.instantiate()
-		new_bullet.global_position = global_position
-
+		var b = BULLET.instantiate()
 		var offset = i - (split_count - 1) / 2.0
-		var new_dir = base_dir.rotated(angle_step * offset)
-		new_bullet.dmg = round(dmg / dmg_mult)
-		new_bullet.velocity = new_dir * velocity.length()
-		new_bullet.rotation = new_dir.angle()
-		new_bullet.pierce = 0
-		new_bullet.scale = scale * 0.5
-
-		get_tree().current_scene.add_child(new_bullet)
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	plr = get_parent().get_node('plr')
-	crit = plr.crit
-	critdmg = plr.critmult
-
-	if body.has_method('get_dmged') and body.is_in_group('enemy'):
-		var damage_to_deal = dmg
-		if randf() <= crit:
-			damage_to_deal *= critdmg
-		body.get_dmged(damage_to_deal)
-
-		if chunky:
-			call_deferred("split")
-
-		if pierce > 0:
-			pierce -= 1
-		else:
-			if exploding:
-				call_deferred('add_explo')
-			call_deferred("queue_free")
+		var dir = base_dir.rotated(step * offset)
+		b.global_position = global_position
+		b.velocity = dir * velocity.length()
+		b.rotation = dir.angle()
+		b.dmg = int(dmg / dmg_mult)
+		b.pierce = 0
+		b.scale = scale * 0.6
+		get_tree().current_scene.add_child(b)
 
 func add_explo():
-	var explsion = preload("res://plr/explode.tscn").instantiate()
-	explsion.global_position = global_position
-	get_parent().add_child(explsion)
+	var e = preload("res://plr/explode.tscn").instantiate()
+	e.global_position = global_position
+	get_parent().add_child(e)
+
+func _on_area_2d_body_entered(body):
+	if not body.is_in_group("enemy"):
+		return
+	plr = get_parent().get_node('plr')
+	var dealt = dmg
+	crit = plr.crit
+	critdmg = plr.critmult
+	if randf() <= crit:
+		dealt *= critdmg
+	body.get_dmged(dealt)
+
+	if chunky:
+		split()
+
+	if pierce > 0:
+		pierce -= 1
+		return
+
+	if exploding:
+		add_explo()
+
+	queue_free()
 
 func _physics_process(delta):
-	var camera = get_viewport().get_camera_2d()
-	if camera:
-		var cam_rect = Rect2(camera.global_position - camera.zoom * camera.get_viewport_rect().size / 2,
-							 camera.zoom * camera.get_viewport_rect().size)
-		$Sprite2D.visible = cam_rect.has_point(global_position)
+	lifetime += delta
+	if lifetime >= MAX_LIFE:
+		queue_free()
+		return
+
 	homing_timer += delta
 	if homer and homing_timer >= homing_delay and target and is_instance_valid(target):
-		var seek_power = clamp(plr.upgdata['seek']['seekpower'], 0.01, 0.08) # small number
-		var desired_dir := (target.global_position - global_position).normalized()
-		velocity = velocity.normalized().lerp(desired_dir, seek_power).normalized() * velocity.length()
+		var seek_power = clamp(plr.upgdata["seek"]["seekpower"], 0.01, 0.06)
+		var desired = (target.global_position - global_position).normalized()
+		velocity = velocity.normalized().lerp(desired, seek_power) * spd
 		rotation = velocity.angle()
+
 	if ricochet:
-		var collision = move_and_collide(velocity * delta)
-		if collision:
-			var body = collision.get_collider()
-			# Damage enemies
-			if body.has_method("get_dmged") and body.is_in_group("enemy"):
-				var dmg_to_do = dmg
-				if randf() <= crit:
-					dmg_to_do *= critdmg
-				body.get_dmged(dmg_to_do)
-
-				if pierce > 0:
-					pierce -= 1
-				else:
-					queue_free()
-					return
-
+		var col = move_and_collide(velocity * delta)
+		if col:
+			var n = col.get_normal()
 			if bounces > 0:
-				var normal = collision.get_normal()
-				velocity = velocity - 2 * velocity.dot(normal) * normal
-				velocity /= spd_dec
+				velocity = velocity.bounce(n) / spd_dec
 				bounces -= 1
 			else:
 				queue_free()
