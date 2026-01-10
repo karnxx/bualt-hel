@@ -56,4 +56,8 @@ texture = ExtResource("6_0tl88")
 [node name="origin" type="Marker2D" parent="pivot/gun"]
 position = Vector2(41, 0)
 
+[node name="reload" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

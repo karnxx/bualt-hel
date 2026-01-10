@@ -5,6 +5,8 @@ signal plr_secon
 signal dashd
 signal fired
 
+var is_rel = false
+var can_rel = true
 var recoil_velocity: Vector2 = Vector2.ZERO
 var recoil_strength: float = 650.0
 var recoil_decay: float = 2200.0
@@ -12,6 +14,7 @@ var recoil_decay: float = 2200.0
 var xp = 0
 var lvl = 0
 var xp_req = 150 * pow(1.15, lvl)
+
 
 var exploding = false
 var homing = false
@@ -250,7 +253,6 @@ func dash_c():
 func get_dmged(dmg):
 	if not is_invincible and not is_dashing:
 		health -= dmg
-		current_bullets = magazine
 		is_invincible = true
 		$Timer.start()
 		emit_signal('plr_dmged')
@@ -263,3 +265,13 @@ func _on_timer_timeout() -> void:
 
 func ui_open():
 	return class_picker.visible or upg_picker.visible
+
+func reload():
+	is_rel = true
+	if !can_rel:
+		return
+	current_bullets = magazine
+	can_rel = false
+	$reload.start()
+	await get_tree().create_timer(2).timeout
+	is_rel = false
