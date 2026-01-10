@@ -123,18 +123,15 @@ func _physics_process(delta):
 	)
 
 func primary():
-	if Input.is_action_just_pressed("primary"):
-		if !can_shoot:
-			return
-		if current_bullets > 0:
-			can_shoot = false
-			primscript.primary(self, get_global_mouse_position())
-			var recoil_dir = ($pivot/gun/origin.global_position - get_global_mouse_position()).normalized()
-			recoil_velocity += recoil_dir * recoil_strength
-			emit_signal('fired')
-			await get_tree().create_timer(current_fire_rate).timeout
-			can_shoot = true
-		
+	if Input.is_action_pressed("primary") and can_shoot and current_bullets > 0:# and !is_rel:
+		can_shoot = false
+		current_bullets -= 1
+		primscript.primary(self, get_global_mouse_position())
+		var recoil_dir = ($pivot/gun/origin.global_position - get_global_mouse_position()).normalized()
+		recoil_velocity += recoil_dir * recoil_strength
+		emit_signal('fired')
+		$shoot.wait_time = current_fire_rate
+		$shoot.start()
 
 func secondary():
 	if current_class.nam == "RISK":
@@ -262,18 +259,18 @@ func get_dmged(dmg):
 		if health <= 0:
 			get_tree().call_deferred('reload_current_scene')
 
+
 func _on_timer_timeout() -> void:
 	is_invincible = false
-	print('no invince')
+	
 
 func ui_open():
 	return class_picker.visible or upg_picker.visible
 
 func reload():
-	is_rel = true
-	can_shoot = false
 	if !can_rel:
 		return
+	is_rel = true
 	current_bullets = magazine
 	can_rel = false
 	$reload.start()
@@ -282,4 +279,8 @@ func reload():
 func _on_reload_timeout() -> void:
 	can_rel = true
 	is_rel = false
+	can_shoot = true
+	
+
+func _on_shoot_timeout() -> void:
 	can_shoot = true

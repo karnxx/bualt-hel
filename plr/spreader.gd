@@ -15,8 +15,8 @@ var spd = 100
 var pathfind = true
 var can_shot = true
 var elite = false
-var bulatcircleamt = 40
-var cd = 2
+var bulatcircleamt = 30
+var cd = 5
 var move_velocity
 
 signal died(who)
@@ -44,7 +44,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	velocity = move_velocity + kb_velocity
 
-	# decay knockback
 	kb_velocity = kb_velocity.move_toward(
 		Vector2.ZERO,
 		kb_decay * delta
