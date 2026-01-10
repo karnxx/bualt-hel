@@ -252,7 +252,10 @@ func dash_c():
 
 func get_dmged(dmg):
 	if not is_invincible and not is_dashing:
-		health -= dmg
+		var dmag = dmg
+		if is_rel:
+			dmag *= 2
+		health -= dmag
 		is_invincible = true
 		$Timer.start()
 		emit_signal('plr_dmged')
@@ -268,10 +271,15 @@ func ui_open():
 
 func reload():
 	is_rel = true
+	can_shoot = false
 	if !can_rel:
 		return
 	current_bullets = magazine
 	can_rel = false
 	$reload.start()
-	await get_tree().create_timer(2).timeout
+
+
+func _on_reload_timeout() -> void:
+	can_rel = true
 	is_rel = false
+	can_shoot = true
