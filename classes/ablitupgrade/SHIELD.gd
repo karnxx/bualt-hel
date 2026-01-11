@@ -6,6 +6,7 @@ var weight := 30
 var requires := ['VITALITY-I','POWER-I']
 var class_req = null
 var dontwant = []
+var desc = "WHEN HIT, GIVES U A 3 SECOND SHIELD"
 func apply_upgrade(plr):
 	const SHIELD = preload("res://classes/abilitupgscripts/SHIELD.tscn")
 	var shield = SHIELD.instantiate()

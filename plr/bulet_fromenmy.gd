@@ -4,12 +4,13 @@ var dmg
 var pierce := 0
 var lifetime := 0.0
 const MAX_LIFE := 4.0
-
+var chip
 func shoot(plr, dir):
 	dmg = plr.current_bullet_dmg
 	var spd = plr.current_bullet_spd
 	velocity = dir.normalized() * spd * GameManager.time_scale
 	rotation = velocity.angle()
+	chip = plr.chip
 	lifetime = 0
 
 func _physics_process(delta):
@@ -21,7 +22,10 @@ func _physics_process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("plr") and body.has_method("get_dmged"):
-		body.get_dmged(dmg)
+		if chip == false:
+			body.get_dmged(body.max_health * 0.2, GameManager.DamageType.IMPACT)
+		else:
+			body.get_dmged(dmg)
 		if pierce > 0:
 			pierce -= 1
 		else:

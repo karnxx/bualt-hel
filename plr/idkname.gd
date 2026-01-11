@@ -11,18 +11,19 @@ var dmg = randi_range(3,4) * GameManager.global_enemy_dmg_scale
 
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 
-var current_bullet_dmg =dmg * GameManager.global_enemy_dmg_scale
+var current_bullet_dmg = dmg * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
-var canshot = true
-var elite = false
-signal died(who)
-
+var canshot := true
+var shoot_cd := 1.5
 var plr: Node2D
-
+var elite := false
+var chip = true
 var flank_offset: Vector2 = Vector2.ZERO
 var flank_distance := 140.0
 var spd := 160.0
 var flank_side := 1
+
+signal died(who)
 
 func _ready() -> void:
 	plr = get_parent().get_parent().get_node("plr")
@@ -45,16 +46,35 @@ func _physics_process(delta: float) -> void:
 
 	var target_pos = plr.global_position + flank_offset
 	var dir = (target_pos - global_position).normalized()
-
 	velocity = (dir * spd + kb_velocity) * GameManager.time_scale
 	move_and_slide()
-
 	kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)
+
+	if canshot:
+		fire_dual_shot()
+
+func fire_dual_shot():
+	canshot = false
+	if not plr:
+		canshot = true
+		return
+
+	for i in range(2):
+		var bullet = BULET_FROMENMY.instantiate()
+		bullet.global_position = global_position
+		bullet.current_bullet_dmg = current_bullet_dmg
+		bullet.current_bullet_spd = current_bullet_spd
+		get_parent().get_parent().add_child(bullet)
+		var dir = (plr.global_position - global_position).normalized()
+		bullet.shoot(self, dir)
+		await get_tree().create_timer(0.1).timeout
+
+	await get_tree().create_timer(shoot_cd).timeout
+	canshot = true
 
 func update_flank():
 	if not plr:
 		return
-
 	var to_player = (plr.global_position - global_position).normalized()
 	var perpendicular = to_player.orthogonal() * flank_side
 	flank_offset = flank_offset.lerp(perpendicular * flank_distance, 0.08)
@@ -63,27 +83,7 @@ func _on_Timer_timeout():
 	if randf() < 0.3:
 		flank_side *= -1
 	update_flank()
-
-func _process(_delta: float) -> void:
-	if canshot:
-		shoot()
-
-func shoot():
-	await get_tree().create_timer(1.0).timeout
-	if not plr or not canshot:
-		return
-
-	canshot = false
-	for i in range(2):
-		var bullet = BULET_FROMENMY.instantiate()
-		bullet.global_position = global_position
-		get_parent().get_parent().add_child(bullet)
-		var dir = (plr.global_position - global_position).normalized()
-		bullet.shoot(self, dir)
-		await get_tree().create_timer(0.1).timeout
-	
-	await get_tree().create_timer(1).timeout
-	canshot = true
+	$Timer.start()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("plr"):

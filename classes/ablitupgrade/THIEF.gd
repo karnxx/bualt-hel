@@ -5,6 +5,7 @@ var min_lvl := 2
 var weight := 30
 var requires := ['POWER-II','VITALITY-I']
 var class_req = null
+var desc = "WHEN U ELIMINATE AN ENEMY, U HEAL"
 func apply_upgrade(plr):
 	plr.max_health -= 40
 	plr.health -= 20

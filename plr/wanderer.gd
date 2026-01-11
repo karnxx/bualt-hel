@@ -16,7 +16,7 @@ var spd = 200
 var pathfind = true
 var dir:= Vector2.RIGHT.rotated(randf() * 2 * PI)
 var candarop = true
-
+var chip = true
 var elite = false
 
 signal died(who)

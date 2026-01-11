@@ -5,6 +5,7 @@ var min_lvl := 2
 var weight := 30
 var requires := ['VITALITY-I','POWER-I']
 var class_req = null
+var desc = "CONTACTING ENEMIES DMGES THEM"
 func apply_upgrade(plr):
 	const SHIELD = preload("res://classes/abilitupgscripts/thorns.tscn")
 	var shield = SHIELD.instantiate()

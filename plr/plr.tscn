@@ -38,7 +38,7 @@ visible = false
 [node name="hud" parent="CanvasLayer" instance=ExtResource("5_pi1or")]
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.8
 one_shot = true
 
 [node name="pivot" type="Node2D" parent="."]
@@ -57,10 +57,12 @@ texture = ExtResource("6_0tl88")
 position = Vector2(41, 0)
 
 [node name="reload" type="Timer" parent="."]
+process_mode = 3
 wait_time = 4.0
 one_shot = true
 
 [node name="shoot" type="Timer" parent="."]
+process_mode = 3
 one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

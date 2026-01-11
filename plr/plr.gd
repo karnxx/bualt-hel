@@ -123,9 +123,8 @@ func _physics_process(delta):
 	)
 
 func primary():
-	if Input.is_action_pressed("primary") and can_shoot and current_bullets > 0:# and !is_rel:
+	if Input.is_action_pressed("primary") and can_shoot and current_bullets > 0:
 		can_shoot = false
-		current_bullets -= 1
 		primscript.primary(self, get_global_mouse_position())
 		var recoil_dir = ($pivot/gun/origin.global_position - get_global_mouse_position()).normalized()
 		recoil_velocity += recoil_dir * recoil_strength
@@ -247,18 +246,19 @@ func dashdone():
 func dash_c():
 	can_dash = true
 
-func get_dmged(dmg):
+func get_dmged(dmg, dmg_type=GameManager.DamageType.CHIP):
 	if not is_invincible and not is_dashing:
 		var dmag = dmg
 		if is_rel:
 			dmag *= 2
 		health -= dmag
 		is_invincible = true
+		if can_rel and dmg_type == GameManager.DamageType.IMPACT:
+			reload()
 		$Timer.start()
 		emit_signal('plr_dmged')
 		if health <= 0:
 			get_tree().call_deferred('reload_current_scene')
-
 
 func _on_timer_timeout() -> void:
 	is_invincible = false
@@ -270,17 +270,15 @@ func ui_open():
 func reload():
 	if !can_rel:
 		return
+	print("RELOAD TRIGGERED")
 	is_rel = true
 	current_bullets = magazine
 	can_rel = false
 	$reload.start()
 
-
 func _on_reload_timeout() -> void:
 	can_rel = true
 	is_rel = false
-	can_shoot = true
 	
-
 func _on_shoot_timeout() -> void:
 	can_shoot = true

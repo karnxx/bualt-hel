@@ -13,16 +13,31 @@ var current_bullet_dmg = dmg * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd + 200
 var spd = 100
 var pathfind = true
-var can_shot = true
+var move_velocity
 var elite = false
+
 var bulatcircleamt = 30
 var cd = 5
-var move_velocity
-
+var can_shot := true
+var chip = false
 signal died(who)
 
-func _process(_delta: float) -> void:
-	fire_circle(global_position)
+func _physics_process(delta: float) -> void:
+	if pathfind:
+		shoot()
+	move_and_slide()
+	velocity = move_velocity + kb_velocity
+	kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)
+
+func _ready() -> void:
+	if elite:
+		$Sprite2D.scale *= 2
+		$Sprite2D.modulate = Color.WEB_PURPLE
+		$CollisionShape2D.scale *= 2
+		spd = 200
+		bulatcircleamt = 40
+		cd = 3
+		health /= 2
 
 func get_dmged(dtmg):
 	health -= dtmg
@@ -36,58 +51,34 @@ func get_dmged(dtmg):
 		get_parent().enemy_died()
 		emit_signal('died', self)
 		self.queue_free()
-		
-
-func _physics_process(delta: float) -> void:
-	if pathfind:
-		shoot()
-	move_and_slide()
-	velocity = move_velocity + kb_velocity
-
-	kb_velocity = kb_velocity.move_toward(
-		Vector2.ZERO,
-		kb_decay * delta
-	)
-
-func _ready() -> void:
-	if elite:
-		$Sprite2D.scale *= 2
-		$Sprite2D.modulate = Color.WEB_PURPLE
-		$CollisionShape2D.scale *= 2
-		spd = 200
-		bulatcircleamt = 70
-		cd = 1.5
-		health /= 2
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		body.get_dmged(dmg)
 		pathfind = false
 
-func shoot():
-	var target = get_parent().get_node('plr').global_position
-	var start = global_position
-	var dir = (target-start).normalized()
-	move_velocity = dir * spd * GameManager.time_scale
-
-
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		pathfind = true
 
+func shoot():
+	var target = get_parent().get_node('plr').global_position
+	var start = global_position
+	var dir = (target - start).normalized()
+	move_velocity = dir * spd * GameManager.time_scale
+	fire_circle(global_position)
+
 func fire_circle(origin):
-	if !can_shot:
+	if not can_shot:
 		return
-	
+	can_shot = false
 	for i in range(bulatcircleamt):
 		var angle = TAU * i / bulatcircleamt
 		var dir = Vector2(cos(angle), sin(angle))
-
 		var bulaty = BULET_FROMENMY.instantiate()
 		bulaty.global_position = origin
 		get_parent().add_child(bulaty)
 		bulaty.shoot(self, dir)
-	can_shot = false
 	await get_tree().create_timer(cd).timeout
 	can_shot = true
 
