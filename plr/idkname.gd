@@ -96,7 +96,7 @@ func get_dmged(dtmg):
 	$Sprite2D.modulate = Color.WHITE
 
 	if health <= 0:
-		xp_given = randi_range(2 * maxhealth, 4 * maxhealth)/3 * GameManager.global_loot_mult
+		xp_given = randf_range(2 * maxhealth, 4 * maxhealth)/3 * GameManager.global_loot_mult
 		get_parent().get_parent().enemy_died()
 		get_parent().get_parent().get_node("plr").add_xp(xp_given)
 		emit_signal("died", self)

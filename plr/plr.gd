@@ -195,7 +195,6 @@ func eq_class(clas:Class):
 
 func add_xp(eexp):
 	xp += eexp
-	print(xp)
 
 
 func lvl_upper():

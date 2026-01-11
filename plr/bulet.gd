@@ -77,6 +77,8 @@ func add_explo():
 	e.global_position = global_position
 	get_parent().add_child(e)
 
+
+
 func _on_area_2d_body_entered(body):
 	if not body.is_in_group("enemy"):
 		return
@@ -96,7 +98,7 @@ func _on_area_2d_body_entered(body):
 		return
 
 	if exploding:
-		add_explo()
+		call_deferred('add_explo')
 
 	queue_free()
 

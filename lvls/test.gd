@@ -16,6 +16,7 @@ var elites_alive := 0
 @export var enemy_types := [
 	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.08, "unlock_time": 120},
 	{"scene": preload("res://plr/walkers.tscn"), "chance": 0.18, "unlock_time": 0},
+	{"scene": preload("res://plr/charger.tscn"), "chance": 0.2, "unlock_time": 10},
 	{"scene": preload("res://plr/righters.tscn"), "chance": 0.2, "unlock_time": 60},
 	{"scene": preload("res://plr/bombers.tscn"), "chance": 0.10, "unlock_time": 150},
 	{"scene": preload("res://plr/splitter.tscn"), "chance": 0.10, "unlock_time": 180},

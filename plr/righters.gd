@@ -21,7 +21,7 @@ var dir2 = dirs.pick_random()
 var dir3 = dirs.pick_random()
 var can_shot := true
 var elite = false
-
+var chip = false
 var shoot_cd := 1.0
 var shoot_timer := 0.0
 

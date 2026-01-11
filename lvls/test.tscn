@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_6q3o0"]
 [ext_resource type="Script" uid="uid://bt0ib6ikrahob" path="res://lvls/test.gd" id="1_ff7wo"]
 [ext_resource type="PackedScene" uid="uid://bg5441jqbc8r1" path="res://plr/plr.tscn" id="2_6q3o0"]
-[ext_resource type="PackedScene" uid="uid://bkonuwy317hhv" path="res://plr/cicrler.tscn" id="4_ff7wo"]
+[ext_resource type="PackedScene" uid="uid://dd7mv03tkmdw7" path="res://plr/charger.tscn" id="4_ff7wo"]
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_ff7wo")
@@ -52,5 +52,5 @@ offset_bottom = 117.0
 theme_override_font_sizes/font_size = 200
 text = "asdsasd"
 
-[node name="cicrler" parent="." instance=ExtResource("4_ff7wo")]
-position = Vector2(-687, -66)
+[node name="walkers" parent="." instance=ExtResource("4_ff7wo")]
+position = Vector2(-348, 25)
