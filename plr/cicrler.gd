@@ -57,7 +57,7 @@ func shoot_timer(delta):
 		fire_shotgun()
 
 var shotgun_bullets := 5
-var spread_angle := 0.35 # radians (~20 degrees)
+var spread_angle := 0.35
 func fire_shotgun():
 	canshot = false
 
@@ -104,7 +104,7 @@ func get_dmged(dtmg):
 	$Sprite2D.modulate = Color.WHITE
 
 	if health <= 0:
-		get_parent().enemy_died()
+		get_parent().enemy_died(self)
 		get_parent().get_node("plr").add_xp(xp_given)
 		emit_signal("died", self)
 		queue_free()

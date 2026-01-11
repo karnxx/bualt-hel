@@ -40,7 +40,7 @@ func get_dmged(dtmg):
 	GameManager.emit_signal('enemydmg', self)
 	if health <= 0:
 		xp_given = randi_range(2 * maxhealth, 4 * maxhealth)/3 * GameManager.global_loot_mult
-		get_parent().enemy_died()
+		get_parent().enemy_died(self)
 		get_parent().get_node('plr').add_xp(xp_given)
 		emit_signal('died', self)
 		self.queue_free()
@@ -59,8 +59,6 @@ func _physics_process(delta: float) -> void:
 		Vector2.ZERO,
 		kb_decay * delta
 	)
-
-
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
