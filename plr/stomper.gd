@@ -63,11 +63,8 @@ func knockback(pos, strength):
 	kb_velocity += dir * strength
 
 func explode():
-	
 	var tween := create_tween()
-	tween.tween_property($Sprite2D, "scale", $Sprite2D.scale * 2.0, 0.3)
-	tween.parallel().tween_property($CollisionShape2D, "scale", $CollisionShape2D.scale * 2.0, 0.3)
-	tween.parallel().tween_property($Sprite2D, "modulate", Color.BLACK, 0.3)
+	tween.parallel().tween_property($Area2D2/CollisionShape2D, "modulate", Color.RED, 0.3)
 	
 	await tween.finished
 	$Area2D2.monitoring = true
