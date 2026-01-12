@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p37r8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7nm7s"]
-radius = 46.0435
+radius = 113.071
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bf64q"]
 size = Vector2(182, 180)
@@ -36,6 +36,11 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
 shape = SubResource("RectangleShape2D_bf64q")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(1.4375, 1.39063)
+texture = ExtResource("2_35flp")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

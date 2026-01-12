@@ -18,7 +18,7 @@ var elite = false
 var cd = 1
 var chip = false
 var move
-
+var can_Explo = true
 signal died(who)
 
 func get_dmged(dtmg):
@@ -33,7 +33,6 @@ func get_dmged(dtmg):
 		get_parent().get_node('plr').add_xp(xp_given)
 		emit_signal('died', self)
 		self.queue_free()
-		
 
 func _physics_process(delta: float) -> void:
 	if pathfind:
@@ -63,15 +62,30 @@ func knockback(pos, strength):
 	kb_velocity += dir * strength
 
 func explode():
-	var tween := create_tween()
-	tween.parallel().tween_property($Area2D2/CollisionShape2D, "modulate", Color.RED, 0.3)
-	
-	await tween.finished
+	if can_Explo == false:
+		return
+	can_Explo = false
+	var twen := create_tween()
+	twen.tween_property($Sprite2D2, "modulate", Color(0.545098, 0, 0, 1), 0.5)
+	velocity = Vector2.ZERO
+	move = Vector2.ZERO
+	pathfind = false
+	await twen.finished
+	twen.stop()
+	var twen3 := create_tween()
 	$Area2D2.monitoring = true
+	twen3.tween_property($Sprite2D2, "modulate", Color.RED, 0.1)
 	await get_tree().create_timer(0.1).timeout
 	$Area2D2.monitoring = false
+	var twen2 := create_tween()
+	twen2.tween_property($Sprite2D2, "modulate", Color(0,0,0,0), 0.2)
+	pathfind = false
+	await get_tree().create_timer(2).timeout
+	can_Explo = true
 
 func shoot():
+	if !pathfind:
+		return
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
 	var dir = (target-start).normalized()
