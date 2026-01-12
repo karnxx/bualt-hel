@@ -16,16 +16,17 @@ var elites_alive := 0
 var impact_alive := 0
 
 @export var enemy_types := [
-	{"scene": preload("res://plr/walkers.tscn"),  "chance": 0.10, "unlock_lvl": 0,  "impact": false},
+	{"scene": preload("res://plr/walkers.tscn"),  "chance": 0.10, "unlock_lvl": 3,  "impact": false},
 	{"scene": preload("res://plr/charger.tscn"),  "chance": 0.20, "unlock_lvl": 0,  "impact": true},
 	{"scene": preload("res://plr/walkerbara.tscn"),  "chance": 0.20, "unlock_lvl": 0,  "impact": false},
-	{"scene": preload("res://plr/righters.tscn"), "chance": 0.18, "unlock_lvl": 4,  "impact": false},
+	{"scene": preload("res://plr/righters.tscn"), "chance": 0.18, "unlock_lvl": 5,  "impact": false},
 	{"scene": preload("res://plr/bombers.tscn"),  "chance": 0.10, "unlock_lvl": 7,  "impact": true},
-	{"scene": preload("res://plr/splitter.tscn"), "chance": 0.10, "unlock_lvl": 8,  "impact": false},
-	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.08, "unlock_lvl": 10, "impact": false},
-	{"scene": preload("res://plr/twins.tscn"),    "chance": 0.07, "unlock_lvl": 12, "impact": false},
-	{"scene": preload("res://plr/dumy.tscn"),     "chance": 0.07, "unlock_lvl": 14, "impact": true},
-	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.06, "unlock_lvl": 16, "impact": false},
+	{"scene": preload("res://plr/splitter.tscn"), "chance": 0.10, "unlock_lvl": 7,  "impact": false},
+	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.08, "unlock_lvl": 9, "impact": false},
+	{"scene": preload("res://plr/twins.tscn"),    "chance": 0.07, "unlock_lvl": 10, "impact": false},
+	{"scene": preload("res://plr/dumy.tscn"),     "chance": 0.07, "unlock_lvl": 12, "impact": true},
+	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.06, "unlock_lvl": 13, "impact": false},
+	{"scene": preload("res://plr/stomper.tscn"), "chance": 0.06, "unlock_lvl": 2, "impact": false},
 ]
 
 
