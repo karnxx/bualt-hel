@@ -15,7 +15,7 @@ var spd = 100
 var pathfind = true
 var move_velocity
 var elite = false
-
+var is_shoting = false
 var bulatcircleamt = 30
 var cd = 5
 var can_shot := true
@@ -62,6 +62,8 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		pathfind = true
 
 func shoot():
+	if is_shoting == true:
+		return
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
 	var dir = (target - start).normalized()
@@ -72,6 +74,12 @@ func fire_circle(origin):
 	if not can_shot:
 		return
 	can_shot = false
+	is_shoting = true
+	for i in range(4):
+		$Sprite2D.modulate = Color.YELLOW
+		await get_tree().create_timer(0.2).timeout
+		$Sprite2D.modulate = Color.WHITE
+		await get_tree().create_timer(0.2).timeout
 	for i in range(bulatcircleamt):
 		var angle = TAU * i / bulatcircleamt
 		var dir = Vector2(cos(angle), sin(angle))
@@ -81,6 +89,7 @@ func fire_circle(origin):
 		bulaty.shoot(self, dir)
 	await get_tree().create_timer(cd).timeout
 	can_shot = true
+	is_shoting = false
 
 func knockback(from_pos, strength):
 	var dir = (global_position - from_pos).normalized()

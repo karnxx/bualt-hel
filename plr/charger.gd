@@ -86,7 +86,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		return
 
 	if state == State.CHARGE:
-		body.get_dmged(body.max_health * 0.1, GameManager.DamageType.IMPACT)
+		body.get_dmged(body.max_health * 0.05, GameManager.DamageType.IMPACT)
 	else:
 		body.get_dmged(body.max_health * 0.01, GameManager.DamageType.CHIP)
 

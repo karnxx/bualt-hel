@@ -13,10 +13,10 @@ var plr
 var current_bullet_dmg = 5 * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd
 
-var spd = 120
+var spd =240
 var pathfind = true
 var elite = false
-var cd = 1.0
+var cd = 5
 var canshot = true
 var chip = true
 signal died(who)

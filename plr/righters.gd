@@ -7,7 +7,7 @@ var kb_decay := 1600.0
 var maxhealth = 40
 var health = 30
 var xp_given = randi_range(2*health,4*health)/3 * GameManager.global_loot_mult
-var dmg = randi_range(8,9) * GameManager.global_enemy_dmg_scale
+var dmg = randi_range(3,5) * GameManager.global_enemy_dmg_scale
 const BULET_FROMENMY = preload("res://plr/bulet_fromenmy.tscn")
 var plr 
 var current_bullet_dmg = dmg * GameManager.global_enemy_dmg_scale
@@ -77,7 +77,11 @@ func fire_angles():
 	if not can_shot:
 		return
 	can_shot = false
-
+	for i in range(4):
+		$Sprite2D.modulate = Color.YELLOW
+		await get_tree().create_timer(0.1).timeout
+		$Sprite2D.modulate = Color.WHITE
+		await get_tree().create_timer(0.1).timeout
 	if dir1 == dir2:
 		dir2 = dirs.pick_random()
 	if elite:

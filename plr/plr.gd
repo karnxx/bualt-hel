@@ -64,7 +64,7 @@ var upgdata := {}
 var crit := 0.05
 var critmult := 1.1
 
-var spread_deg := 4.0
+var spread_deg := 2.0
 
 var check1 = false
 var check2 = false
@@ -176,6 +176,7 @@ func eq_upg(upg:Script):
 	upgrades_applied.append(u)
 
 func eq_class(clas:Class):
+	
 	current_class = clas
 	if clas.primary:
 		primscript = clas.primary.new()
@@ -190,6 +191,9 @@ func eq_class(clas:Class):
 	current_fire_rate = clas.base_fire_cd
 	current_bullet_dmg =clas.base_dmg
 	current_bullet_spd = clas.base_bullet_speed
+	print(clas.magazine)
+	magazine = clas.magazine 
+	recoil_strength = recoil_strength + (current_bullet_dmg * 7)
 	for i in clas.upgrades:
 		eq_upg(i)
 

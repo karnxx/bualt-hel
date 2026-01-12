@@ -35,9 +35,11 @@ func _ready() -> void:
 
 func get_dmged(dtmg):
 	health -= dtmg
-	$Sprite2D.modulate = Color.RED
-	await get_tree().create_timer(0.2).timeout
-	$Sprite2D.modulate = Color.WHITE
+	for i in range(4):
+		$Sprite2D.modulate = Color.YELLOW
+		await get_tree().create_timer(0.2).timeout
+		$Sprite2D.modulate = Color.WHITE
+		await get_tree().create_timer(0.2).timeout
 	GameManager.emit_signal('enemydmg', self)
 	if health <= 0:
 		xp_given = randi_range(2 * maxhealth, 4 * maxhealth)/3 * GameManager.global_loot_mult

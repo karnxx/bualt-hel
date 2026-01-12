@@ -60,7 +60,11 @@ var shotgun_bullets := 5
 var spread_angle := 0.35
 func fire_shotgun():
 	canshot = false
-
+	for i in range(4):
+		$Sprite2D.modulate = Color.YELLOW
+		await get_tree().create_timer(0.2).timeout
+		$Sprite2D.modulate = Color.WHITE
+		await get_tree().create_timer(0.2).timeout
 	if not plr:
 		canshot = true
 		return

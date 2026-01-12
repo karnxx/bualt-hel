@@ -58,7 +58,11 @@ func fire_dual_shot():
 	if not plr:
 		canshot = true
 		return
-
+	for i in range(4):
+		$Sprite2D.modulate = Color.YELLOW
+		await get_tree().create_timer(0.2).timeout
+		$Sprite2D.modulate = Color.WHITE
+		await get_tree().create_timer(0.2).timeout
 	for i in range(2):
 		var bullet = BULET_FROMENMY.instantiate()
 		bullet.global_position = global_position

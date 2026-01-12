@@ -5,7 +5,7 @@ var min_lvl := 2
 var weight := 80
 var requires := ['SPEEDSTER-I','VELOCITY-I']
 var class_req = null
-var desc = "FIRERATE: -5%"
+var desc = "FIRERATE: -10%"
 func apply_upgrade(plr):
-	plr.current_fire_rate *= 0.95
+	plr.current_fire_rate *= 0.9
 	plr.upgrades_applied.append(self)
