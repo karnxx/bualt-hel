@@ -235,7 +235,7 @@ position = Vector2(-20, -30)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3rr28")
 animation = &"walk side"
-frame_progress = 0.199197
+frame_progress = 0.509171
 centered = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
