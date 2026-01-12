@@ -93,9 +93,9 @@ func invinci():
 		return
 	while is_invincible:
 		blinking = true
-		$Sprite2D.visible = false
+		$AnimatedSprite2D.visible = false
 		await get_tree().create_timer(0.1).timeout
-		$Sprite2D.visible = true
+		$AnimatedSprite2D.visible = true
 		await get_tree().create_timer(0.1).timeout
 		blinking = false
 
@@ -109,18 +109,44 @@ func _physics_process(delta):
 	if direction.length() > 0:
 		direction = direction.normalized()
 
-	var move_velocity := direction * current_spd
+	if direction != Vector2.ZERO:
+		if abs(direction.x) > abs(direction.y):
+			if direction.x > 0:
+				$AnimatedSprite2D.play("walk side")
+				$AnimatedSprite2D.flip_h = false
+			else:
+				$AnimatedSprite2D.play("walk side")
+				$AnimatedSprite2D.flip_h = true
+		elif abs(direction.y) > abs(direction.x):
+			if direction.y > 0:
+				$AnimatedSprite2D.play("walk down")
+			else:
+				$AnimatedSprite2D.play("walk up")
+		else:
+			if direction.x > 0 and direction.y < 0:
+				$AnimatedSprite2D.play("walk top side")
+				$AnimatedSprite2D.flip_h = false
+			elif direction.x < 0 and direction.y < 0:
+				$AnimatedSprite2D.play("walk top side")
+				$AnimatedSprite2D.flip_h = true
+			elif direction.x > 0 and direction.y > 0:
+				$AnimatedSprite2D.play("walk bottom side")
+				$AnimatedSprite2D.flip_h = false
+			elif direction.x < 0 and direction.y > 0:
+				$AnimatedSprite2D.play("walk bottom side")
+				$AnimatedSprite2D.flip_h = true
+	else:
+		$AnimatedSprite2D.stop()
 
+	var move_velocity := direction * current_spd
 	if is_dashing:
 		move_velocity = direction * (current_spd + dash_speed)
 
 	velocity = move_velocity + recoil_velocity
 	move_and_slide()
 
-	recoil_velocity = recoil_velocity.move_toward(
-		Vector2.ZERO,
-		recoil_decay * delta
-	)
+	recoil_velocity = recoil_velocity.move_toward(Vector2.ZERO, recoil_decay * delta)
+
 
 func primary():
 	if Input.is_action_pressed("primary") and can_shoot and current_bullets > 0:
