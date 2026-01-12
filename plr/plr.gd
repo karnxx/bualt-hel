@@ -13,7 +13,7 @@ var recoil_decay: float = 2200.0
 
 var xp = 0
 var lvl = 0
-var xp_req = 150 * pow(1.15, lvl)
+var xp_req = 75 * pow(1.15, lvl)
 
 
 var exploding = false

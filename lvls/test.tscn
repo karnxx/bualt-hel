@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://byywa3auh1uko"]
+[gd_scene load_steps=4 format=3 uid="uid://byywa3auh1uko"]
 
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="1_6q3o0"]
 [ext_resource type="Script" uid="uid://bt0ib6ikrahob" path="res://lvls/test.gd" id="1_ff7wo"]
 [ext_resource type="PackedScene" uid="uid://bg5441jqbc8r1" path="res://plr/plr.tscn" id="2_6q3o0"]
-[ext_resource type="PackedScene" uid="uid://di5xq0e7a7v37" path="res://plr/walkerbara.tscn" id="4_ff7wo"]
 
 [node name="test" type="Node2D"]
 script = ExtResource("1_ff7wo")
@@ -51,6 +50,3 @@ offset_right = 555.0
 offset_bottom = 117.0
 theme_override_font_sizes/font_size = 200
 text = "asdsasd"
-
-[node name="walkerbara" parent="." instance=ExtResource("4_ff7wo")]
-position = Vector2(-103, 23)
