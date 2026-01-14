@@ -111,7 +111,6 @@ func knockback(pos, strength):
 	var dir = (global_position - pos).normalized()
 	kb_velocity += dir * strength
 
-
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		isplr = false

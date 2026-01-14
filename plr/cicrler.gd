@@ -22,8 +22,10 @@ var flank_offset: Vector2 = Vector2.ZERO
 var flank_distance := 140.0
 var spd := 160.0
 var flank_side := 1
-
+var isplr = false
 signal died(who)
+var shotgun_bullets := 5
+var spread_angle := 0.4
 
 func _ready() -> void:
 	plr = get_parent().get_node("plr")
@@ -43,23 +45,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not plr:
 		return
-
+	shoot()
 	var target_pos = plr.global_position + flank_offset
 	var dir = (target_pos - global_position).normalized()
 	velocity = (dir * spd + kb_velocity) * GameManager.time_scale
 	move_and_slide()
 	kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)
 
-	shoot_timer(delta)
-
-func shoot_timer(delta):
-	if canshot:
-		fire_shotgun()
-
-var shotgun_bullets := 5
-var spread_angle := 0.35
-func fire_shotgun():
+func shoot():
+	if !canshot or !isplr:
+		return
 	canshot = false
+	
 	for i in range(4):
 		$Sprite2D.modulate = Color.YELLOW
 		await get_tree().create_timer(0.2).timeout
@@ -79,6 +76,7 @@ func fire_shotgun():
 		bullet.global_position = global_position
 		get_parent().add_child(bullet)
 		bullet.shoot(self, dir)
+		await get_tree().create_timer(0.1).timeout
 
 	await get_tree().create_timer(shoot_cd).timeout
 	canshot = true
@@ -116,3 +114,11 @@ func get_dmged(dtmg):
 func knockback(pos, strength):
 	var dir = (global_position - pos).normalized()
 	kb_velocity += dir * strength
+
+func _on_area_2d_2_body_exited(body: Node2D) -> void:
+	if body.is_in_group('plr'):
+		isplr = false
+
+func _on_area_2d_2_body_entered(body: Node2D) -> void:
+	if body.is_in_group('plr'):
+		isplr = true

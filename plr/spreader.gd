@@ -21,6 +21,7 @@ var cd = 5
 var can_shot := true
 var chip = false
 signal died(who)
+var isplr = false
 
 func _physics_process(delta: float) -> void:
 	if pathfind:
@@ -62,7 +63,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		pathfind = true
 
 func shoot():
-	if is_shoting == true:
+	if is_shoting == true or isplr == false:
 		return
 	var target = get_parent().get_node('plr').global_position
 	var start = global_position
@@ -94,3 +95,11 @@ func fire_circle(origin):
 func knockback(from_pos, strength):
 	var dir = (global_position - from_pos).normalized()
 	kb_velocity += dir * strength
+
+func _on_area_2d_2_body_entered(body: Node2D) -> void:
+	if body.is_in_group('plr'):
+		isplr = true
+
+func _on_area_2d_2_body_exited(body: Node2D) -> void:
+	if body.is_in_group('plr'):
+		isplr = false

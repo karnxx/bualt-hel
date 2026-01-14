@@ -2,5 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://cc6twao2dxajn" path="res://bulat.png" id="1_kjhmx"]
 
-[node name="bullet" type="TextureRect"]
+[node name="bulleticon" type="Control"]
+layout_mode = 3
+anchor_right = 0.031
+anchor_bottom = 0.144
+offset_right = 0.479996
+offset_bottom = -0.520004
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 58.0
+offset_bottom = 147.0
 texture = ExtResource("1_kjhmx")
