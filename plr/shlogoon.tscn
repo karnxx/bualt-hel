@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt6k758r4rsws"]
+
+[ext_resource type="Script" uid="uid://bvut0eo5al64m" path="res://plr/shlogoon.gd" id="1_8we4t"]
+[ext_resource type="Texture2D" uid="uid://babrggfk4ww3h" path="res://assets/plr/deepfried_1768405469836.jpg" id="1_yrxqq"]
+[ext_resource type="Texture2D" uid="uid://c14mwvnj07rjl" path="res://assets/plr/deepfried_1768405484777.jpg" id="2_8we4t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8we4t"]
+size = Vector2(80, 54)
+
+[node name="shlogoon" type="StaticBody2D" groups=["enemy"]]
+collision_layer = 10
+collision_mask = 4
+script = ExtResource("1_8we4t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8we4t")
+
+[node name="Deepfried1768405469836" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.1, 0.12)
+texture = ExtResource("1_yrxqq")
+
+[node name="Deepfried1768405484777" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.12)
+texture = ExtResource("2_8we4t")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+bus = &"assfx"

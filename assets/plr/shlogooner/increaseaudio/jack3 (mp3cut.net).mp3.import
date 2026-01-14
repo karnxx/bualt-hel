@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://o7wojtlvnd1x"
+path="res://.godot/imported/jack3 (mp3cut.net).mp3-4b3e1af4f3fa037ebcb63342ac5ec937.mp3str"
+
+[deps]
+
+source_file="res://assets/plr/shlogooner/increaseaudio/jack3 (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/jack3 (mp3cut.net).mp3-4b3e1af4f3fa037ebcb63342ac5ec937.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
