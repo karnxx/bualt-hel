@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cc6twao2dxajn" path="res://bulat.png" id="1_kjhmx"]
 
 [node name="bulleticon" type="Control"]
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 3
 anchor_right = 0.031
 anchor_bottom = 0.144

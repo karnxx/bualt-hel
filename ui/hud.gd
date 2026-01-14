@@ -16,8 +16,6 @@ func _ready() -> void:
 func removetext():
 	var tween =  create_tween()
 	tween.tween_property($Label3, "modulate:a", 0, 5)
-	
-	pass
 
 func _process(_delta):
 	if plr.current_bullets != last_current or plr.magazine != last_mag:
@@ -26,7 +24,8 @@ func _process(_delta):
 	hp.value = plr.health
 	$Label.text = str(plr.xp) + "/" + str(plr.xp_req)
 	$Label2.text = str(plr.lvl)
-	
+	$bulala/Label.text = str(plr.current_bullets)
+
 func rebuild():
 	last_current = -1
 	last_mag = -1
@@ -35,7 +34,6 @@ func rebuild():
 func update_bullets():
 	last_current = plr.current_bullets
 	last_mag = plr.magazine
-
 	if bullet_container.get_child_count() != last_mag:
 		for c in bullet_container.get_children():
 			c.queue_free()

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://chygeybswqhle"]
+[gd_scene load_steps=4 format=3 uid="uid://chygeybswqhle"]
 
 [ext_resource type="Script" uid="uid://do63w4n41flvd" path="res://ui/hud.gd" id="1_rbyyf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rbyyf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_276te"]
+bg_color = Color(0.726525, 0.470184, 0.336036, 1)
 
 [node name="hud" type="Control"]
 layout_mode = 3
@@ -18,15 +23,17 @@ anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
 mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_rbyyf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_276te")
 show_percentage = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.859
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -152.0
-offset_right = 1920.0
+offset_top = 0.279968
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="."]
@@ -66,3 +73,21 @@ working on it..
 btw to reload u have
 to get dmged."
 horizontal_alignment = 2
+
+[node name="bulala" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 1032.0
+offset_right = 114.0
+offset_bottom = 1097.0
+rotation = -0.760964
+
+[node name="Label" type="Label" parent="bulala"]
+layout_mode = 0
+offset_left = 35.378
+offset_top = -28.45
+offset_right = 138.378
+offset_bottom = 38.55
+rotation = 0.755065
+horizontal_alignment = 1
+vertical_alignment = 1
