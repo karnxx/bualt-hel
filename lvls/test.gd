@@ -27,6 +27,8 @@ var impact_alive := 0
 	{"scene": preload("res://plr/dumy.tscn"),     "chance": 0.07, "unlock_lvl": 12, "impact": true},
 	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.06, "unlock_lvl": 13, "impact": false},
 	{"scene": preload("res://plr/stomper.tscn"), "chance": 0.06, "unlock_lvl": 2, "impact": false},
+	{"scene": preload("res://plr/doublehsot.tscn"), "chance": 0.06, "unlock_lvl": 4, "impact": false},
+	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.06, "unlock_lvl": 6, "impact": false},
 ]
 
 
