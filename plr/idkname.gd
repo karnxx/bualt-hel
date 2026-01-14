@@ -66,8 +66,6 @@ func fire_dual_shot():
 	for i in range(2):
 		var bullet = BULET_FROMENMY.instantiate()
 		bullet.global_position = global_position
-		bullet.current_bullet_dmg = current_bullet_dmg
-		bullet.current_bullet_spd = current_bullet_spd
 		get_parent().get_parent().add_child(bullet)
 		var dir = (plr.global_position - global_position).normalized()
 		bullet.shoot(self, dir)
