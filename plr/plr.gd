@@ -10,6 +10,7 @@ var can_rel = true
 var recoil_velocity: Vector2 = Vector2.ZERO
 var recoil_strength: float = 650.0
 var recoil_decay: float = 2200.0
+var kb = 0
 
 var xp = 0
 var lvl = 0
@@ -239,6 +240,7 @@ func lvl_upper():
 		showing_upgrades = true
 		var choices = UpgMgr.get_random_upg(3)
 		upg_picker.show_upg(choices)
+	health += max_health * 0.04
 
 
 func lvl_milestone():
@@ -281,7 +283,8 @@ func get_dmged(dmg, dmg_type=GameManager.DamageType.CHIP):
 			dmag *= 2
 		health -= dmag
 		is_invincible = true
-		if can_rel and dmg_type == GameManager.DamageType.IMPACT:
+		if can_rel:
+			health = max(health, 1)
 			reload()
 		$Timer.start()
 		emit_signal('plr_dmged')
@@ -300,7 +303,7 @@ func reload():
 		return
 	print("RELOAD TRIGGERED")
 	is_rel = true
-	current_bullets = magazine
+	current_bullets += magazine
 	can_rel = false
 	$reload.start()
 

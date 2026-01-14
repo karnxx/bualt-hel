@@ -8,6 +8,7 @@ func _ready() -> void:
 
 func asd():
 	visible = true
+	plr.is_invincible = true
 	get_tree().create_timer(plr.upgdata['shield']['time']).timeout.connect(dda)
 
 func dda():

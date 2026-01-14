@@ -22,7 +22,7 @@ var split_count := 2
 var split_angle := 30
 var can_split := true
 var dmg_mult := 4
-
+var kb
 var bounces := 0
 var spd_dec := 2.0
 
@@ -43,7 +43,7 @@ func shoot(pglr, dir, plar):
 	homing_timer = 0
 	lifetime = 0
 	can_split = true
-
+	kb = plr.kb
 	if chunky:
 		dmg_mult = plar.upgdata["chunky"]["chunkmult"]
 		split_count = plar.upgdata["chunky"]["chunks"]
@@ -99,7 +99,9 @@ func _on_area_2d_body_entered(body):
 
 	if exploding:
 		call_deferred('add_explo')
-
+	
+	if kb != null:
+		body.knockback(self.global_position, kb)
 	queue_free()
 
 func _physics_process(delta):
