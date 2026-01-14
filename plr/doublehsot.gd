@@ -24,7 +24,7 @@ var spd := 160.0
 var flank_side := 1
 var canmove = true
 signal died(who)
-
+var isplr = false
 func _ready() -> void:
 	plr = get_parent().get_node("plr")
 	flank_side = 1 if randf() < 0.5 else -1
@@ -49,12 +49,15 @@ func _physics_process(delta: float) -> void:
 		velocity = (dir * spd + kb_velocity) * GameManager.time_scale
 		move_and_slide()
 		kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)
+	if isplr and canshot:
+		canshot = false
+		shoot()
+		await get_tree().create_timer(3).timeout.connect(asdasda)
 
-	if canshot:
-		fire_dual_shot()
+func asdasda():
+	canshot = true
 
-func fire_dual_shot():
-	canshot = false
+func shoot():
 	canmove = false
 	if not plr:
 		canshot = true
@@ -72,9 +75,8 @@ func fire_dual_shot():
 		bullet.shoot(self, dir)
 		await get_tree().create_timer(0.1).timeout
 
-	await get_tree().create_timer(shoot_cd).timeout
-	canshot = true
 	canmove = true
+
 func update_flank():
 	if not plr:
 		return
@@ -90,7 +92,7 @@ func _on_Timer_timeout():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("plr"):
-		body.get_dmged(dmg)
+		isplr = true
 
 func get_dmged(dtmg):
 	health -= dtmg
@@ -108,3 +110,8 @@ func get_dmged(dtmg):
 func knockback(pos, strength):
 	var dir = (global_position - pos).normalized()
 	kb_velocity += dir * strength
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group('plr'):
+		isplr = false

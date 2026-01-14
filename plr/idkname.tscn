@@ -4,13 +4,12 @@
 [ext_resource type="Script" uid="uid://kun3wtxbjws8" path="res://plr/idkname.gd" id="1_jvb4y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qgn15"]
-radius = 71.1318
+radius = 147.69
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f65on"]
-radius = 31.0644
+radius = 255.0
 
 [node name="idkname" type="CharacterBody2D" groups=["enemy"]]
-visible = false
 collision_layer = 10
 collision_mask = 4
 script = ExtResource("1_jvb4y")
