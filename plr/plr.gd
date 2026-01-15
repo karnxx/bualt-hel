@@ -186,7 +186,9 @@ func on_class_chosen(clas):
 	$CanvasLayer/hud.move_to_front()
 	class_chosen = true
 	get_tree().paused = false
-	eq_upg(preload("res://classes/burst/UPGS/focus/snapshots.gd"))
+	
+	eq_upg(preload("res://classes/burst/UPGS/FUSE.gd"))
+	eq_upg(preload("res://classes/burst/UPGS/fuse/CHAIN.gd"))
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()

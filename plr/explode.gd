@@ -12,3 +12,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group('enemy'):
 			body.get_dmged(plr.upgdata['fuse']['dmg'])
 			body.knockback(global_position, 700)
+			if plr.upgdata['fuse']['chain'] == true:
+				var explo = preload("res://plr/explode.tscn").instantiate()
+				explo.global_position = body.global_position
+				get_parent().add_child(explo)
