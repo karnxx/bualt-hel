@@ -277,7 +277,10 @@ func dash_c():
 	can_dash = true
 
 func get_dmged(dmg, dmg_type=GameManager.DamageType.CHIP):
-	if not is_invincible and not is_dashing:
+	if not is_invincible:
+		if is_dashing:
+			current_bullets += 1
+			return
 		var dmag = dmg
 		if is_rel:
 			dmag *= 2

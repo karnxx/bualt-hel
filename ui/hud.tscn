@@ -42,6 +42,9 @@ offset_left = 4.0
 offset_top = 24.0
 offset_right = 129.0
 offset_bottom = 111.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -51,6 +54,9 @@ offset_left = 5.0
 offset_top = 109.0
 offset_right = 130.0
 offset_bottom = 196.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -60,6 +66,9 @@ offset_left = 925.0
 offset_top = 26.0
 offset_right = 1918.0
 offset_bottom = 335.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 27
 text = "hi thx for playing, 
 pls leave review 
 in the comments, 
