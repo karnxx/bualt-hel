@@ -19,18 +19,17 @@ var impact_alive := 0
 	{"scene": preload("res://plr/walkers.tscn"),  "chance": 0.10, "unlock_lvl": 3,  "impact": false},
 	{"scene": preload("res://plr/charger.tscn"),  "chance": 0.20, "unlock_lvl": 0,  "impact": true},
 	{"scene": preload("res://plr/walkerbara.tscn"),  "chance": 0.20, "unlock_lvl": 0,  "impact": false},
-	{"scene": preload("res://plr/righters.tscn"), "chance": 0.18, "unlock_lvl": 5,  "impact": false},
-	{"scene": preload("res://plr/bombers.tscn"),  "chance": 0.10, "unlock_lvl": 7,  "impact": true},
+	{"scene": preload("res://plr/righters.tscn"), "chance": 0.18, "unlock_lvl": 7,  "impact": false},
+	{"scene": preload("res://plr/bombers.tscn"),  "chance": 0.10, "unlock_lvl": 10,  "impact": true},
 	{"scene": preload("res://plr/splitter.tscn"), "chance": 0.10, "unlock_lvl": 12,  "impact": false},
 	{"scene": preload("res://plr/wanderer.tscn"), "chance": 0.08, "unlock_lvl": 9, "impact": false},
-	{"scene": preload("res://plr/twins.tscn"),    "chance": 0.07, "unlock_lvl": 8, "impact": false},
+	{"scene": preload("res://plr/twins.tscn"),    "chance": 0.07, "unlock_lvl": 12, "impact": false},
 	{"scene": preload("res://plr/dumy.tscn"),     "chance": 0.07, "unlock_lvl": 12, "impact": true},
 	{"scene": preload("res://plr/spreader.tscn"), "chance": 0.06, "unlock_lvl": 13, "impact": false},
 	{"scene": preload("res://plr/stomper.tscn"), "chance": 0.06, "unlock_lvl": 2, "impact": false},
-	{"scene": preload("res://plr/doublehsot.tscn"), "chance": 0.06, "unlock_lvl": 4, "impact": false},
+	{"scene": preload("res://plr/doublehsot.tscn"), "chance": 0.06, "unlock_lvl": 5, "impact": false},
 	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.06, "unlock_lvl": 6, "impact": false},
 ]
-
 
 func _ready():
 	plr = get_tree().current_scene.get_node("plr")
@@ -50,7 +49,45 @@ func _process(delta):
 		delay -= plr.lvl * 0.12
 		delay *= 1.0 - clamp(float(alive) / max_enemies_on_screen, 0.0, 0.7)
 		spawn_timer = max(min_spawn_delay, delay)
+  
 
+func get_spawn_position() -> Vector2:
+	var cam := get_viewport().get_camera_2d()
+	var screen_rect := Rect2()
+	if cam:
+		screen_rect = Rect2(
+			cam.global_position - get_viewport_rect().size * 0.5,
+			get_viewport_rect().size
+		)
+
+	var dir := Vector2.RIGHT
+	if plr.has_method("get_velocity"):
+		var v = plr.get_velocity()
+		if v.length() > 10:
+			dir = v.normalized()
+
+	var base_angle := dir.angle()
+
+	for i in range(10):
+		var angle = base_angle + randf_range(-PI * 0.8, PI * 0.8)
+		var dist = randf_range(spawn_radius_min, spawn_radius_max)
+		var pos = plr.global_position + Vector2.from_angle(angle) * dist
+
+		if cam and screen_rect.has_point(pos):
+			continue
+
+		if is_too_close(pos):
+			continue
+
+		return pos
+
+	return plr.global_position + Vector2.from_angle(randf() * TAU) * spawn_radius_max
+
+func is_too_close(pos: Vector2) -> bool:
+	for e in get_tree().get_nodes_in_group("enemies"):
+		if e.global_position.distance_to(pos) < 120:
+			return true
+	return false
 
 func spawn_enemy():
 	var enemy_data = choose_enemy_data()
@@ -58,10 +95,7 @@ func spawn_enemy():
 		return
 
 	var enemy = enemy_data.scene.instantiate()
-
-	var angle = randf() * TAU
-	var dist = spawn_radius_min + pow(randf(), 1.5) * (spawn_radius_max - spawn_radius_min)
-	enemy.global_position = plr.global_position + Vector2(cos(angle), sin(angle)) * dist
+	enemy.global_position = get_spawn_position()
 
 	get_tree().current_scene.add_child(enemy)
 	alive += 1
@@ -78,7 +112,6 @@ func spawn_enemy():
 	if enemy.has_signal("died"):
 		enemy.connect("died", Callable(self, "enemy_died"))
 
-
 func enemy_died(enemy):
 	alive -= 1
 
@@ -87,7 +120,6 @@ func enemy_died(enemy):
 
 	if enemy.has_meta("impact") and enemy.get_meta("impact"):
 		impact_alive -= 1
-
 
 func choose_enemy_data():
 	var available := []

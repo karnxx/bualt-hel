@@ -1,5 +1,6 @@
 extends StaticBody2D
 var rand
+signal died(who)
 const JACK_SOUNDS = [
 preload("res://assets/plr/shlogooner/increaseaudio/jack1 (mp3cut.net).mp3"), preload("res://assets/plr/shlogooner/increaseaudio/jack2 (mp3cut.net).mp3"), preload("res://assets/plr/shlogooner/increaseaudio/jack3 (mp3cut.net).mp3"), preload("res://assets/plr/shlogooner/increaseaudio/jack4 (mp3cut.net).mp3"), preload("res://assets/plr/shlogooner/increaseaudio/jack5 (mp3cut.net).mp3"), preload("res://assets/plr/shlogooner/increaseaudio/jack6 (mp3cut.net).mp3")
 ]
