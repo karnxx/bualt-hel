@@ -66,7 +66,7 @@ var crit := 0.05
 var critmult := 1.1
 
 var spread_deg := 2.0
-
+var can_bul = true
 var check1 = false
 var check2 = false
 
@@ -275,10 +275,11 @@ func dashdone():
 
 func dash_c():
 	can_dash = true
+	can_bul = true
 
 func get_dmged(dmg, dmg_type=GameManager.DamageType.CHIP):
 	if not is_invincible:
-		if is_dashing:
+		if is_dashing and can_bul:
 			current_bullets += 1
 			return
 		var dmag = dmg
