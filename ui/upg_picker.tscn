@@ -26,9 +26,10 @@ script = ExtResource("1_06y86")
 
 [node name="Label" type="Label" parent="VBoxContainer/Button"]
 layout_mode = 0
-offset_top = 142.0
-offset_right = 133.0
-offset_bottom = 212.0
+offset_left = 1.0
+offset_top = 236.0
+offset_right = 171.0
+offset_bottom = 357.0
 theme_override_colors/font_color = Color(0.674815, 0.674815, 0.674815, 1)
 theme_override_font_sizes/font_size = 16
 text = "asdasd"
@@ -43,9 +44,10 @@ script = ExtResource("1_06y86")
 
 [node name="Label" type="Label" parent="VBoxContainer/Button2"]
 layout_mode = 0
-offset_top = 136.0
-offset_right = 134.0
-offset_bottom = 213.0
+offset_left = 1.0
+offset_top = 227.0
+offset_right = 172.0
+offset_bottom = 357.0
 theme_override_colors/font_color = Color(0.674815, 0.674815, 0.674815, 1)
 theme_override_font_sizes/font_size = 16
 text = "asdasd"
@@ -60,9 +62,10 @@ script = ExtResource("1_06y86")
 
 [node name="Label" type="Label" parent="VBoxContainer/Button3"]
 layout_mode = 0
-offset_top = 142.0
-offset_right = 133.0
-offset_bottom = 211.0
+offset_left = 1.0
+offset_top = 223.0
+offset_right = 171.0
+offset_bottom = 358.0
 theme_override_colors/font_color = Color(0.674815, 0.674815, 0.674815, 1)
 theme_override_font_sizes/font_size = 16
 text = "asdasd"

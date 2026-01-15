@@ -1,12 +1,11 @@
 extends Node
 var dontwant = ['OVERLOAD','FOCUS','RAGE']
-var upg_name := "FUSE"
+var upg_name := "FUSE+"
 var min_lvl := 4
 var weight := 30
-var requires := ['POWER-I']
+var requires := ['FUSE']
 var class_req = 'BURST'
-var desc = "EXPLODING BULLETS"
+var desc = "MORE EXPLOSION DMG"
 func apply_upgrade(plr):
-	plr.exploding = true
-	plr.upgdata['fuse'] = {'radius': 50, 'dmg': 5, 'chain':false}
+	plr.upgdata['fuse']['dmg'] += 10
 	plr.upgrades_applied.append(self)

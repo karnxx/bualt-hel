@@ -179,8 +179,6 @@ func secondary():
 			can_secondary = false
 			secscript.secondary(self, get_global_mouse_position())
 			emit_signal('plr_secon')
-	
-
 
 func on_class_chosen(clas):
 	eq_class(clas)
@@ -188,7 +186,7 @@ func on_class_chosen(clas):
 	$CanvasLayer/hud.move_to_front()
 	class_chosen = true
 	get_tree().paused = false
-	
+	eq_upg(preload("res://classes/burst/UPGS/focus/snapshots.gd"))
 
 func on_upg_chosen(upg_script):
 	var upg = upg_script.new()
@@ -303,7 +301,7 @@ func reload():
 		return
 	print("RELOAD TRIGGERED")
 	is_rel = true
-	current_bullets += magazine
+	current_bullets = magazine
 	can_rel = false
 	$reload.start()
 
