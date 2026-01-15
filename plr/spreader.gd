@@ -13,7 +13,7 @@ var current_bullet_dmg = dmg * GameManager.global_enemy_dmg_scale
 var current_bullet_spd = GameManager.global_enemy_bullet_spd + 200
 var spd = 100
 var pathfind = true
-var move_velocity
+var move_velocity = Vector2.ONE
 var elite = false
 var is_shoting = false
 var bulatcircleamt = 30
@@ -24,8 +24,9 @@ signal died(who)
 var isplr = false
 
 func _physics_process(delta: float) -> void:
-	if pathfind:
-		shoot()
+	if isplr:
+		fire_circle(global_position)
+	shoot()
 	move_and_slide()
 	velocity = move_velocity + kb_velocity
 	kb_velocity = kb_velocity.move_toward(Vector2.ZERO, kb_decay * delta)
@@ -69,7 +70,7 @@ func shoot():
 	var start = global_position
 	var dir = (target - start).normalized()
 	move_velocity = dir * spd * GameManager.time_scale
-	fire_circle(global_position)
+	
 
 func fire_circle(origin):
 	if not can_shot:
