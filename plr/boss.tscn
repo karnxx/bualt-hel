@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8rch2mjnefb1"]
+[gd_scene load_steps=5 format=3 uid="uid://c8rch2mjnefb1"]
 
 [ext_resource type="Script" uid="uid://bgtqfyy2y5bp" path="res://plr/boss.gd" id="1_ihxct"]
 [ext_resource type="Texture2D" uid="uid://bp2g2ughoo0nn" path="res://icon.svg" id="2_b2mol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6nd0h"]
-size = Vector2(46, 44)
+size = Vector2(112, 102)
 
-[node name="boss" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2mol"]
+radius = 352.013
+
+[node name="boss" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 10
+collision_mask = 4
 script = ExtResource("1_ihxct")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -14,11 +19,23 @@ shape = SubResource("RectangleShape2D_6nd0h")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-5.96046e-08, -1.19209e-07)
-scale = Vector2(0.359375, 0.34375)
+scale = Vector2(0.859375, 0.796875)
 texture = ExtResource("2_b2mol")
 
 [node name="timers" type="Node" parent="."]
 
 [node name="Timer" type="Timer" parent="timers"]
-wait_time = 4.0
+wait_time = 10.0
 one_shot = true
+
+[node name="dettime" type="Timer" parent="timers"]
+one_shot = true
+
+[node name="tpdet" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tpdet"]
+shape = SubResource("CircleShape2D_b2mol")
+
+[connection signal="timeout" from="timers/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="timers/dettime" to="." method="_on_dettime_timeout"]
+[connection signal="body_entered" from="tpdet" to="." method="_on_tpdet_body_entered"]

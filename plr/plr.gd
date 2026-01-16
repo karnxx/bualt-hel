@@ -277,7 +277,7 @@ func dash_c():
 	can_dash = true
 	can_bul = true
 
-func get_dmged(dmg, dmg_type=GameManager.DamageType.CHIP):
+func get_dmged(dmg, _dmg_type=GameManager.DamageType.CHIP):
 	if not is_invincible:
 		if is_dashing:
 			if can_bul:

@@ -11,8 +11,8 @@ func get_dmged(_Dmg):
 	sound()
 
 func sound():
-	var sound = JACK_SOUNDS.pick_random()
-	$AudioStreamPlayer2D.stream = sound
+	var sounda = JACK_SOUNDS.pick_random()
+	$AudioStreamPlayer2D.stream = sounda
 	$AudioStreamPlayer2D.play()
 	randoma()
 
