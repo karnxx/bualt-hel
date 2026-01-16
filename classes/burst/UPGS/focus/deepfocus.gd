@@ -1,5 +1,5 @@
 extends Node
-var dontwant = ['FUSE','OVERLOAD','RAGE']
+var dontwant = ['FUSE','OVERLOAD','RAGE', 'FOCUSIFIED','SNAPSHOTS']
 var upg_name := "DEEP-FOCUS"
 var min_lvl := 5
 var weight := 30

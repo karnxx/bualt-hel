@@ -20,13 +20,16 @@ var bombamt = 10
 var canbomb = true
 var bombint = 2
 var can_spawn = false
-var bullet_hell_on_cd := false
-var bullet_hell_active := false
-
+var sp_cd := false
+var sp_atk := false
+var spcd = 10
+var cancover = false
 func _ready() -> void:
 	$ProgressBar.value = health
 	$ProgressBar.max_value = maxhp
+	area = get_parent().shapeaea
 	phase_1()
+	
 
 func get_dmged(dtmg):
 	health -= dtmg
@@ -45,20 +48,32 @@ func knockback(pos, _strength):
 	kb_velocity += 1
 
 func _process(_delta: float) -> void:
-	if health < phase2 and health > phase1:
-		pass
+	if health < phase2 and health > phase1 and phase != phases.two:
+		phase_2()
+	elif health < phase1 and health > 0 and phase != phases.three:
+		phase_3()
+	
 	$ProgressBar.value = health
 	if phase == phases.one:
-		if !bullet_hell_active:
+		if !sp_atk:
 			spambeam()
 		ranadtp()
 		spawn_bombs()
-	if phase == phases.two:
-		if !bullet_hell_active:
+	elif phase == phases.two:
+		if !sp_atk:
 			spambeam()
 		ranadtp()
 		spawn_bombs()
-		sp_atk()
+		sp_dda()
+		spawn_walker()
+	elif phase == phases.three:
+		if !sp_atk:
+			spambeam()
+		ranadtp()
+		spawn_bombs()
+		sp_dda()
+		areacover()
+		spawn_walker()
 
 func spawn_walker():
 	if can_spawn == false:
@@ -70,25 +85,47 @@ func spawn_walker():
 	get_parent().add_child(walk)
 
 func phase_1():
-	var plar = get_parent().get_node('plr')
-	plr = plar
+	plr = get_parent().get_node('plr')
 	phase = phases.one
 	$timers/Timer.wait_time = 8
 	$timers/dettime.wait_time = 3
-	$Icon.modulate = Color(1, 0.6, 0.6)
+	bombint = 1
+	bombamt = 8
+	current_bullet_spd = 700
+	can_spawn = false
+	$Icon.modulate = Color(1,0.6,0.6)
 	await get_tree().create_timer(0.3).timeout
 	$Icon.modulate = Color.WHITE
 
 func phase_2():
-	var plar = get_parent().get_node('plr')
-	plr = plar
+	plr = get_parent().get_node('plr')
 	phase = phases.two
-	$timers/Timer.wait_time = 6
+	$timers/Timer.wait_time = 5
 	$timers/dettime.wait_time = 2
-	$Icon.modulate = Color(1, 0.6, 0.6)
+	$timers/bomb.wait_time = 2.5
+	bombint = 2
+	bombamt = 12
+	current_bullet_spd = 900
+	can_spawn = true
+	$Icon.modulate = Color(1,0.6,0.6)
 	await get_tree().create_timer(0.3).timeout
 	$Icon.modulate = Color.WHITE
+
+func phase_3():
+	plr = get_parent().get_node('plr')
+	phase = phases.three
+	$timers/Timer.wait_time = 3
+	$timers/dettime.wait_time = 1
+	$timers/spawn.wait_time = 3
+	$timers/bomb.wait_time = 2
+	bombint = 3
+	bombamt = 20
+	current_bullet_spd = 1200
 	can_spawn = true
+	sp_cd = false
+	$Icon.modulate = Color(1,0.2,0.2)
+	await get_tree().create_timer(0.3).timeout
+	$Icon.modulate = Color.WHITE
 
 func spambeam():
 	var buala = bulat.instantiate()
@@ -131,12 +168,12 @@ func fire_circle(origin):
 		get_parent().add_child(bulaty)
 		bulaty.shoot(self, dir)
 
-func sp_atk():
-	if bullet_hell_on_cd:
+func sp_dda():
+	if sp_cd:
 		return
 
-	bullet_hell_on_cd = true
-	bullet_hell_active = true
+	sp_cd = true
+	sp_atk = true
 
 	area = get_parent().shapeaea
 	var shape = area.shape
@@ -190,9 +227,9 @@ func sp_atk():
 		elapsed += 1
 		tick += 1
 
-	bullet_hell_active = false
-	await get_tree().create_timer(10).timeout
-	bullet_hell_on_cd = false
+	sp_atk = false
+	await get_tree().create_timer(spcd).timeout
+	sp_cd = false
 
 
 func get_random_position():
@@ -209,6 +246,23 @@ func _on_timer_timeout() -> void:
 	can_tp = true
 	ranadtp()
 
+func areacover():
+	if !cancover:
+		return
+	cancover = false
+	var ar = get_parent().get_node('Area2D')
+	var tween = create_tween()
+	var sprite = get_parent().get_node('area')
+	tween.tween_property(sprite, 'modulate:a', 1, 1)
+	await tween.finished
+	sprite.modulate = Color(255,0,0,0)
+	for i in ar.get_overlapping_bodies():
+		if i.is_in_group('plr'):
+			i.get_dmged(10)
+		else:
+			return
+	$timers/cover.start()
+
 func _on_tpdet_body_entered(body: Node2D) -> void:
 	if body.is_in_group('plr'):
 		$timers/dettime.start()
@@ -222,3 +276,6 @@ func _on_bomb_timeout() -> void:
 
 func _on_spawn_timeout() -> void:
 	can_spawn = true
+
+func _on_cover_timeout() -> void:
+	cancover = true

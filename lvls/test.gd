@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var shapeaea = $Area2D/CollisionShape2D
 
-
 @export var base_spawn_delay := 1.8
 @export var min_spawn_delay := 0.35
 @export var spawn_radius_min := 500
@@ -11,6 +10,8 @@ extends Node2D
 @export var max_enemies_on_screen := 120
 @export var max_elites_on_screen := 8
 @export var max_impact_enemies := 5
+
+var enabled = true
 
 var plr : Node2D
 var spawn_timer := 0.0
@@ -34,13 +35,36 @@ var impact_alive := 0
 	{"scene": preload("res://plr/cicrler.tscn"), "chance": 0.06, "unlock_lvl": 6, "impact": false},
 ]
 
+var boss_scene = preload("res://plr/boss.tscn")
+
 func _ready():
 	plr = get_tree().current_scene.get_node("plr")
 	spawn_timer = base_spawn_delay
+	despawn_all()
 
 
 func _process(delta):
 	if not plr or not is_instance_valid(plr):
+		return
+
+	# ===== BOSS TRIGGER =====
+	if plr.lvl >= 15 and enabled:
+		enabled = false
+		despawn_all()
+
+		# prevent duplicate boss spawns
+		for n in get_tree().current_scene.get_children():
+			if n.scene_file_path == boss_scene.resource_path:
+				return
+
+		var boss = boss_scene.instantiate()
+		boss.global_position = plr.global_position + Vector2(0, -600)
+		get_tree().current_scene.add_child(boss)
+		return
+	# =======================
+
+	if not enabled:
+		spawn_timer = base_spawn_delay
 		return
 
 	spawn_timer -= delta
@@ -53,7 +77,16 @@ func _process(delta):
 		delay -= plr.lvl * 0.12
 		delay *= 1.0 - clamp(float(alive) / max_enemies_on_screen, 0.0, 0.7)
 		spawn_timer = max(min_spawn_delay, delay)
-  
+
+
+func despawn_all():
+	for e in get_tree().get_nodes_in_group("enemies"):
+		e.queue_free()
+
+	alive = 0
+	elites_alive = 0
+	impact_alive = 0
+
 
 func get_spawn_position() -> Vector2:
 	var cam := get_viewport().get_camera_2d()
@@ -87,11 +120,13 @@ func get_spawn_position() -> Vector2:
 
 	return plr.global_position + Vector2.from_angle(randf() * TAU) * spawn_radius_max
 
+
 func is_too_close(pos: Vector2) -> bool:
 	for e in get_tree().get_nodes_in_group("enemies"):
 		if e.global_position.distance_to(pos) < 120:
 			return true
 	return false
+
 
 func spawn_enemy():
 	var enemy_data = choose_enemy_data()
@@ -100,8 +135,8 @@ func spawn_enemy():
 
 	var enemy = enemy_data.scene.instantiate()
 	enemy.global_position = get_spawn_position()
-
 	get_tree().current_scene.add_child(enemy)
+
 	alive += 1
 
 	var elite_chance = min(0.02 + plr.lvl * 0.01, 0.15)
@@ -116,6 +151,7 @@ func spawn_enemy():
 	if enemy.has_signal("died"):
 		enemy.connect("died", Callable(self, "enemy_died"))
 
+
 func enemy_died(enemy):
 	alive -= 1
 
@@ -124,6 +160,7 @@ func enemy_died(enemy):
 
 	if enemy.has_meta("impact") and enemy.get_meta("impact"):
 		impact_alive -= 1
+
 
 func choose_enemy_data():
 	var available := []

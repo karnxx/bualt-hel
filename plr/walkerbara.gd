@@ -4,8 +4,8 @@ var kb_velocity: Vector2 = Vector2.ZERO
 var kb_strength := 420.0
 var kb_decay := 1600.0
 
-var maxhealth = 1
-var health = 1
+var maxhealth = 5
+var health = 5
 var xp_given = randi_range(2 * health, 4 * health) / 3 * GameManager.global_loot_mult
 var dmg = 1 * GameManager.global_enemy_dmg_scale
 
@@ -60,7 +60,6 @@ func shoot():
 	pathfind = false
 	velocity = Vector2.ZERO
 
-	# windup feedback
 	$Sprite2D.modulate = Color.YELLOW
 	await get_tree().create_timer(0.5).timeout
 	$Sprite2D.modulate = Color.WHITE
