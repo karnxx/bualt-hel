@@ -20,6 +20,8 @@ var bombamt = 10
 var canbomb = true
 var bombint = 2
 var can_spawn = false
+var bullet_hell_on_cd := false
+var bullet_hell_active := false
 
 func _ready() -> void:
 	$ProgressBar.value = health
@@ -43,16 +45,27 @@ func knockback(pos, _strength):
 	kb_velocity += 1
 
 func _process(_delta: float) -> void:
+	if health < phase2 and health > phase1:
+		pass
 	$ProgressBar.value = health
 	if phase == phases.one:
-		spambeam()
+		if !bullet_hell_active:
+			spambeam()
 		ranadtp()
 		spawn_bombs()
-		if phase == phases.two:
-			pass
+	if phase == phases.two:
+		if !bullet_hell_active:
+			spambeam()
+		ranadtp()
+		spawn_bombs()
+		sp_atk()
 
 func spawn_walker():
+	if can_spawn == false:
+		return
 	var walk = preload('res://plr/walkers.tscn').instantiate()
+	can_spawn = false
+	$timers/spawn.start()
 	walk.global_position = get_random_position()
 	get_parent().add_child(walk)
 
@@ -118,6 +131,70 @@ func fire_circle(origin):
 		get_parent().add_child(bulaty)
 		bulaty.shoot(self, dir)
 
+func sp_atk():
+	if bullet_hell_on_cd:
+		return
+
+	bullet_hell_on_cd = true
+	bullet_hell_active = true
+
+	area = get_parent().shapeaea
+	var shape = area.shape
+	var ext = shape.extents
+	var center = area.global_position
+
+	var spacing = 64
+	var elapsed = 0
+	var tick = 0
+
+	while elapsed < 5:
+		tp(get_random_position())
+
+		var sides = [0, 1, 2, 3]
+		sides.shuffle()
+		var active = sides.slice(0, 2)
+
+		var shift = (tick % 2) * (spacing * 0.5)
+
+		for side in active:
+			if side == 0 or side == 1:
+				var count = int((ext.y * 2) / spacing) + 2
+				for i in range(count):
+					var bulart = bulat.instantiate()
+					var asdy = center.y - ext.y + i * spacing + shift
+
+					if side == 0:
+						bulart.global_position = Vector2(center.x - ext.x,asdy)
+						bulart.shoot(self, Vector2(1, 0))
+					else:
+						bulart.global_position = Vector2(center.x + ext.x, asdy)
+						bulart.shoot(self, Vector2(-1, 0))
+
+					get_parent().add_child(bulart)
+			else:
+				var count = int((ext.x * 2) / spacing) + 2
+				for i in range(count):
+					var bulart = bulat.instantiate()
+					var asdx = center.x - ext.x + i * spacing + shift
+
+					if side == 2:
+						bulart.global_position = Vector2(asdx, center.y - ext.y)
+						bulart.shoot(self, Vector2(0, 1))
+					else:
+						bulart.global_position = Vector2(asdx, center.y + ext.y)
+						bulart.shoot(self, Vector2(0, -1))
+
+					get_parent().add_child(bulart)
+
+		await get_tree().create_timer(1).timeout
+		elapsed += 1
+		tick += 1
+
+	bullet_hell_active = false
+	await get_tree().create_timer(10).timeout
+	bullet_hell_on_cd = false
+
+
 func get_random_position():
 	var shape = area.shape
 	var extents = shape.extents
@@ -127,7 +204,6 @@ func get_random_position():
 		randf_range(center.x - extents.x, center.x + extents.x),
 		randf_range(center.y - extents.y, center.y + extents.y)
 	)
-
 
 func _on_timer_timeout() -> void:
 	can_tp = true
@@ -143,3 +219,6 @@ func _on_dettime_timeout() -> void:
 
 func _on_bomb_timeout() -> void:
 	canbomb = true
+
+func _on_spawn_timeout() -> void:
+	can_spawn = true
