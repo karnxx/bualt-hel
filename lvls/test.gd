@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var shapeaea = $Area2D/CollisionShape2D.shape
+@onready var shapeaea = $Area2D/CollisionShape2D
+
 
 @export var base_spawn_delay := 1.8
 @export var min_spawn_delay := 0.35
@@ -36,6 +37,7 @@ var impact_alive := 0
 func _ready():
 	plr = get_tree().current_scene.get_node("plr")
 	spawn_timer = base_spawn_delay
+
 
 func _process(delta):
 	if not plr or not is_instance_valid(plr):
