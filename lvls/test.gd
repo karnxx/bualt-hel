@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var shapeaea = $Area2D/CollisionShape2D.shape
+
 @export var base_spawn_delay := 1.8
 @export var min_spawn_delay := 0.35
 @export var spawn_radius_min := 500

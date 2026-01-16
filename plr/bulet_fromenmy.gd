@@ -4,13 +4,12 @@ var dmg
 var pierce := 0
 var lifetime := 0.0
 const MAX_LIFE := 4.0
-var chip
+var chip = false
 func shoot(plr, dir):
 	dmg = plr.current_bullet_dmg
 	var spd = plr.current_bullet_spd
 	velocity = dir.normalized() * spd * GameManager.time_scale
 	rotation = velocity.angle()
-	chip = plr.chip
 	lifetime = 0
 
 func _physics_process(delta):
